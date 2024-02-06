@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@unocss/nuxt": "^0.58.5",
+    "colorthief": "^2.4.0",
     "nuxt": "^3.10.1",
     "vue": "^3.4.15",
     "vue-router": "^4.2.5"
