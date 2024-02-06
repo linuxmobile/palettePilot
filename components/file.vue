@@ -54,9 +54,11 @@ const onUpload = (event) => {
     />
   </div>
   <div v-if="imageUrl" class="flex justify-content-center py-4">
-    <img :src="imageUrl" alt="Uploaded Image Preview" class="size-50 aspect-auto" />
+    <img :src="imageUrl" alt="Uploaded Image Preview" class="w-96 aspect-auto" />
   </div>
   <div class="flex justify-content-center pt-4">
-    <div v-for="(color, index) in colors" :key="index" class="w-20 h-20" :style="{ backgroundColor: color }"></div>
+    <div v-for="(color, index) in colors" :key="index" class="size-30 font-bold flex items-center justify-center" :style="{ backgroundColor: color }">
+      <span class="mix-blend-exclusion">{{color}}</span>
+    </div>
   </div>
 </template>
