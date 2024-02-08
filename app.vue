@@ -1,8 +1,22 @@
 <script setup>
-import File from './components/file.vue'
+import File from './components/File.vue'
+
+useHead({
+  bodyAttrs: {
+    class: "bg-black text-white"
+  },
+})
+
+useSeoMeta({
+  title: 'Palette Pilot - Generate Awesome Color Palette for you UI',
+  description: 'Explore Palette Pilot magic: transforming your images into color palettes and giving UI ideas. Perfect for creatives',
+  ogTitle: 'Palette Pilot - Generate Awesome Color Palette for you UI',
+  ogDescription: 'Explore Palette Pilot magic: transforming your images into color palettes and giving UI ideas. Perfect for creatives',
+  twitterCard: 'summary_large_image'
+})
 </script>
 <template>
-  <div class="bg-black text-white grid min-h-screen place-items-center place-content-center">
+  <div class="flex flex-col items-center justify-center">
     <h1 class="font-bold text-9xl">Hello World</h1>
     <File/>
   </div>

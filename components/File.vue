@@ -1,5 +1,5 @@
 <script setup>
-import { useImage } from '../composables/useImage.js'
+import { useImage } from '../../composables/useImage.js'
 import FileUpload from 'primevue/fileupload';
 import { useToast } from "primevue/usetoast";
 
