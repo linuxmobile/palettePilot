@@ -1,57 +1,45 @@
 <script setup>
+import { useImage } from '../composables/useImage.js'
 import FileUpload from 'primevue/fileupload';
-import { useToast } from 'primevue/usetoast';
-import ColorThief from 'colorthief';
+import { useToast } from "primevue/usetoast";
 
-const toast = useToast()
-
-const rgbToHex = (colors) => colors.map(([r, g, b]) => '#' + [r, g, b].map(x => {
-  const hex = x.toString(16);
-  return hex.length === 1 ? '0' + hex : hex;
-}).join(''));
-
-const imageUrl = useState('imageUrl', () => null)
-const colors = useState('colors', () => []);
+const toast = useToast();
+const { imageUrl, colors, setImageUrl, extractColors } = useImage();
 
 const onUpload = (event) => {
   const file = event.files[0];
   if (!file) return;
 
-  imageUrl.value = null
   const reader = new FileReader();
   reader.onload = (e) => {
-    imageUrl.value = e.target.result
-    const img = new Image();
-    img.onload = () => {
-      const colorThief = new ColorThief();
-      const canvas = document.createElement('canvas');
-      const ctx = canvas.getContext('2d');
-      canvas.width = img.width;
-      canvas.height = img.height;
-      ctx.drawImage(img, 0, 0, img.width, img.height);
-      const extractedColors = colorThief.getPalette(img, 5);
-      colors.value = rgbToHex(extractedColors);
-      console.log(colors.value)
-    };
-    img.src = e.target.result;
+    setImageUrl(e.target.result);
+    extractColors(e.target.result);
   };
   reader.readAsDataURL(file);
-  toast.add({ severity: 'info', summary: 'Success', detail: 'File Uploaded', life: 3000 });
-};
 
+  toast.add({
+    severity: "success",
+    summary: "Success",
+    detail: "File Uploaded",
+    life: 3000,
+    group: "br"
+  });
+};
 </script>
 
 <template>
   <div class="card flex justify-content-center">
-    <Toast />
-    <FileUpload 
+    <Toast group="br" position="bottom-right" />
+    <FileUpload
       mode="basic"
       name="demo[]"
       url="#"
-      accept="image/*"
-      :maxFileSize="10000000" 
       @upload="onUpload"
-    />
+      accept="image/*"
+      :maxFileSize="10000000"
+      :auto="true"
+    >
+    </FileUpload>
   </div>
   <div v-if="imageUrl" class="flex justify-content-center py-4">
     <img :src="imageUrl" alt="Uploaded Image Preview" class="w-96 aspect-auto" />
