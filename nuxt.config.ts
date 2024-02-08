@@ -8,7 +8,7 @@ export default defineNuxtConfig({
 	modules: ["@unocss/nuxt", "nuxt-primevue"],
 	unocss: {
 		attributify: true,
-		presetWind: true,
 	},
+	css: ["@unocss/reset/tailwind.css"],
 	devtools: { enabled: true },
 });

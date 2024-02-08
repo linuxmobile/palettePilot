@@ -1,5 +1,6 @@
 <script setup>
-import File from './components/File.vue'
+import Header from '~/components/Header.vue'
+import File from '~/components/File.vue'
 
 useHead({
   bodyAttrs: {
@@ -16,6 +17,7 @@ useSeoMeta({
 })
 </script>
 <template>
+  <Header />
   <div class="flex flex-col items-center justify-center">
     <h1 class="font-bold text-9xl">Hello World</h1>
     <File/>
