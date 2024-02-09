@@ -13,9 +13,7 @@ const { contrastRatio, markSelectedColor, checkIfColorSelected } = useContrastRa
   </div>
   <div class="flex justify-content-center pt-4">
     <button @click="() => markSelectedColor(color)" v-for="(color, index) in colors" :key="index" class="relative size-30 font-bold flex items-center justify-center" :style="{ backgroundColor: color.hex }" aria-label="{{ checkIfColorSelected(color) ? 'Deselect' : 'Select' }} color with hex code {{ color.hex }} }}">
-      <div class="absolute top-1 right-1">
-         <Check v-if="checkIfColorSelected(color)" /> 
-      </div>
+      <Check v-if="checkIfColorSelected(color)" className="absolute top-1 right-1 w-6 h-6" /> 
       <span class="mix-blend-exclusion">{{color.hex}}</span>
     </button>
   </div>
