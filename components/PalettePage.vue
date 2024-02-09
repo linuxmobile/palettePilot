@@ -4,6 +4,6 @@ import SideBar from '~/components/SideBar.vue'
 
 <template>
   <main class="grid grid-cols-12">
-    <SideBar/>
+    <SideBar />
   </main>
 </template>

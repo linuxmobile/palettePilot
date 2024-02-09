@@ -8,12 +8,12 @@ export function getLuminance(rgb: number[]) {
 
   const [r, g, b] = rgb.map(colorValue => {
     colorValue /= 255
-    return colorValue <= 0.03928 
-      ? colorValue / 12.92 
+    return colorValue <= 0.03928
+      ? colorValue / 12.92
       : Math.pow((colorValue + 0.055) / 1.055, GAMMA)
   })
 
-  return (RED * r) + (GREEN * g) + (BLUE * b)
+  return RED * r + GREEN * g + BLUE * b
 }
 
 export function getContrastRatio(firstRgb: number[], secondRgb: number[]) {

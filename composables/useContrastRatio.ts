@@ -1,5 +1,5 @@
-import { computed } from "vue"
-import { getContrastRatio } from "~/utils/colors"
+import { computed } from 'vue'
+import { getContrastRatio } from '~/utils/colors'
 
 const MAX_NUMBER_COLORS_TO_COMPARE = 2
 
@@ -11,8 +11,11 @@ type ColorObject = {
 export const useContrastRatio = () => {
   const selectedColors = useState<ColorObject[]>('selectedColors', () => [])
   const contrastRatio = computed(() => {
-    if (selectedColors.value.length < MAX_NUMBER_COLORS_TO_COMPARE) return 
-    return getContrastRatio(selectedColors.value[0].rgb, selectedColors.value[1].rgb).toFixed(2)
+    if (selectedColors.value.length < MAX_NUMBER_COLORS_TO_COMPARE) return
+    return getContrastRatio(
+      selectedColors.value[0].rgb,
+      selectedColors.value[1].rgb
+    ).toFixed(2)
   })
 
   const checkIfColorSelected = (color: ColorObject) => {
@@ -23,7 +26,9 @@ export const useContrastRatio = () => {
     const colorExists = checkIfColorSelected(color)
 
     if (colorExists) {
-      selectedColors.value = selectedColors.value.filter(c => c.hex !== color.hex)
+      selectedColors.value = selectedColors.value.filter(
+        c => c.hex !== color.hex
+      )
       return
     }
 
@@ -31,8 +36,13 @@ export const useContrastRatio = () => {
       selectedColors.value.pop()
     }
 
-    selectedColors.value.push(color)   
+    selectedColors.value.push(color)
   }
 
-  return { selectedColors, markSelectedColor, contrastRatio, checkIfColorSelected }
+  return {
+    selectedColors,
+    markSelectedColor,
+    contrastRatio,
+    checkIfColorSelected
+  }
 }
