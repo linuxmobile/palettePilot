@@ -4,17 +4,15 @@ import File from '~/components/File.vue'
 
 useHead({
   bodyAttrs: {
-    class: 'bg-black text-white'
-  }
+    class: "bg-black text-white"
+  },
 })
 
 useSeoMeta({
   title: 'Palette Pilot - Generate Awesome Color Palette for you UI',
-  description:
-    'Explore Palette Pilot magic: transforming your images into color palettes and giving UI ideas. Perfect for creatives',
+  description: 'Explore Palette Pilot magic: transforming your images into color palettes and giving UI ideas. Perfect for creatives',
   ogTitle: 'Palette Pilot - Generate Awesome Color Palette for you UI',
-  ogDescription:
-    'Explore Palette Pilot magic: transforming your images into color palettes and giving UI ideas. Perfect for creatives',
+  ogDescription: 'Explore Palette Pilot magic: transforming your images into color palettes and giving UI ideas. Perfect for creatives',
   twitterCard: 'summary_large_image'
 })
 </script>
@@ -22,9 +20,9 @@ useSeoMeta({
   <Header />
   <div class="flex flex-col items-center justify-center">
     <h1 class="font-bold text-9xl">Hello World</h1>
-    <File />
+    <File/>
   </div>
 </template>
 <style>
-@import url('primevue/resources/themes/aura-dark-noir/theme.css');
+@import url("primevue/resources/themes/aura-dark-noir/theme.css")
 </style>
