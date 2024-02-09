@@ -1,6 +1,8 @@
 <script setup>
+import { useImage } from '~/composables/useImage.js'
 import Header from '~/components/Header.vue'
-import File from '~/components/File.vue'
+import Home from '~/components/Home.vue'
+import PalettePage from '~/components/PalettePage.vue'
 
 useHead({
   bodyAttrs: {
@@ -15,12 +17,14 @@ useSeoMeta({
   ogDescription: 'Explore Palette Pilot magic: transforming your images into color palettes and giving UI ideas. Perfect for creatives',
   twitterCard: 'summary_large_image'
 })
+
+const { imageUrl, colors } = useImage()
 </script>
 <template>
   <Header />
   <div class="flex flex-col items-center justify-center">
-    <h1 class="font-bold text-9xl">Hello World</h1>
-    <File/>
+    <Home v-if="!imageUrl"/>
+    <PalettePage v-else />
   </div>
 </template>
 <style>

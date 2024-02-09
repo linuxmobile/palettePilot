@@ -24,7 +24,6 @@ export const useImage = () => {
 		img.onload = () => {
 			const colorThief = new ColorThief();
 			const extractedColors = colorThief.getPalette(img, 5);
-			const getDominant = colorThief.getColor(img);
 			colors.value = rgbToHex(extractedColors);
 		};
 		img.src = imageSrc;
