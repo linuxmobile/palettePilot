@@ -1,7 +1,7 @@
 import ColorThief from 'colorthief'
 
 type Color = {
-  hex: string,
+  hex: string
   rgb: number[]
 }
 
