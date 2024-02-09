@@ -1,5 +1,5 @@
 <script setup>
-import { useImage } from '~/composables/useImage.js'
+import { useImage } from '~/composables/useImage.ts'
 import Header from '~/components/Header.vue'
 import Home from '~/components/Home.vue'
 import PalettePage from '~/components/PalettePage.vue'

@@ -1,6 +1,6 @@
 <script setup>
 import Check from '~/icons/Check.vue'
-import { useImage } from '~/composables/useImage.js'
+import { useImage } from '~/composables/useImage.ts'
 import { useContrastRatio } from '~/composables/useContrastRatio.ts'
 
 const { colors, imageUrl } = useImage()

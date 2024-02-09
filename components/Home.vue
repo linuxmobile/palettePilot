@@ -1,6 +1,6 @@
 <script setup>
 import AddImage from '~/icons/AddImage.vue'
-import { useImage } from '../../composables/useImage.js'
+import { useImage } from '../../composables/useImage.ts'
 import FileUpload from 'primevue/fileupload'
 import { useToast } from 'primevue/usetoast'
 

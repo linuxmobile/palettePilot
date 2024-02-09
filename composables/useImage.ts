@@ -1,11 +1,16 @@
 import ColorThief from 'colorthief'
 
-export const useImage = () => {
-  const imageUrl = useState('imageUrl', () => null)
-  const colors = useState('colors', () => [])
+type Color = {
+  hex: string,
+  rgb: number[]
+}
 
-  const rgbToHex = rgbArr => {
-    const hexParts = rgbArr.map(colorValue => {
+export const useImage = () => {
+  const imageUrl = useState<string | null>('imageUrl', () => null)
+  const colors = useState<Color[]>('colors', () => [])
+
+  const rgbToHex = (rgbArr: number[]): string => {
+    const hexParts = rgbArr.map((colorValue: number) => {
       const hexChunk = colorValue.toString(16)
       return hexChunk.length === 1 ? `0${hexChunk}` : hexChunk
     })
@@ -13,16 +18,16 @@ export const useImage = () => {
     return `#${hexParts.join('')}`
   }
 
-  const setImageUrl = newImageUrl => {
+  const setImageUrl = (newImageUrl: string): void => {
     imageUrl.value = newImageUrl
   }
 
-  const extractColors = imageSrc => {
+  const extractColors = (imageSrc: string): void => {
     const img = new Image()
     img.onload = () => {
       const colorThief = new ColorThief()
       const extractedColors = colorThief.getPalette(img, 5)
-      colors.value = extractedColors.map(rgb => {
+      colors.value = extractedColors.map((rgb: number[]) => {
         return {
           hex: rgbToHex(rgb),
           rgb
