@@ -4,16 +4,14 @@ export const useImage = () => {
 	const imageUrl = useState("imageUrl", () => null);
 	const colors = useState("colors", () => []);
 
-	const rgbToHex = (colors) =>
-		colors.map(
-			([r, g, b]) =>
-				`#${[r, g, b]
-					.map((x) => {
-						const hex = x.toString(16);
-						return hex.length === 1 ? `0${hex}` : hex;
-					})
-					.join("")}`,
-		);
+	const rgbToHex = (rgbArr) => {
+		const hexParts = rgbArr.map(colorValue => {
+		  const hexChunk = colorValue.toString(16);
+			return hexChunk.length === 1 ? `0${hexChunk}` : hexChunk;
+		})
+
+		return `#${hexParts.join("")}`;
+	};
 
 	const setImageUrl = (newImageUrl) => {
 		imageUrl.value = newImageUrl;
@@ -24,8 +22,13 @@ export const useImage = () => {
 		img.onload = () => {
 			const colorThief = new ColorThief();
 			const extractedColors = colorThief.getPalette(img, 5);
-			colors.value = rgbToHex(extractedColors);
-		};
+			colors.value = extractedColors.map(rgb => {
+				return {
+					hex: rgbToHex(rgb),
+					rgb
+				}
+			})
+		};	
 		img.src = imageSrc;
 		img.crossOrigin = "Anonymous";
 	};
