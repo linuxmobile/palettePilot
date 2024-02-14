@@ -5,7 +5,6 @@ import Swap from '~/icons/Swap.vue'
 import { useImage } from '~/composables/useImage.ts'
 import { useContrastRatio } from '~/composables/useContrastRatio.ts'
 import { useColorSelection } from '~/composables/useColorSelection.ts'
-import { watch } from 'vue';
 
 const { colors, imageSrc } = useImage()
 const { contrastRatio, markSelectedColor, checkIfColorSelected } =
@@ -13,8 +12,6 @@ const { contrastRatio, markSelectedColor, checkIfColorSelected } =
 
 const {
   swapColors,
-  selectPrimaryColor,
-  selectAccentColor,
   primaryColor,
   accentColor
 } = useColorSelection(colors.value)
