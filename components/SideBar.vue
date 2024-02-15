@@ -21,8 +21,6 @@ const handleAccentColorChange = (event) => {
 };
 
 const { colors, imageSrc } = useImage()
-const { contrastRatio, markSelectedColor, checkIfColorSelected } =
-  useContrastRatio()
 
 const {
   swapColors,
@@ -32,6 +30,7 @@ const {
   selectAccentColor,
 } = useColorSelection(colors.value)
 
+const { contrastRatio } = useContrastRatio(primaryColor, accentColor)
 </script>
 
 <template>
@@ -91,9 +90,8 @@ const {
               <div :style="{backgroundColor:slotProps.option.value.hex}" class="w-full h-6"></div>
             </template>
           </Dropdown>
-
         </div>
-        <span v-if="contrastRatio !== undefined">
+        <span v-if="colors">
           Contrast Ratio: {{ contrastRatio }}
         </span>
       </section>
