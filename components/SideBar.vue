@@ -2,9 +2,23 @@
 import Check from '~/icons/Check.vue'
 import FileUpload from '~/components/FileUpload.vue'
 import Swap from '~/icons/Swap.vue'
+import Dropdown from 'primevue/dropdown'
+
 import { useImage } from '~/composables/useImage.ts'
 import { useContrastRatio } from '~/composables/useContrastRatio.ts'
 import { useColorSelection } from '~/composables/useColorSelection.ts'
+
+const dropdownOptions = computed(() => colors.value.map(color => ({ label: color.hex, value: color })));
+
+const handlePrimaryColorChange = (event) => {
+  const selectedValue = event.value;
+  selectPrimaryColor(selectedValue);
+};
+
+const handleAccentColorChange = (event) => {
+  const selectedValue = event.value;
+  selectAccentColor(selectedValue);
+};
 
 const { colors, imageSrc } = useImage()
 const { contrastRatio, markSelectedColor, checkIfColorSelected } =
@@ -13,7 +27,9 @@ const { contrastRatio, markSelectedColor, checkIfColorSelected } =
 const {
   swapColors,
   primaryColor,
-  accentColor
+  accentColor,
+  selectPrimaryColor,
+  selectAccentColor,
 } = useColorSelection(colors.value)
 
 </script>
@@ -38,31 +54,59 @@ const {
     <main class="pt-10">
       <section class="font-medium text-xl text-gray-400">
         <div class="w-full flex items-center justify-between pb-10">
-          <div v-if="primaryColor" class="size-20" :style="{ backgroundColor: primaryColor.hex }"></div>
+          <Dropdown 
+            v-if="primaryColor"
+            v-model="primaryColor"
+            :options="dropdownOptions"
+            checkmark
+            @change="handlePrimaryColorChange"
+            :highlightOnSelect="false"
+            optionValue="value"
+            class="size-20"
+            :style="{backgroundColor:primaryColor.hex}">
+            <template #value="slotProps">
+              <div v-if="slotProps.value"></div>
+            </template>
+            <template #option="slotProps">
+              <div :style="{backgroundColor:slotProps.option.value.hex}" class="w-full h-6"></div>
+            </template>
+          </Dropdown>
           <button @click="swapColors">
             <Swap/>
           </button>
-          <div v-if="accentColor" class="size-20" :style="{ backgroundColor: accentColor.hex }"></div>
+          <Dropdown 
+            v-if="accentColor"
+            v-model="accentColor"
+            :options="dropdownOptions"
+            checkmark
+            @change="handleAccentColorChange"
+            :highlightOnSelect="false"
+            optionValue="value"
+            class="size-20"
+            :style="{backgroundColor:accentColor.hex}">
+            <template #value="slotProps">
+              <div v-if="slotProps.value"></div>
+            </template>
+            <template #option="slotProps">
+              <div :style="{backgroundColor:slotProps.option.value.hex}" class="w-full h-6"></div>
+            </template>
+          </Dropdown>
+
         </div>
         <span v-if="contrastRatio !== undefined">
           Contrast Ratio: {{ contrastRatio }}
         </span>
       </section>
-      <div class="flex justify-content-center">
-        <button
-          @click="() => markSelectedColor(color)"
+      <div class="grid grid-cols-5 justify-content-center gap-y-1 gap-x-2">
+        <div
           v-for="(color, index) in colors"
           :key="index"
-          class="relative size-30 font-bold flex items-center justify-center"
+          class="relative w-full aspect-square h-auto"
           :style="{ backgroundColor: color.hex }"
           aria-label="{{ checkIfColorSelected(color) ? 'Deselect' : 'Select' }} color with hex code {{ color.hex }} }}"
         >
-          <Check
-            v-if="checkIfColorSelected(color)"
-            className="absolute top-1 right-1 w-6 h-6"
-          />
-          <span class="mix-blend-exclusion">{{ color.hex }}</span>
-        </button>
+        </div>
+          <span v-for="(color, index) in colors" :key="index" class="mix-blend-exclusion">{{ color.hex }}</span>
       </div>
     </main>
   </aside>
