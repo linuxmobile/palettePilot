@@ -1,5 +1,5 @@
 <script setup>
-import { useImage } from '../../composables/useImage.ts'
+import { useImage } from '~/composables/useImage.ts'
 import { useColorSelection } from '~/composables/useColorSelection.ts'
 import FileUpload from 'primevue/fileupload'
 

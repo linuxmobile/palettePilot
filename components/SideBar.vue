@@ -1,5 +1,4 @@
 <script setup>
-import Check from '~/icons/Check.vue'
 import FileUpload from '~/components/FileUpload.vue'
 import Swap from '~/icons/Swap.vue'
 import Dropdown from 'primevue/dropdown'
@@ -7,6 +6,16 @@ import Dropdown from 'primevue/dropdown'
 import { useImage } from '~/composables/useImage.ts'
 import { useContrastRatio } from '~/composables/useContrastRatio.ts'
 import { useColorSelection } from '~/composables/useColorSelection.ts'
+
+const { colors, imageSrc } = useImage()
+
+const {
+  swapColors,
+  primaryColor,
+  accentColor,
+  selectPrimaryColor,
+  selectAccentColor,
+} = useColorSelection(colors.value)
 
 const dropdownOptions = computed(() => colors.value.map(color => ({ label: color.hex, value: color })));
 
@@ -20,15 +29,6 @@ const handleAccentColorChange = (event) => {
   selectAccentColor(selectedValue);
 };
 
-const { colors, imageSrc } = useImage()
-
-const {
-  swapColors,
-  primaryColor,
-  accentColor,
-  selectPrimaryColor,
-  selectAccentColor,
-} = useColorSelection(colors.value)
 
 const { contrastRatio } = useContrastRatio(primaryColor, accentColor)
 </script>
@@ -50,9 +50,9 @@ const { contrastRatio } = useContrastRatio(primaryColor, accentColor)
       </picture>
       <FileUpload />
     </header>
-    <main class="pt-10">
-      <section class="font-medium text-xl text-gray-400">
-        <div class="w-full flex items-center justify-between pb-10">
+    <main class="pt-10 flex flex-col gap-y-4">
+      <section class="font-medium text-xl text-gray-400 flex flex-col items-start justify-center gap-y-3">
+        <div class="w-full flex items-center justify-between">
           <Dropdown 
             v-if="primaryColor"
             v-model="primaryColor"
@@ -91,9 +91,9 @@ const { contrastRatio } = useContrastRatio(primaryColor, accentColor)
             </template>
           </Dropdown>
         </div>
-        <span v-if="colors">
-          Contrast Ratio: {{ contrastRatio }}
-        </span>
+        <p v-if="colors">
+          Contrast Ratio: <span :class="[contrastRatio > 4.5 ? 'text-green-500' : 'text-red-500']">{{ contrastRatio }}</span>
+        </p>
       </section>
       <div class="grid grid-cols-5 justify-content-center gap-y-1 gap-x-2">
         <div
