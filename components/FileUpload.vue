@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import { useImage } from '~/composables/useImage'
 import { useColorSelection } from '~/composables/useColorSelection'
+import { useImageColors } from '~/composables/useImageColors'
 import FileUpload, { type FileUploadUploadEvent } from 'primevue/fileupload'
 
-const { imageSrc, setImageSrc, extractColors, colors } = useImage()
-const { selectPrimaryColor, selectAccentColor } = useColorSelection(colors.value)
+const { imageSrc, setImageSrc, extractColors } = useImage()
+const { imageColors, setImageColors } = useImageColors()
+const { selectPrimaryColor, selectAccentColor } = useColorSelection(imageColors.value)
 
 const onUpload = (event: FileUploadUploadEvent) => {
   const file = (event.files as File[]).at(0)
@@ -16,14 +18,10 @@ const onUpload = (event: FileUploadUploadEvent) => {
     // on successful read 
     const result = e.target?.result as string
     setImageSrc(result)
-    await extractColors(result)
-    if (colors.value.length > 0) {
-      selectPrimaryColor(colors.value[0])
-    }
-    if (colors.value.length > 1) {
-      selectAccentColor(colors.value[1])
-    }
-
+    const extractedColors = await extractColors(result)
+    setImageColors(extractedColors)
+    selectPrimaryColor(extractedColors?.[0])
+    selectAccentColor(extractedColors?.[1])
   }
   reader.readAsDataURL(file)
 }

@@ -3,21 +3,22 @@ import FileUpload from '~/components/FileUpload.vue'
 import Swap from '~/icons/Swap.vue'
 import Dropdown, { type DropdownChangeEvent } from 'primevue/dropdown'
 import { useImage } from '~/composables/useImage'
+import { useImageColors } from '~/composables/useImageColors'
 import { useContrastRatio } from '~/composables/useContrastRatio'
 import { useColorSelection } from '~/composables/useColorSelection'
 import { type ColorWithRgbAndHex } from '~/types/colors'
 
-const { colors, imageSrc } = useImage()
-
+const { imageSrc } = useImage()
+const { imageColors } = useImageColors()
 const {
   swapColors,
   primaryColor,
   accentColor,
   selectPrimaryColor,
   selectAccentColor,
-} = useColorSelection(colors.value)
- 
-const dropdownOptions = computed(() => colors.value.map(color => ({ label: color.hex, value: color })));
+} = useColorSelection(imageColors.value)
+const { contrastRatio } = useContrastRatio(primaryColor, accentColor) 
+const dropdownOptions = computed(() => imageColors.value.map(color => ({ label: color.hex, value: color })));
 
 const handlePrimaryColorChange = (event: DropdownChangeEvent) => {
   const selectedValue = event.value as ColorWithRgbAndHex;
@@ -28,9 +29,6 @@ const handleAccentColorChange = (event: DropdownChangeEvent) => {
   const selectedValue = event.value as ColorWithRgbAndHex;
   selectAccentColor(selectedValue);
 };
-
-
-const { contrastRatio } = useContrastRatio(primaryColor, accentColor)
 </script>
 
 <template>
@@ -91,20 +89,20 @@ const { contrastRatio } = useContrastRatio(primaryColor, accentColor)
             </template>
           </Dropdown>
         </div>  
-        <p v-if="colors">
+        <p v-if="imageColors">
           Contrast Ratio: <span :class="[Number(contrastRatio) > 4.5 ? 'text-green-500' : 'text-red-500']">{{ contrastRatio }}</span>
         </p>
       </section>
       <div class="grid grid-cols-5 justify-content-center gap-y-1 gap-x-2">
         <div
-          v-for="(color, index) in colors"
+          v-for="(color, index) in imageColors"
           :key="index"
           class="relative w-full aspect-square h-auto"
           :style="{ backgroundColor: color.hex }"
           aria-label="{{ checkIfColorSelected(color) ? 'Deselect' : 'Select' }} color with hex code {{ color.hex }} }}"
         >
         </div>
-          <span v-for="(color, index) in colors" :key="index" class="mix-blend-exclusion">{{ color.hex }}</span>
+          <span v-for="(color, index) in imageColors" :key="index" class="mix-blend-exclusion">{{ color.hex }}</span>
       </div>
     </main>
   </aside>
