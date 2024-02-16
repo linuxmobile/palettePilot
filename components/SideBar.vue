@@ -2,12 +2,16 @@
 import FileUpload from '~/components/FileUpload.vue'
 import Swap from '~/icons/Swap.vue'
 import Dropdown, { type DropdownChangeEvent } from 'primevue/dropdown'
+
+import { useToast } from 'primevue/usetoast'
+
 import { useImage } from '~/composables/useImage'
 import { useImageColors } from '~/composables/useImageColors'
 import { useContrastRatio } from '~/composables/useContrastRatio'
 import { useColorSelection } from '~/composables/useColorSelection'
 import { type ColorWithRgbAndHex } from '~/types/colors'
 
+const toast = useToast()
 const { imageSrc } = useImage()
 const { imageColors } = useImageColors()
 const {
@@ -17,7 +21,8 @@ const {
   selectPrimaryColor,
   selectAccentColor,
 } = useColorSelection(imageColors.value)
-const { contrastRatio } = useContrastRatio(primaryColor, accentColor) 
+const { contrastRatio } = useContrastRatio(primaryColor, accentColor)
+
 const dropdownOptions = computed(() => imageColors.value.map(color => ({ label: color.hex, value: color })));
 
 const handlePrimaryColorChange = (event: DropdownChangeEvent) => {
@@ -29,12 +34,23 @@ const handleAccentColorChange = (event: DropdownChangeEvent) => {
   const selectedValue = event.value as ColorWithRgbAndHex;
   selectAccentColor(selectedValue);
 };
+
+const copyToClipboard = async (text) => {
+  try {
+    await navigator.clipboard.writeText(text);
+    toast.add({ severity:'success', summary: 'Copied to Clipboard', life: 2000})
+  } catch (err) {
+    console.error('Error al copiar texto:', err);
+  }
+};
+
 </script>
 
 <template>
   <aside
     class="md:col-span-3 pt-18 min-h-screen w-full sticky px-3 border-r border-white/10 bg-stone-950"
   >
+    <Toast/>
     <header class="flex flex-col gap-y-2">
       <picture
         v-if="imageSrc"
@@ -93,17 +109,22 @@ const handleAccentColorChange = (event: DropdownChangeEvent) => {
           Contrast Ratio: <span :class="[Number(contrastRatio) > 4.5 ? 'text-green-500' : 'text-red-500']">{{ contrastRatio }}</span>
         </p>
       </section>
-      <div class="grid grid-cols-5 justify-content-center gap-y-1 gap-x-2">
+      <section class="grid grid-cols-5 justify-content-center gap-y-1 gap-x-2">
         <div
           v-for="(color, index) in imageColors"
           :key="index"
-          class="relative w-full aspect-square h-auto"
+          class="relative w-full aspect-square h-auto rounded-lg"
           :style="{ backgroundColor: color.hex }"
           aria-label="{{ checkIfColorSelected(color) ? 'Deselect' : 'Select' }} color with hex code {{ color.hex }} }}"
         >
         </div>
-          <span v-for="(color, index) in imageColors" :key="index" class="mix-blend-exclusion">{{ color.hex }}</span>
-      </div>
+        <button
+          v-for="(color, index) in imageColors"
+          :key="index"
+          class="bg-gray-900 rounded-md px-3 py-1 opacity-60 hover:opacity-100"
+          @click="copyToClipboard(color.hex)"
+        >{{ color.hex }}</button>
+      </section>
     </main>
   </aside>
 </template>
