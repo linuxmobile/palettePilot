@@ -1,17 +1,10 @@
+import { useGlobalGenericState } from "~/utils/useGlobalGenericState";
 import { type ColorWithRgbAndHex } from "~/types/colors";
 
 export const useColorSelection = (initialColors: ColorWithRgbAndHex[]) => {
-	const primaryColor = useState<ColorWithRgbAndHex | undefined>("primaryColor", () => initialColors?.[0]);
-	const accentColor = useState<ColorWithRgbAndHex | undefined>("accentColor", () => initialColors?.[1]);
-
-	const selectPrimaryColor = (color: ColorWithRgbAndHex): void => {
-		primaryColor.value = color;
-	};
-
-	const selectAccentColor = (color: ColorWithRgbAndHex): void => {
-		accentColor.value = color;
-	};
-
+	const [primaryColor, selectPrimaryColor] = useGlobalGenericState("primaryColor", initialColors?.at(0));
+	const [accentColor, selectAccentColor] = useGlobalGenericState("accentColor", initialColors?.at(1));
+	
 	const swapColors = (): void => {
 		[primaryColor.value, accentColor.value] = [
 			accentColor.value,
@@ -20,10 +13,10 @@ export const useColorSelection = (initialColors: ColorWithRgbAndHex[]) => {
 	};
 
 	return {
-		swapColors,
-		selectPrimaryColor,
-		selectAccentColor,
 		primaryColor,
 		accentColor,
+		selectPrimaryColor,
+		selectAccentColor,
+	  swapColors,
 	};
 };
