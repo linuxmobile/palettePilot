@@ -9,7 +9,7 @@ export const useContrastRatio = (
 	accentColor: ColorToCompare
 ) => {
 	const contrastRatio = computed(() => {
-		if (!primaryColor.value || !accentColor.value) return;
+		if (primaryColor.value === null || accentColor.value === null) return;
 		return getContrastRatio(
 			primaryColor.value.rgb,
 			accentColor.value.rgb,
