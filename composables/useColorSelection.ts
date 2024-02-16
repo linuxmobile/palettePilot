@@ -1,12 +1,8 @@
 import { type ColorWithRgbAndHex } from "~/types/colors";
 
 export const useColorSelection = (initialColors: ColorWithRgbAndHex[]) => {
-	const primaryColor = useState<ColorWithRgbAndHex | null>("primaryColor", () =>
-		initialColors.length > 0 ? initialColors[0] : null,
-	);
-	const accentColor = useState<ColorWithRgbAndHex | null>("accentColor", () =>
-		initialColors.length > 1 ? initialColors[1] : null,
-	);
+	const primaryColor = useState<ColorWithRgbAndHex | undefined>("primaryColor", () => initialColors?.[0]);
+	const accentColor = useState<ColorWithRgbAndHex | undefined>("accentColor", () => initialColors?.[1]);
 
 	const selectPrimaryColor = (color: ColorWithRgbAndHex): void => {
 		primaryColor.value = color;
