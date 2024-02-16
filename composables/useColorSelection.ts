@@ -1,6 +1,6 @@
 import { type ColorWithRgbAndHex } from "~/types/colors";
 
-export const useColorSelection = (initialColors: ColorWithRgbAndHex[] = []) => {
+export const useColorSelection = (initialColors: ColorWithRgbAndHex[]) => {
 	const primaryColor = useState<ColorWithRgbAndHex | null>("primaryColor", () =>
 		initialColors.length > 0 ? initialColors[0] : null,
 	);
