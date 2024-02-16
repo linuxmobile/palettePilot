@@ -6,7 +6,7 @@ import PalettePage from '~/components/PalettePage.vue'
 
 useHead({
   bodyAttrs: {
-    class: 'bg-black text-white'
+    class: 'text-black bg-white dark:bg-black dark:text-white transition-colors ease-in-out duration-200'
   }
 })
 
@@ -20,7 +20,7 @@ useSeoMeta({
   twitterCard: 'summary_large_image'
 })
 
-const { imageSrc, colors } = useImage()
+const { imageSrc } = useImage()
 </script>
 <template>
   <Header />

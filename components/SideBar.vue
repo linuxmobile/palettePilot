@@ -48,7 +48,7 @@ const copyToClipboard = async (text) => {
 
 <template>
   <aside
-    class="md:col-span-3 pt-18 min-h-screen w-full sticky px-3 border-r border-white/10 bg-stone-950"
+    class="md:col-span-3 pt-18 min-h-screen w-full sticky px-3 border-r border-black/10 bg-gray-200 dark:border-white/10 dark:bg-neutral-950"
   >
     <Toast/>
     <header class="flex flex-col gap-y-2">
@@ -84,7 +84,7 @@ const copyToClipboard = async (text) => {
               <div :style="{backgroundColor:slotProps.option.value.hex}" class="w-full h-6"></div>
             </template>
           </Dropdown>
-          <button @click="swapColors">
+          <button @click="swapColors" class="rounded-full p-2 aspect-square bg-gray-300 dark:bg-neutral-900">
             <Swap/>
           </button>
           <Dropdown 
@@ -121,7 +121,7 @@ const copyToClipboard = async (text) => {
         <button
           v-for="(color, index) in imageColors"
           :key="index"
-          class="bg-gray-900 rounded-md px-3 py-1 opacity-60 hover:opacity-100"
+          class="bg-gray-300 dark:bg-neutral-900 rounded-md px-3 py-1 opacity-60 hover:opacity-100"
           @click="copyToClipboard(color.hex)"
         >{{ color.hex }}</button>
       </section>

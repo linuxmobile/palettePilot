@@ -15,7 +15,7 @@ const cardData = useState('cardData', () => ({
 
 </script>
 <template>
-  <article class="border border-gray-600 rounded-xl px-8 py-5" :style="{backgroundColor: bg, color: fg}">
+  <article class="rounded-xl px-8 py-5" :style="{backgroundColor: bg, color: fg}">
     <header class="flex items-start gap-x-3">
       <img :src="cardData.avatar" alt="Avatar" class="rounded-full size-14" />
       <div class="leading-none">

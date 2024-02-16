@@ -17,7 +17,7 @@ const repoData = useState('repoData', () => ({
 
 </script>
 <template>
-  <article class="border border-gray-600 rounded-xl px-8 py-5 flex flex-col gap-y-2" :style="{backgroundColor: bg, color: fg}">
+  <article class="rounded-xl px-8 py-5 flex flex-col gap-y-2" :style="{backgroundColor: bg, color: fg}">
     <section class="flex flex-col">
       <div class="flex justify-between w-full items-center">
         <h2 class="font-bold">{{repoData.title}}</h2>
