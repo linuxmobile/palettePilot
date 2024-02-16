@@ -1,9 +1,6 @@
+import { useGlobalGenericState } from "~/utils/useGlobalGenericState";
+
 export const useImage = () => {
-	const imageSrc = useState<string | null>("imageSrc", () => null);
-
-	const setImageSrc = (newImageSrc: string): void => {
-		imageSrc.value = newImageSrc;
-	};
-
-	return { imageSrc, setImageSrc };
+	const [imageSrc, setImageSrc] = useGlobalGenericState<string | null>("imageSrc", null)
+	return { imageSrc, setImageSrc }
 };
