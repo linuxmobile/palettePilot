@@ -1,36 +1,34 @@
-<script setup>
+<script setup lang="ts">
 import FileUpload from '~/components/FileUpload.vue'
 import Swap from '~/icons/Swap.vue'
-import Dropdown from 'primevue/dropdown'
+import Dropdown, { type DropdownChangeEvent } from 'primevue/dropdown'
+import { useImage } from '~/composables/useImage'
+import { useImageColors } from '~/composables/useImageColors'
+import { useContrastRatio } from '~/composables/useContrastRatio'
+import { useColorSelection } from '~/composables/useColorSelection'
+import { type ColorWithRgbAndHex } from '~/types/colors'
 
-import { useImage } from '~/composables/useImage.ts'
-import { useContrastRatio } from '~/composables/useContrastRatio.ts'
-import { useColorSelection } from '~/composables/useColorSelection.ts'
-
-const { colors, imageSrc } = useImage()
-
+const { imageSrc } = useImage()
+const { imageColors } = useImageColors()
 const {
   swapColors,
   primaryColor,
   accentColor,
   selectPrimaryColor,
   selectAccentColor,
-} = useColorSelection(colors.value)
+} = useColorSelection(imageColors.value)
+const { contrastRatio } = useContrastRatio(primaryColor, accentColor) 
+const dropdownOptions = computed(() => imageColors.value.map(color => ({ label: color.hex, value: color })));
 
-const dropdownOptions = computed(() => colors.value.map(color => ({ label: color.hex, value: color })));
-
-const handlePrimaryColorChange = (event) => {
-  const selectedValue = event.value;
+const handlePrimaryColorChange = (event: DropdownChangeEvent) => {
+  const selectedValue = event.value as ColorWithRgbAndHex;
   selectPrimaryColor(selectedValue);
 };
 
-const handleAccentColorChange = (event) => {
-  const selectedValue = event.value;
+const handleAccentColorChange = (event: DropdownChangeEvent) => {
+  const selectedValue = event.value as ColorWithRgbAndHex;
   selectAccentColor(selectedValue);
 };
-
-
-const { contrastRatio } = useContrastRatio(primaryColor, accentColor)
 </script>
 
 <template>
@@ -90,21 +88,21 @@ const { contrastRatio } = useContrastRatio(primaryColor, accentColor)
               <div :style="{backgroundColor:slotProps.option.value.hex}" class="w-full h-6"></div>
             </template>
           </Dropdown>
-        </div>
-        <p v-if="colors">
-          Contrast Ratio: <span :class="[contrastRatio > 4.5 ? 'text-green-500' : 'text-red-500']">{{ contrastRatio }}</span>
+        </div>  
+        <p v-if="imageColors">
+          Contrast Ratio: <span :class="[Number(contrastRatio) > 4.5 ? 'text-green-500' : 'text-red-500']">{{ contrastRatio }}</span>
         </p>
       </section>
       <div class="grid grid-cols-5 justify-content-center gap-y-1 gap-x-2">
         <div
-          v-for="(color, index) in colors"
+          v-for="(color, index) in imageColors"
           :key="index"
           class="relative w-full aspect-square h-auto"
           :style="{ backgroundColor: color.hex }"
           aria-label="{{ checkIfColorSelected(color) ? 'Deselect' : 'Select' }} color with hex code {{ color.hex }} }}"
         >
         </div>
-          <span v-for="(color, index) in colors" :key="index" class="mix-blend-exclusion">{{ color.hex }}</span>
+          <span v-for="(color, index) in imageColors" :key="index" class="mix-blend-exclusion">{{ color.hex }}</span>
       </div>
     </main>
   </aside>
