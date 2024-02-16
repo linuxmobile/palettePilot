@@ -1,3 +1,6 @@
+import ColorThief from "colorthief"
+import { type ColorWithRgbAndHex } from "~/types/colors";
+
 export function getLuminance(rgb: number[]) {
   // Reference on how these values are being
   // computed: https://www.w3.org/TR/WCAG20-TECHS/G17.html#G17-procedure
@@ -31,4 +34,21 @@ export function rgbToHexConverter(rgbArr: number[]): string {
   });
 
   return `#${hexParts.join("")}`;
+};
+
+export function extractColorsFromImage(imageSrc: string): Promise<ColorWithRgbAndHex[]> {
+  return new Promise((resolve) => {
+    const img = new Image();
+    img.onload = () => {
+      const colorThief = new ColorThief();
+      const getPaletteColors = colorThief.getPalette(img, 5);
+      const imageColors = getPaletteColors.map((rgb: number[]) => ({
+        hex: rgbToHexConverter(rgb),
+        rgb,
+      }));
+      resolve(imageColors);
+    };
+    img.src = imageSrc;
+    img.crossOrigin = "Anonymous";
+  });
 };

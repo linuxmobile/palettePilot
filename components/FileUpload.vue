@@ -3,8 +3,9 @@ import { useImage } from '~/composables/useImage'
 import { useColorSelection } from '~/composables/useColorSelection'
 import { useImageColors } from '~/composables/useImageColors'
 import FileUpload, { type FileUploadUploadEvent } from 'primevue/fileupload'
+import { extractColorsFromImage } from '~/utils/colors'
 
-const { imageSrc, setImageSrc, extractColors } = useImage()
+const { imageSrc, setImageSrc } = useImage()
 const { imageColors, setImageColors } = useImageColors()
 const { selectPrimaryColor, selectAccentColor } = useColorSelection(imageColors.value)
 
@@ -18,7 +19,7 @@ const onUpload = (event: FileUploadUploadEvent) => {
     // on successful read 
     const result = e.target?.result as string
     setImageSrc(result)
-    const extractedColors = await extractColors(result)
+    const extractedColors = await extractColorsFromImage(result)
     setImageColors(extractedColors)
     selectPrimaryColor(extractedColors?.[0])
     selectAccentColor(extractedColors?.[1])
