@@ -20,12 +20,12 @@ useSeoMeta({
   twitterCard: 'summary_large_image'
 })
 
-const { imageSrc, colors } = useImage()
+const { imageSrc } = useImage()
 </script>
 <template>
   <Header />
   <div class="flex flex-col items-center justify-center">
-    <Home v-if="!imageSrc" />
+    <Home v-if="imageSrc === ''" />
     <PalettePage v-else />
   </div>
 </template>
