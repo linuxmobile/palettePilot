@@ -1,11 +1,11 @@
-<script setup>
+<script setup lang="ts">
 import FileUpload from '~/components/FileUpload.vue'
 import Swap from '~/icons/Swap.vue'
-import Dropdown from 'primevue/dropdown'
-
-import { useImage } from '~/composables/useImage.ts'
-import { useContrastRatio } from '~/composables/useContrastRatio.ts'
-import { useColorSelection } from '~/composables/useColorSelection.ts'
+import Dropdown, { type DropdownChangeEvent } from 'primevue/dropdown'
+import { useImage } from '~/composables/useImage'
+import { useContrastRatio } from '~/composables/useContrastRatio'
+import { useColorSelection } from '~/composables/useColorSelection'
+import { type ColorWithRgbAndHex } from '~/types/colors'
 
 const { colors, imageSrc } = useImage()
 
@@ -16,16 +16,16 @@ const {
   selectPrimaryColor,
   selectAccentColor,
 } = useColorSelection(colors.value)
-
+ 
 const dropdownOptions = computed(() => colors.value.map(color => ({ label: color.hex, value: color })));
 
-const handlePrimaryColorChange = (event) => {
-  const selectedValue = event.value;
+const handlePrimaryColorChange = (event: DropdownChangeEvent) => {
+  const selectedValue = event.value as ColorWithRgbAndHex;
   selectPrimaryColor(selectedValue);
 };
 
-const handleAccentColorChange = (event) => {
-  const selectedValue = event.value;
+const handleAccentColorChange = (event: DropdownChangeEvent) => {
+  const selectedValue = event.value as ColorWithRgbAndHex;
   selectAccentColor(selectedValue);
 };
 
@@ -90,7 +90,7 @@ const { contrastRatio } = useContrastRatio(primaryColor, accentColor)
               <div :style="{backgroundColor:slotProps.option.value.hex}" class="w-full h-6"></div>
             </template>
           </Dropdown>
-        </div>
+        </div>  
         <p v-if="colors">
           Contrast Ratio: <span :class="[contrastRatio > 4.5 ? 'text-green-500' : 'text-red-500']">{{ contrastRatio }}</span>
         </p>
