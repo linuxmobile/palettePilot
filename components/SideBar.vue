@@ -92,7 +92,7 @@ const { contrastRatio } = useContrastRatio(primaryColor, accentColor)
           </Dropdown>
         </div>  
         <p v-if="colors">
-          Contrast Ratio: <span :class="[contrastRatio > 4.5 ? 'text-green-500' : 'text-red-500']">{{ contrastRatio }}</span>
+          Contrast Ratio: <span :class="[Number(contrastRatio) > 4.5 ? 'text-green-500' : 'text-red-500']">{{ contrastRatio }}</span>
         </p>
       </section>
       <div class="grid grid-cols-5 justify-content-center gap-y-1 gap-x-2">
