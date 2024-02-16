@@ -4,7 +4,7 @@ import { useColorSelection } from '~/composables/useColorSelection'
 import FileUpload, { type FileUploadUploadEvent } from 'primevue/fileupload'
 
 const { imageSrc, setImageSrc, extractColors, colors } = useImage()
-const { selectPrimaryColor, selectAccentColor } = useColorSelection()
+const { selectPrimaryColor, selectAccentColor } = useColorSelection(colors.value)
 
 const onUpload = (event: FileUploadUploadEvent) => {
   const file = (event.files as File[]).at(0)
