@@ -21,8 +21,8 @@ const onUpload = (event: FileUploadUploadEvent) => {
     setImageSrc(result)
     const extractedColors = await extractColorsFromImage(result)
     setImageColors(extractedColors)
-    selectPrimaryColor(extractedColors?.[0])
-    selectAccentColor(extractedColors?.[1])
+    selectPrimaryColor(imageColors.value?.[0])
+    selectAccentColor(imageColors.value?.[1])
   }
   reader.readAsDataURL(file)
 }
