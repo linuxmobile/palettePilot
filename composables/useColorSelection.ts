@@ -1,21 +1,18 @@
-type Color = {
-	hex: string;
-	rgb: number[];
-};
+import { type ColorWithRgbAndHex } from "~/types/colors";
 
-export const useColorSelection = (initialColors = []) => {
-	const primaryColor = useState<Color | null>("primaryColor", () =>
+export const useColorSelection = (initialColors: ColorWithRgbAndHex[] = []) => {
+	const primaryColor = useState<ColorWithRgbAndHex | null>("primaryColor", () =>
 		initialColors.length > 0 ? initialColors[0] : null,
 	);
-	const accentColor = useState<Color | null>("accentColor", () =>
+	const accentColor = useState<ColorWithRgbAndHex | null>("accentColor", () =>
 		initialColors.length > 1 ? initialColors[1] : null,
 	);
 
-	const selectPrimaryColor = (color: Color): void => {
+	const selectPrimaryColor = (color: ColorWithRgbAndHex): void => {
 		primaryColor.value = color;
 	};
 
-	const selectAccentColor = (color: Color): void => {
+	const selectAccentColor = (color: ColorWithRgbAndHex): void => {
 		accentColor.value = color;
 	};
 

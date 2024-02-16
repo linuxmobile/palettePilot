@@ -1,13 +1,9 @@
 import ColorThief from "colorthief";
-
-type Color = {
-	hex: string;
-	rgb: number[];
-};
+import { type ColorWithRgbAndHex } from "~/types/colors";
 
 export const useImage = () => {
 	const imageSrc = useState<string | null>("imageSrc", () => null);
-	const colors = useState<Color[]>("colors", () => []);
+	const colors = useState<ColorWithRgbAndHex[]>("colors", () => []);
 
 	const rgbToHexConverter = (rgbArr: number[]): string => {
 		const hexParts = rgbArr.map((colorValue: number) => {
