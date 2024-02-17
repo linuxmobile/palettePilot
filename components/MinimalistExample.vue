@@ -15,7 +15,7 @@ const social = ['LinkedIn', 'Dribbble', 'Behance', 'Twitter', 'Unsplash', 'Insta
       <div class="bg-yellow-400"></div>
       <div class="bg-green-400"></div>
     </header>
-    <section class="w-full rounded-b-2xl bg-gray-200 dark:bg-neutral-900 px-10 pt-6">
+    <section class="w-full rounded-b-2xl bg-gray-200 dark:bg-neutral-900 px-10 py-6">
       <main class="grid grid-cols-12 gap-2">
         <header class="col-span-12 w-full flex items-start justify-between py-4 px-10 rounded-full" :style="{backgroundColor: bg, color: fg}">
           <h3>jenny wilson.</h3>
