@@ -14,7 +14,7 @@ const options = useState('options', () => [
 <template>
   <main class="grid grid-cols-12">
     <SideBar />
-    <div class="md:col-span-9 pt-18 grid justify-items-center">
+    <div class="md:col-span-9 pt-18 grid justify-items-center overflow-y-auto h-100dvh">
       <SelectButton v-model="value" :options="options" aria-labelledby="basic" />
       <MinimalistExample v-if="value === 'Minimalist Example'" />
       <UIComponents v-else />

@@ -48,7 +48,7 @@ const copyToClipboard = async (text) => {
 
 <template>
   <aside
-    class="md:col-span-3 pt-18 min-h-screen w-full sticky px-3 border-r border-black/10 bg-gray-200 dark:border-white/10 dark:bg-neutral-950"
+    class="md:col-span-3 pt-18 w-full sticky px-3 border-r border-black/10 bg-gray-200 dark:border-white/10 dark:bg-neutral-950"
   >
     <Toast/>
     <header class="flex flex-col gap-y-2">

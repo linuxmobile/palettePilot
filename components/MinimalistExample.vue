@@ -9,13 +9,13 @@ const fg = computed(() => accentColor.value ? accentColor.value.hex : '#000000')
 const social = ['LinkedIn', 'Dribbble', 'Behance', 'Twitter', 'Unsplash', 'Instagram'];
 </script>
 <template>
-  <main class="pt-12 pb-6 min-h-screen max-h-100dvh w-full px-3 pr-4 overflow-scroll font-semibold select-none">
+  <main class="pt-12 pb-6 w-full px-3 pr-4 font-semibold select-none">
     <header class="w-full h-14 bg-gray-200 dark:bg-neutral-900 rounded-t-2xl border-b border-gray-400 dark:border-neutral-600 flex items-center gap-x-2 pl-5 [&>div]:size-4 [&>div]:rounded-full">
       <div class="bg-red-400"></div>
       <div class="bg-yellow-400"></div>
       <div class="bg-green-400"></div>
     </header>
-    <section class="w-full min-h-screen rounded-b-2xl bg-gray-200 dark:bg-neutral-900 px-10 pt-6">
+    <section class="w-full rounded-b-2xl bg-gray-200 dark:bg-neutral-900 px-10 pt-6">
       <main class="grid grid-cols-12 gap-2">
         <header class="col-span-12 w-full flex items-start justify-between py-4 px-10 rounded-full" :style="{backgroundColor: bg, color: fg}">
           <h3>jenny wilson.</h3>
