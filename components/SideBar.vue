@@ -19,38 +19,44 @@ const {
   primaryColor,
   accentColor,
   selectPrimaryColor,
-  selectAccentColor,
+  selectAccentColor
 } = useColorSelection(imageColors.value)
 const { contrastRatio } = useContrastRatio(primaryColor, accentColor)
 
-const dropdownOptions = computed(() => imageColors.value.map(color => ({ label: color.hex, value: color })));
+const dropdownOptions = computed(() =>
+  imageColors.value.map(color => ({ label: color.hex, value: color }))
+)
 
 const handlePrimaryColorChange = (event: DropdownChangeEvent) => {
-  const selectedValue = event.value as ColorWithRgbAndHex;
-  selectPrimaryColor(selectedValue);
-};
+  const selectedValue = event.value as ColorWithRgbAndHex
+  selectPrimaryColor(selectedValue)
+}
 
 const handleAccentColorChange = (event: DropdownChangeEvent) => {
-  const selectedValue = event.value as ColorWithRgbAndHex;
-  selectAccentColor(selectedValue);
-};
+  const selectedValue = event.value as ColorWithRgbAndHex
+  selectAccentColor(selectedValue)
+}
 
 const copyToClipboard = async (text: string) => {
   try {
-    await navigator.clipboard.writeText(text);
-    toast.add({ severity:'success', summary: 'Copied to Clipboard', group: 'bl', life: 2000})
+    await navigator.clipboard.writeText(text)
+    toast.add({
+      severity: 'success',
+      summary: 'Copied to Clipboard',
+      group: 'bl',
+      life: 2000
+    })
   } catch (err) {
-    console.error('Error al copiar texto:', err);
+    console.error('Error al copiar texto:', err)
   }
-};
-
+}
 </script>
 
 <template>
   <aside
     class="md:col-span-3 pt-18 w-full sticky px-3 border-r border-black/10 bg-gray-200 dark:border-white/10 dark:bg-neutral-950"
   >
-    <Toast position="bottom-left" group="bl"/>
+    <Toast position="bottom-left" group="bl" />
     <header class="flex flex-col gap-y-2">
       <picture
         v-if="imageSrc"
@@ -65,9 +71,11 @@ const copyToClipboard = async (text: string) => {
       <FileUpload />
     </header>
     <main class="pt-10 flex flex-col gap-y-4">
-      <section class="font-medium text-xl text-gray-400 flex flex-col items-start justify-center gap-y-3">
+      <section
+        class="font-medium text-xl text-gray-400 flex flex-col items-start justify-center gap-y-3"
+      >
         <div class="w-full flex items-center justify-between">
-          <Dropdown 
+          <Dropdown
             v-if="primaryColor"
             v-model="primaryColor"
             :options="dropdownOptions"
@@ -76,18 +84,25 @@ const copyToClipboard = async (text: string) => {
             :highlightOnSelect="false"
             optionValue="value"
             class="size-20"
-            :style="{backgroundColor:primaryColor.hex}">
+            :style="{ backgroundColor: primaryColor.hex }"
+          >
             <template #value="slotProps">
               <div v-if="slotProps.value"></div>
             </template>
             <template #option="slotProps">
-              <div :style="{backgroundColor:slotProps.option.value.hex}" class="w-full h-6"></div>
+              <div
+                :style="{ backgroundColor: slotProps.option.value.hex }"
+                class="w-full h-6"
+              ></div>
             </template>
           </Dropdown>
-          <button @click="swapColors" class="rounded-full p-2 aspect-square bg-gray-300 dark:bg-neutral-900">
-            <Swap/>
+          <button
+            @click="swapColors"
+            class="rounded-full p-2 aspect-square bg-gray-300 dark:bg-neutral-900"
+          >
+            <Swap />
           </button>
-          <Dropdown 
+          <Dropdown
             v-if="accentColor"
             v-model="accentColor"
             :options="dropdownOptions"
@@ -96,17 +111,27 @@ const copyToClipboard = async (text: string) => {
             :highlightOnSelect="false"
             optionValue="value"
             class="size-20"
-            :style="{backgroundColor:accentColor.hex}">
+            :style="{ backgroundColor: accentColor.hex }"
+          >
             <template #value="slotProps">
               <div v-if="slotProps.value"></div>
             </template>
             <template #option="slotProps">
-              <div :style="{backgroundColor:slotProps.option.value.hex}" class="w-full h-6"></div>
+              <div
+                :style="{ backgroundColor: slotProps.option.value.hex }"
+                class="w-full h-6"
+              ></div>
             </template>
           </Dropdown>
-        </div>  
+        </div>
         <p v-if="imageColors">
-          Contrast Ratio: <span :class="[Number(contrastRatio) > 4.5 ? 'text-green-500' : 'text-red-500']">{{ contrastRatio }}</span>
+          Contrast Ratio:
+          <span
+            :class="[
+              Number(contrastRatio) > 4.5 ? 'text-green-500' : 'text-red-500'
+            ]"
+            >{{ contrastRatio }}</span
+          >
         </p>
       </section>
       <section class="grid grid-cols-5 justify-content-center gap-y-1 gap-x-2">
@@ -116,14 +141,15 @@ const copyToClipboard = async (text: string) => {
           class="relative w-full aspect-square h-auto rounded-lg"
           :style="{ backgroundColor: color.hex }"
           aria-label="{{ checkIfColorSelected(color) ? 'Deselect' : 'Select' }} color with hex code {{ color.hex }} }}"
-        >
-        </div>
+        ></div>
         <button
           v-for="(color, index) in imageColors"
           :key="index"
           class="bg-gray-300 dark:bg-neutral-900 rounded-md px-3 py-1 opacity-60 hover:opacity-100"
           @click="copyToClipboard(color.hex)"
-        >{{ color.hex }}</button>
+        >
+          {{ color.hex }}
+        </button>
       </section>
     </main>
   </aside>

@@ -6,13 +6,12 @@ import Github from '~/icons/Github.vue'
 const colorMode = useColorMode()
 
 const setDarkMode = () => {
-  colorMode.value = 'dark';
-};
+  colorMode.value = 'dark'
+}
 
 const setLightMode = () => {
-  colorMode.value = 'light';
-};
-
+  colorMode.value = 'light'
+}
 </script>
 <template>
   <header
@@ -39,8 +38,8 @@ const setLightMode = () => {
           </button>
         </div>
       </ClientOnly>
-    <a href="https://twitter.com/LinuDev"><Twitter /></a>
-    <a href="https://github.com/linuxmobile/palettePilot"><Github /></a>
+      <a href="https://twitter.com/LinuDev"><Twitter /></a>
+      <a href="https://github.com/linuxmobile/palettePilot"><Github /></a>
     </div>
   </header>
 </template>

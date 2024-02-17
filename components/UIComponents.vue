@@ -4,7 +4,9 @@ import GithubRepo from '~/components/uicomponents/GithubRepo.vue'
 import ListenNow from '~/components/uicomponents/ListenNow.vue'
 </script>
 <template>
-  <main class="pt-12 w-full h-full px-3 grid content-start grid-cols-9 gap-x-4 gap-y-3 select-none">
+  <main
+    class="pt-12 w-full h-full px-3 grid content-start grid-cols-9 gap-x-4 gap-y-3 select-none"
+  >
     <section class="md:col-span-3">
       <MemberCard />
     </section>

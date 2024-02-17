@@ -1,5 +1,5 @@
-import ColorThief from "colorthief"
-import { type ColorWithRgbAndHex } from "~/types/colors";
+import ColorThief from 'colorthief'
+import { type ColorWithRgbAndHex } from '~/types/colors'
 
 export function getLuminance(rgb: number[]) {
   // Reference on how these values are being
@@ -29,26 +29,28 @@ export function getContrastRatio(firstRgb: number[], secondRgb: number[]) {
 
 export function rgbToHexConverter(rgbArr: number[]): string {
   const hexParts = rgbArr.map((colorValue: number) => {
-    const hexChunk = colorValue.toString(16);
-    return hexChunk.length === 1 ? `0${hexChunk}` : hexChunk;
-  });
+    const hexChunk = colorValue.toString(16)
+    return hexChunk.length === 1 ? `0${hexChunk}` : hexChunk
+  })
 
-  return `#${hexParts.join("")}`;
-};
+  return `#${hexParts.join('')}`
+}
 
-export function extractColorsFromImage(imageSrc: string): Promise<ColorWithRgbAndHex[]> {
-  return new Promise((resolve) => {
-    const img = new Image();
+export function extractColorsFromImage(
+  imageSrc: string
+): Promise<ColorWithRgbAndHex[]> {
+  return new Promise(resolve => {
+    const img = new Image()
     img.onload = () => {
-      const colorThief = new ColorThief();
-      const getPaletteColors = colorThief.getPalette(img, 5);
+      const colorThief = new ColorThief()
+      const getPaletteColors = colorThief.getPalette(img, 5)
       const imageColors = getPaletteColors.map((rgb: number[]) => ({
         hex: rgbToHexConverter(rgb),
-        rgb,
-      }));
-      resolve(imageColors);
-    };
-    img.src = imageSrc;
-    img.crossOrigin = "Anonymous";
-  });
-};
+        rgb
+      }))
+      resolve(imageColors)
+    }
+    img.src = imageSrc
+    img.crossOrigin = 'Anonymous'
+  })
+}
