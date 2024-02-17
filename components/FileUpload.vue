@@ -47,31 +47,3 @@ const onUpload = (event: Event) => {
     </label>
   </div> 
 </template>
-<!--  <FileUpload
-    :mode="imageSrc ? 'basic' : 'advanced'"
-    name="demo[]"
-    url="#"
-    @upload="onUpload"
-    accept="image/*"
-    :maxFileSize="10000000"
-    :auto="true"
-    :showCancelButton="false"
-    :showUploadButton="false"
-    :pt="{
-      root: { class: 'bg-transparent' },
-      input: { class: 'opacity-0' },
-      chooseButton: { class: 'w-full' },
-      file: { class: 'hidden' }
-    }"
-    class="relative"
-  >
-    <template #empty>
-      <h1 class="font-medium text-lg text-center">Drop Your Image</h1>
-      <p class="text-sm text-gray-500 text-center">
-        or click to select from computer
-      </p>
-      <p class="text-sm text-center pt-2 text-gray-300">
-        (png, jpeg, webp & svg)
-      </p>
-    </template>
-  </FileUpload> -->
