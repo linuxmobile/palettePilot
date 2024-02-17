@@ -17,15 +17,15 @@ const repoData = useState('repoData', () => ({
 
 </script>
 <template>
-  <article class="rounded-xl px-8 py-5 flex flex-col gap-y-2" :style="{backgroundColor: bg, color: fg}">
-    <section class="flex flex-col">
+  <article class="rounded-xl px-8 py-5 flex flex-col gap-y-2 font-semibold" :style="{backgroundColor: bg, color: fg}">
+    <section class="flex flex-col gap-y-3">
       <div class="flex justify-between w-full items-center">
-        <h2 class="font-bold">{{repoData.title}}</h2>
-        <div class="rounded-lg px-3 py-1 border" :style="{borderColor:fg}">★ Star</div>
+        <h2 class="font-bold text-2xl">{{repoData.title}}</h2>
+        <NuxtLink to="https://github.com/linuxmobile/palettePilot" target="_blank" class="rounded-lg px-3 py-1" :style="{backgroundColor: fg, color: bg}">★ Star</NuxtLink>
       </div>
       <p class="opacity-70">{{repoData.description}}</p>
     </section>
-    <footer class="flex gap-x-5 opacity-80">
+    <footer class="flex items-center justify-between gap-x-5 opacity-60">
       <p><span class="text-[#41B883]">●</span> {{repoData.language}}</p>
       <p>★ {{repoData.stars}}</p>
       <p>{{repoData.updated}}</p>

@@ -15,17 +15,17 @@ const cardData = useState('cardData', () => ({
 
 </script>
 <template>
-  <article class="rounded-xl px-8 py-5" :style="{backgroundColor: bg, color: fg}">
+  <article class="rounded-xl px-8 py-5 font-semibold" :style="{backgroundColor: bg, color: fg}">
     <header class="flex items-start gap-x-3">
-      <img :src="cardData.avatar" alt="Avatar" class="rounded-full size-14" />
+      <img :src="cardData.avatar" alt="Avatar" class="rounded-full size-16" />
       <div class="leading-none">
-        <h2 class="font-bold text-lg">{{ cardData.name}}</h2>
-        <p class="opacity-70">@{{cardData.userName}}</p>
+        <h2 class="font-bold text-2xl">{{ cardData.name}}</h2>
+        <p class="text-lg opacity-60">@{{cardData.userName}}</p>
       </div>
     </header>
     <main class="pt-4">
       <section>
-        <p>{{cardData.content}}</p>
+        <p class="text-lg opacity-70">{{cardData.content}}</p>
       </section>
     </main>
   </article>

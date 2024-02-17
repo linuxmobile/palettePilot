@@ -35,10 +35,10 @@ const handleAccentColorChange = (event: DropdownChangeEvent) => {
   selectAccentColor(selectedValue);
 };
 
-const copyToClipboard = async (text) => {
+const copyToClipboard = async (text: string) => {
   try {
     await navigator.clipboard.writeText(text);
-    toast.add({ severity:'success', summary: 'Copied to Clipboard', life: 2000})
+    toast.add({ severity:'success', summary: 'Copied to Clipboard', group: 'bl', life: 2000})
   } catch (err) {
     console.error('Error al copiar texto:', err);
   }
@@ -50,7 +50,7 @@ const copyToClipboard = async (text) => {
   <aside
     class="md:col-span-3 pt-18 w-full sticky px-3 border-r border-black/10 bg-gray-200 dark:border-white/10 dark:bg-neutral-950"
   >
-    <Toast/>
+    <Toast position="bottom-left" group="bl"/>
     <header class="flex flex-col gap-y-2">
       <picture
         v-if="imageSrc"
