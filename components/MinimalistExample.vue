@@ -22,11 +22,16 @@ const social = [
 <template>
   <main class="pt-12 pb-6 w-full px-3 pr-4 font-semibold select-none">
     <header
-      class="w-full h-14 bg-gray-200 dark:bg-neutral-900 rounded-t-2xl border-b border-gray-400 dark:border-neutral-600 flex items-center gap-x-2 pl-5 [&>div]:size-4 [&>div]:rounded-full"
+      class="w-full h-14 bg-gray-200 dark:bg-neutral-900 rounded-t-2xl border-b border-gray-400 dark:border-neutral-600 px-6 flex items-center justify-center"
     >
-      <div class="bg-red-400"></div>
-      <div class="bg-yellow-400"></div>
-      <div class="bg-green-400"></div>
+      <div class="flex gap-x-2 [&>div]:size-4 [&>div]:rounded-full">
+        <div class="bg-red-400"></div>
+        <div class="bg-yellow-400"></div>
+        <div class="bg-green-400"></div>
+      </div>
+      <div class="flex grow items-center justify-center">
+        <p class="rounded-full px-24 py-1 border border-gray-400 dark:border-neutral-600">osmic-portfolio.webflow.io</p>
+      </div>
     </header>
     <section
       class="w-full rounded-b-2xl bg-gray-200 dark:bg-neutral-900 px-10 py-6"
