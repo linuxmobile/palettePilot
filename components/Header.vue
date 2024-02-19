@@ -15,13 +15,13 @@ const setLightMode = () => {
 </script>
 <template>
   <header
-    class="w-full absolute z-10 top-0 flex items-center justify-between px-5 py-6 [&>*]:flex [&>*]:items-center [&>*]:justify-center [&>*]:gap-x-3"
+    class="w-full absolute z-10 top-0 flex items-center justify-between px-5 py-6 [&>*]:flex [&>*]:items-center [&>*]:justify-center [&>*]:gap-x-3 bg-gradient-to-b from-white via-white dark:from-black dark:via-black to-transparent"
   >
     <a href="/" class="">
       <Logo class="size-5" />
       <p>Palette <span class="text-purple-400"> Pilot</span></p>
     </a>
-    <div class="[&>a>svg]:size-7 [&>a>svg]:text-gray-500">
+    <div class="[&>a>svg]:size-6">
       <ClientOnly>
         <div class="flex gap-x-3 pr-6">
           <button
@@ -38,8 +38,9 @@ const setLightMode = () => {
           </button>
         </div>
       </ClientOnly>
-      <a href="https://twitter.com/LinuDev"><Twitter /></a>
-      <a href="https://github.com/linuxmobile/palettePilot"><Github /></a>
+      <NuxtLink to="https://twitter.com/LinuDev" class="border border-gray-600/60 bg-gray-300/50 dark:border-neutral-600/70 rounded-md px-2 py-1 dark:bg-neutral-600/50"><Twitter /></NuxtLink>
+      <NuxtLink to="https://github.com/linuxmobile/palettePilot" class="border border-gray-600/60 bg-gray-300/50 dark:border-neutral-600/70 rounded-md px-2 py-1 dark:bg-neutral-600/50"><Github /></NuxtLink>
+      <NuxtLink to="https://github.com/linuxmobile/palettePilot" class="border border-gray-600/60 bg-gray-300/50 dark:border-neutral-600/70 rounded-md px-2 py-1 dark:bg-neutral-600/50">0.1.0</NuxtLink>
     </div>
   </header>
 </template>
