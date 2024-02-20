@@ -40,7 +40,9 @@ const social = [
     <section
       class="w-full rounded-b-2xl bg-gray-200 dark:bg-neutral-900 px-2 lg:px-10 py-6 lg:max-w-none"
     >
-      <main class="grid grid-cols-none grid-flow-col lg:grid-cols-12 grid-flow-row auto-rows-max gap-2">
+      <main
+        class="grid grid-cols-none grid-flow-col lg:grid-cols-12 grid-flow-row auto-rows-max gap-2"
+      >
         <header
           class="col-span-full lg:col-span-12 w-full flex items-start justify-between py-4 px-10 rounded-full"
           :style="{ backgroundColor: bg, color: fg }"

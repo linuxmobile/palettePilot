@@ -38,9 +38,21 @@ const setLightMode = () => {
           </button>
         </div>
       </ClientOnly>
-      <NuxtLink to="https://twitter.com/LinuDev" class="border border-gray-600/60 bg-gray-300/50 dark:border-neutral-600/70 rounded-md px-2 py-1 dark:bg-neutral-600/50"><Twitter /></NuxtLink>
-      <NuxtLink to="https://github.com/linuxmobile/palettePilot" class="border border-gray-600/60 bg-gray-300/50 dark:border-neutral-600/70 rounded-md px-2 py-1 dark:bg-neutral-600/50"><Github /></NuxtLink>
-      <NuxtLink to="https://github.com/linuxmobile/palettePilot" class="border border-gray-600/60 bg-gray-300/50 dark:border-neutral-600/70 rounded-md px-2 py-1 dark:bg-neutral-600/50">0.1.0</NuxtLink>
+      <NuxtLink
+        to="https://twitter.com/LinuDev"
+        class="border border-gray-600/60 bg-gray-300/50 dark:border-neutral-600/70 rounded-md px-2 py-1 dark:bg-neutral-600/50"
+        ><Twitter
+      /></NuxtLink>
+      <NuxtLink
+        to="https://github.com/linuxmobile/palettePilot"
+        class="border border-gray-600/60 bg-gray-300/50 dark:border-neutral-600/70 rounded-md px-2 py-1 dark:bg-neutral-600/50"
+        ><Github
+      /></NuxtLink>
+      <NuxtLink
+        to="https://github.com/linuxmobile/palettePilot"
+        class="border border-gray-600/60 bg-gray-300/50 dark:border-neutral-600/70 rounded-md px-2 py-1 dark:bg-neutral-600/50"
+        >0.1.0</NuxtLink
+      >
     </div>
   </header>
 </template>

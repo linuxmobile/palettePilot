@@ -148,7 +148,7 @@ const copyToClipboard = async (text: string) => {
           {{ color.hex }}
         </button>
       </section>
-      <ExportToTailwind/>
+      <ExportToTailwind />
     </main>
   </aside>
 </template>

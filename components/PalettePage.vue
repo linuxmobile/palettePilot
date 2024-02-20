@@ -19,7 +19,8 @@ const options = useState('options', () => ['Minimalist Example', 'UI Elements'])
         :options="options"
         aria-labelledby="basic"
         :pt="{
-          button: 'bg-gray-100 text-gray-600 dark:bg-neutral-900 dark:text-gray-400',
+          button:
+            'bg-gray-100 text-gray-600 dark:bg-neutral-900 dark:text-gray-400'
         }"
       />
       <MinimalistExample v-if="value === 'Minimalist Example'" />
