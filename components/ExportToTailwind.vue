@@ -52,6 +52,7 @@ function paletteToString(palette) {
 
   return paletteStr
 }
+
 const primaryPaletteString = computed(() => paletteToString(primaryPalette))
 const accentPaletteString = computed(() => paletteToString(accentPalette))
 
