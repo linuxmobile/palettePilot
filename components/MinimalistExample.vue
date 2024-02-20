@@ -1,7 +1,7 @@
 <script setup>
-import { useColorSelection } from '~/composables/useColorSelection.ts'
+import { useColors } from '~/composables/useColors.ts'
 
-const { accentColor, primaryColor } = useColorSelection()
+const { accentColor, primaryColor } = useColors()
 
 const bg = computed(() =>
   primaryColor.value ? primaryColor.value.hex : '#FFFFFF'
@@ -30,7 +30,11 @@ const social = [
         <div class="bg-green-400"></div>
       </div>
       <div class="flex grow items-center justify-center">
-        <p class="rounded-full px-24 py-1 border border-gray-400 dark:border-neutral-600">osmic-portfolio.webflow.io</p>
+        <p
+          class="rounded-full px-24 py-1 border border-gray-400 dark:border-neutral-600"
+        >
+          osmic-portfolio.webflow.io
+        </p>
       </div>
     </header>
     <section
