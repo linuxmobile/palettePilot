@@ -15,5 +15,10 @@ export default defineNuxtConfig({
     fallback: 'dark',
     classSuffix: ''
   },
-  devtools: { enabled: true }
+  devtools: { enabled: true },
+  primevue: {
+    directives: {
+      include: ['Tooltip']
+    }
+  }
 })
