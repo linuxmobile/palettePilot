@@ -9,15 +9,18 @@ const options = useState('options', () => ['Minimalist Example', 'UI Elements'])
 </script>
 
 <template>
-  <main class="grid grid-cols-12">
+  <main class="grid grid-cols-1 lg:grid-cols-12">
     <SideBar />
     <div
-      class="md:col-span-9 pt-18 grid justify-items-center overflow-y-auto h-100dvh"
+      class="lg:col-span-9 pt-18 grid justify-items-center overflow-y-auto h-100dvh"
     >
       <SelectButton
         v-model="value"
         :options="options"
         aria-labelledby="basic"
+        :pt="{
+          button: 'bg-gray-100 text-gray-600 dark:bg-neutral-900 dark:text-gray-400',
+        }"
       />
       <MinimalistExample v-if="value === 'Minimalist Example'" />
       <UIComponents v-else />

@@ -24,36 +24,36 @@ const social = [
     <header
       class="w-full h-14 bg-gray-200 dark:bg-neutral-900 rounded-t-2xl border-b border-gray-400 dark:border-neutral-600 px-6 flex items-center justify-center"
     >
-      <div class="flex gap-x-2 [&>div]:size-4 [&>div]:rounded-full">
+      <div class="hidden lg:flex gap-x-2 [&>div]:size-4 [&>div]:rounded-full">
         <div class="bg-red-400"></div>
         <div class="bg-yellow-400"></div>
         <div class="bg-green-400"></div>
       </div>
       <div class="flex grow items-center justify-center">
         <p
-          class="rounded-full px-24 py-1 border border-gray-400 dark:border-neutral-600"
+          class="rounded-full px-6 lg:px-24 py-1 border border-gray-400 dark:border-neutral-600"
         >
           osmic-portfolio.webflow.io
         </p>
       </div>
     </header>
     <section
-      class="w-full rounded-b-2xl bg-gray-200 dark:bg-neutral-900 px-10 py-6"
+      class="w-full rounded-b-2xl bg-gray-200 dark:bg-neutral-900 px-2 lg:px-10 py-6 lg:max-w-none"
     >
-      <main class="grid grid-cols-12 gap-2">
+      <main class="grid grid-cols-none grid-flow-col lg:grid-cols-12 grid-flow-row auto-rows-max gap-2">
         <header
-          class="col-span-12 w-full flex items-start justify-between py-4 px-10 rounded-full"
+          class="col-span-full lg:col-span-12 w-full flex items-start justify-between py-4 px-10 rounded-full"
           :style="{ backgroundColor: bg, color: fg }"
         >
           <h3>jenny wilson.</h3>
-          <div class="flex items-center gap-x-16">
+          <div class="hidden lg:flex items-center gap-x-16">
             <p>home.</p>
             <p>works.</p>
             <p>about.</p>
           </div>
         </header>
         <article
-          class="col-span-7 py-4 px-10 rounded-3xl text-5xl leading-normal"
+          class="lg:col-span-7 py-4 px-10 rounded-3xl text-5xl leading-normal"
           :style="{ backgroundColor: bg, color: fg }"
         >
           <img
@@ -66,7 +66,7 @@ const social = [
           </p>
         </article>
         <article
-          class="col-span-5 py-4 px-10 rounded-3xl text-5xl grid place-content-center text-center gap-y-8"
+          class="lg:col-span-5 py-4 px-10 rounded-3xl text-4xl lg:text-5xl grid place-content-center text-center gap-y-8"
           :style="{ backgroundColor: bg, color: fg }"
         >
           <p>Have a project in mind?</p>
@@ -79,13 +79,13 @@ const social = [
         <p
           v-for="(socialName, index) in social"
           :key="index"
-          class="col-span-2 py-4 px-10 rounded-full text-lg text-center lowercase"
+          class="col-span-full lg:col-span-2 py-4 px-10 rounded-full text-lg text-center lowercase"
           :style="{ backgroundColor: bg, color: fg }"
         >
           {{ socialName }}.
         </p>
         <article
-          class="col-span-5 py-4 px-10 rounded-3xl text-5xl leading-normal flex items-end justify-start"
+          class="lg:col-span-5 py-4 px-10 rounded-3xl text-5xl leading-normal flex items-end justify-start"
           :style="{ backgroundColor: bg, color: fg }"
         >
           <p class="max-w-xs text-balance">
@@ -93,7 +93,7 @@ const social = [
           </p>
         </article>
         <article
-          class="col-span-7 py-16 px-10 rounded-3xl text-5xl"
+          class="lg:col-span-7 py-16 px-10 rounded-3xl text-4xl lg:text-5xl"
           :style="{ backgroundColor: bg, color: fg }"
         >
           <p>
@@ -106,7 +106,7 @@ const social = [
           </p>
         </article>
         <footer
-          class="col-span-12 py-4 px-10 rounded-full text-lg flex items-center justify-between w-full"
+          class="col-span-full lg:col-span-12 py-4 px-10 rounded-full text-lg flex items-center justify-between w-full"
           :style="{ backgroundColor: bg, color: fg }"
         >
           <p>jenny wilson.</p>

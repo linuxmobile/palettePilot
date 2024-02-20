@@ -41,7 +41,7 @@ const onUpload = (event: Event) => {
     <label
       v-else
       for="dropzone-file"
-      class="flex flex-col items-center justify-center w-full h-64 rounded-lg cursor-pointer bg-gray-200 dark:hover:bg-neutral-800 dark:bg-neutral-900 hover:bg-gray-300 min-w-xl"
+      class="flex flex-col items-center justify-center w-full h-64 rounded-lg cursor-pointer bg-gray-200 dark:hover:bg-neutral-800 dark:bg-neutral-900 hover:bg-gray-300 min-w-xs md:min-w-xl"
     >
       <div class="flex flex-col items-center justify-center pt-5 pb-6">
         <svg

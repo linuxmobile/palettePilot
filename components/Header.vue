@@ -17,7 +17,7 @@ const setLightMode = () => {
   <header
     class="w-full absolute z-10 top-0 flex items-center justify-between px-5 py-6 [&>*]:flex [&>*]:items-center [&>*]:justify-center [&>*]:gap-x-3 bg-gradient-to-b from-white via-white dark:from-black dark:via-black to-transparent"
   >
-    <a href="/" class="">
+    <a href="/" class="flex flex-col sm:flex-row">
       <Logo class="size-5" />
       <p>Palette <span class="text-purple-400"> Pilot</span></p>
     </a>

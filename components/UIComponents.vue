@@ -8,17 +8,15 @@ import AlertDialog from '~/components/uicomponents/AlertDialog.vue'
   <main
     class="pt-12 w-full h-full px-3 grid content-start grid-cols-9 gap-x-4 gap-y-3 select-none"
   >
-    <section class="md:col-span-3">
+    <section class="col-span-full lg:col-span-3 flex flex-col gap-y-3">
       <MemberCard />
+      <AlertDialog />
     </section>
-    <section class="md:col-span-3">
+    <section class="col-span-full lg:col-span-3">
       <GithubRepo />
     </section>
-    <section class="md:col-span-3">
+    <section class="col-span-full lg:col-span-3">
       <ListenNow />
-    </section>
-    <section class="md:col-span-3">
-      <AlertDialog />
     </section>
   </main>
 </template>
