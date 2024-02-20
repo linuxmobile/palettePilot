@@ -3,26 +3,22 @@ import FileUpload from '~/components/FileUpload.vue'
 import ExportToTailwind from '~/components/ExportToTailwind.vue'
 import Swap from '~/icons/Swap.vue'
 import Dropdown, { type DropdownChangeEvent } from 'primevue/dropdown'
-
 import { useToast } from 'primevue/usetoast'
-
 import { useImage } from '~/composables/useImage'
-import { useImageColors } from '~/composables/useImageColors'
-import { useContrastRatio } from '~/composables/useContrastRatio'
-import { useColorSelection } from '~/composables/useColorSelection'
+import { useColors } from '~/composables/useColors'
 import { type ColorWithRgbAndHex } from '~/types/colors'
 
 const toast = useToast()
 const { imageSrc } = useImage()
-const { imageColors } = useImageColors()
 const {
+  imageColors,
   swapColors,
   primaryColor,
   accentColor,
   selectPrimaryColor,
-  selectAccentColor
-} = useColorSelection(imageColors.value)
-const { contrastRatio } = useContrastRatio(primaryColor, accentColor)
+  selectAccentColor,
+  contrastRatio
+} = useColors()
 
 const dropdownOptions = computed(() =>
   imageColors.value.map(color => ({ label: color.hex, value: color }))

@@ -1,14 +1,11 @@
 <script setup lang="ts">
 import { useImage } from '~/composables/useImage'
-import { useColorSelection } from '~/composables/useColorSelection'
-import { useImageColors } from '~/composables/useImageColors'
+import { useColors } from '~/composables/useColors'
 import { extractColorsFromImage } from '~/utils/colors'
 
 const { imageSrc, setImageSrc } = useImage()
-const { imageColors, setImageColors } = useImageColors()
-const { selectPrimaryColor, selectAccentColor } = useColorSelection(
-  imageColors.value
-)
+const { imageColors, setImageColors, selectPrimaryColor, selectAccentColor } =
+  useColors()
 
 const onUpload = (event: Event) => {
   const target = event.target as HTMLInputElement

@@ -1,11 +1,9 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import { useColorSelection } from '~/composables/useColorSelection'
-import { useImageColors } from '~/composables/useImageColors'
+import { useColors } from '~/composables/useColors'
 
 const isDialogOpen = ref(false)
-const { imageColors } = useImageColors()
-const { accentColor, primaryColor } = useColorSelection(imageColors.value)
+const { accentColor, primaryColor } = useColors()
 const bg = computed(() => primaryColor?.value?.hex ?? '#000000')
 const fg = computed(() => accentColor?.value?.hex ?? '#000000')
 
