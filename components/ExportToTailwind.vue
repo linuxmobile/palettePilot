@@ -1,10 +1,9 @@
 <script setup>
 import chroma from 'chroma-js'
 import Dialog from 'primevue/dialog'
-import { useColorSelection } from '~/composables/useColorSelection.ts'
-import { useGlobalGenericState } from '~/utils/useGlobalGenericState'
+import { useColors } from '~/composables/useColors.ts'
 
-const { accentColor, primaryColor } = useColorSelection()
+const { accentColor, primaryColor } = useColors()
 
 const bg = computed(() =>
   primaryColor.value ? primaryColor.value.hex : '#FFFFFF'
