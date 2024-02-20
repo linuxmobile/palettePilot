@@ -142,7 +142,7 @@ const copyToClipboard = async (text: string) => {
         <button
           v-for="(color, index) in imageColors"
           :key="index"
-          class="bg-gray-300 dark:bg-neutral-900 rounded-md px-3 py-1 opacity-60 hover:opacity-100"
+          class="bg-gray-300 dark:bg-neutral-900 rounded-md 2xl:px-3 py-1 opacity-60 hover:opacity-100 text-xs"
           @click="copyToClipboard(color.hex)"
         >
           {{ color.hex }}

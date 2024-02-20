@@ -68,7 +68,7 @@ const social = [
           </p>
         </article>
         <article
-          class="lg:col-span-5 py-4 px-10 rounded-3xl text-4xl lg:text-5xl grid place-content-center text-center gap-y-8"
+          class="lg:col-span-5 py-4 px-10 rounded-3xl text-3xl md:text-4xl 2xl:text-5xl grid place-content-center text-center gap-y-8"
           :style="{ backgroundColor: bg, color: fg }"
         >
           <p>Have a project in mind?</p>
@@ -95,7 +95,7 @@ const social = [
           </p>
         </article>
         <article
-          class="lg:col-span-7 py-16 px-10 rounded-3xl text-4xl lg:text-5xl"
+          class="lg:col-span-7 py-16 px-10 rounded-3xl text-4xl 2xl:text-5xl"
           :style="{ backgroundColor: bg, color: fg }"
         >
           <p>
