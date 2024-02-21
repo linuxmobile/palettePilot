@@ -11,6 +11,7 @@
     "format": "prettier --write '**/*.{js,ts,vue}'"
   },
   "dependencies": {
+    "@types/chroma-js": "^2.4.4",
     "@unocss/nuxt": "^0.58.5",
     "chroma-js": "^2.4.2",
     "colorthief": "^2.4.0",
