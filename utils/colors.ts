@@ -1,4 +1,5 @@
 import ColorThief from 'colorthief'
+import chroma from 'chroma-js'
 import { type ColorWithRgbAndHex } from '~/types/colors'
 
 export function getLuminance(rgb: number[]) {
@@ -53,4 +54,61 @@ export function extractColorsFromImage(
     img.src = imageSrc
     img.crossOrigin = 'Anonymous'
   })
+}
+
+export function constructColorObject(scale: string[]) {
+  const BASE_LEVELS = [
+    50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950
+  ] as const
+
+  return scale.reduce((acc: ColorPalette, color: string, index: number) => {
+    acc[BASE_LEVELS[index]] = color
+    return acc
+  }, {})
+}
+
+export type ColorPalette = Record<string, string>
+export type Palette = Record<string, ColorPalette>
+
+export function generateColorScale(
+  baseColorHex: string,
+  prefix: string
+): Palette {
+  const scale = chroma
+    .scale([
+      chroma(baseColorHex).brighten(2.0),
+      baseColorHex,
+      chroma(baseColorHex).darken(3.5)
+    ])
+    .mode('lab')
+    .colors(11)
+
+  const colorObject = constructColorObject(scale)
+  return { [prefix]: colorObject }
+}
+
+export function generateIntegratedColorScale(
+  primaryColorHex: string,
+  accentColorHex: string
+): Palette {
+  const primary = chroma(primaryColorHex)
+  const accent = chroma(accentColorHex)
+  const startColor = primary.luminance() > accent.luminance() ? primary : accent
+  const endColor = primary.luminance() <= accent.luminance() ? primary : accent
+  const scale = chroma.scale([startColor, endColor]).mode('lab').colors(11)
+  const colorObject = constructColorObject(scale)
+
+  return { integrated: colorObject }
+}
+
+export function paletteToString(palette: Palette): string {
+  const [paletteName, colors] = Object.entries(palette)[0]
+
+  let paletteStr = `"${paletteName}": {\n`
+  Object.entries(colors).forEach(([level, color]) => {
+    paletteStr += `    "${level}": "${color}",\n`
+  })
+  paletteStr = paletteStr.slice(0, -2) + '\n  }'
+
+  return paletteStr
 }
