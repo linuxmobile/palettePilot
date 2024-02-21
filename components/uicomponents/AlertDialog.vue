@@ -32,7 +32,7 @@ const closeDialog = () => {
     v-if="isDialogOpen"
     role="alertdialog"
     aria-live="assertive"
-    class="grid place-content-center absolute inset-0 bg-black/60 z-24"
+    class="grid place-content-center fixed inset-0 bg-black/60 z-24"
   >
     <div
       class="flex flex-col gap-3 py-3 px-4 border border-zinc-600 rounded-md"
