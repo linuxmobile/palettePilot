@@ -2,15 +2,14 @@
 import { useColors } from '~/composables/useColors.ts'
 
 const { bg, fg } = useColors()
-
-const repoData = useState('repoData', () => ({
+const REPO_DATA = {
   title: 'palettePilot',
   description:
     'Explore Palette Pilot magic: transforming your images into color palettes and giving UI ideas. Perfect for creatives',
   language: 'Vue',
   stars: '1.2k',
   updated: 'Updated January 2024'
-}))
+}
 </script>
 <template>
   <article
@@ -19,7 +18,7 @@ const repoData = useState('repoData', () => ({
   >
     <section class="flex flex-col gap-y-3">
       <div class="flex justify-between w-full items-center">
-        <h2 class="font-bold text-2xl">{{ repoData.title }}</h2>
+        <h2 class="font-bold text-2xl">{{ REPO_DATA.title }}</h2>
         <NuxtLink
           to="https://github.com/linuxmobile/palettePilot"
           target="_blank"
@@ -28,12 +27,12 @@ const repoData = useState('repoData', () => ({
           >★ Star</NuxtLink
         >
       </div>
-      <p class="opacity-70">{{ repoData.description }}</p>
+      <p class="opacity-70">{{ REPO_DATA.description }}</p>
     </section>
     <footer class="flex items-center justify-between gap-x-5 opacity-60">
-      <p><span class="text-[#41B883]">●</span> {{ repoData.language }}</p>
-      <p>★ {{ repoData.stars }}</p>
-      <p>{{ repoData.updated }}</p>
+      <p><span class="text-[#41B883]">●</span> {{ REPO_DATA.language }}</p>
+      <p>★ {{ REPO_DATA.stars }}</p>
+      <p>{{ REPO_DATA.updated }}</p>
     </footer>
   </article>
 </template>

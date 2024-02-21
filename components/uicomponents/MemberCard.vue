@@ -2,13 +2,12 @@
 import { useColors } from '~/composables/useColors.ts'
 
 const { bg, fg } = useColors()
-
-const cardData = useState('cardData', () => ({
+const CARD_DATA = {
   avatar: 'https://ui.shadcn.com/avatars/01.png',
   userName: 'example',
   name: 'Sofia Davis',
   content: 'This is an example card component. We know, looks like twitter!'
-}))
+}
 </script>
 <template>
   <article
@@ -16,15 +15,15 @@ const cardData = useState('cardData', () => ({
     :style="{ backgroundColor: bg, color: fg }"
   >
     <header class="flex items-start gap-x-3">
-      <img :src="cardData.avatar" alt="Avatar" class="rounded-full size-16" />
+      <img :src="CARD_DATA.avatar" alt="Avatar" class="rounded-full size-16" />
       <div class="leading-none">
-        <h2 class="font-bold text-2xl">{{ cardData.name }}</h2>
-        <p class="text-lg opacity-60">@{{ cardData.userName }}</p>
+        <h2 class="font-bold text-2xl">{{ CARD_DATA.name }}</h2>
+        <p class="text-lg opacity-60">@{{ CARD_DATA.userName }}</p>
       </div>
     </header>
     <main class="pt-4">
       <section>
-        <p class="text-lg opacity-70">{{ cardData.content }}</p>
+        <p class="text-lg opacity-70">{{ CARD_DATA.content }}</p>
       </section>
     </main>
   </article>

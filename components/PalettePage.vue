@@ -1,11 +1,16 @@
-<script setup>
+<script setup lang="ts">
+import { ref } from 'vue'
 import SideBar from '~/components/SideBar.vue'
 import UIComponents from '~/components/UIComponents.vue'
 import MinimalistExample from '~/components/MinimalistExample.vue'
 import SelectButton from 'primevue/selectbutton'
 
-const value = useState('value', () => 'Minimalist Example')
-const options = useState('options', () => ['Minimalist Example', 'UI Elements'])
+const DEMO = {
+  LANDING_EXAMPLE: 'Minimalist Example',
+  UI_ELEMENTS: 'UI Elements'
+}
+const OPTIONS = [DEMO.LANDING_EXAMPLE, DEMO.UI_ELEMENTS]
+const selectedOption = ref(DEMO.LANDING_EXAMPLE)
 </script>
 
 <template>
@@ -15,15 +20,15 @@ const options = useState('options', () => ['Minimalist Example', 'UI Elements'])
       class="lg:col-span-9 pt-18 grid justify-items-center overflow-y-auto h-100dvh"
     >
       <SelectButton
-        v-model="value"
-        :options="options"
+        v-model="selectedOption"
+        :options="OPTIONS"
         aria-labelledby="basic"
         :pt="{
           button:
             'bg-gray-100 text-gray-600 dark:bg-neutral-900 dark:text-gray-400'
         }"
       />
-      <MinimalistExample v-if="value === 'Minimalist Example'" />
+      <MinimalistExample v-if="selectedOption === DEMO.LANDING_EXAMPLE" />
       <UIComponents v-else />
     </div>
   </main>
