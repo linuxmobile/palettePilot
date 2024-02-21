@@ -2,17 +2,22 @@
 import Logo from '~/icons/Logo.vue'
 import Twitter from '~/icons/Twitter.vue'
 import Github from '~/icons/Github.vue'
+import Moon from '~/icons/Moon.vue'
+import Sun from '~/icons/Sun.vue'
+
+const THEMES = {
+  LIGHT: 'light',
+  DARK: 'dark'
+}
 
 const colorMode = useColorMode()
 
-const setDarkMode = () => {
-  colorMode.value = 'dark'
-}
-
-const setLightMode = () => {
-  colorMode.value = 'light'
+const toggleTheme = () => {
+  const actualTheme = colorMode.value
+  colorMode.value = actualTheme === THEMES.DARK ? THEMES.LIGHT : THEMES.DARK
 }
 </script>
+
 <template>
   <header
     class="w-full absolute z-10 top-0 flex items-center justify-between px-5 py-6 [&>*]:flex [&>*]:items-center [&>*]:justify-center [&>*]:gap-x-3 bg-gradient-to-b from-white via-white dark:from-black dark:via-black to-transparent"
@@ -23,18 +28,19 @@ const setLightMode = () => {
     </a>
     <div class="[&>a>svg]:size-6">
       <ClientOnly>
-        <div class="flex gap-x-3 pr-6">
+        <div
+          class="inline-flex items-center p-[1px] rounded-3xl bg-orange-200 dark:bg-neutral-600/50 border dark:border-gray-600/60 border-orange-300"
+        >
           <button
-            @click="setDarkMode"
-            :class="{ 'opacity-40': colorMode.value === 'light' }"
+            v-for="t in Object.values(THEMES)"
+            :key="t"
+            class="cursor-pointer rounded-3xl p-2"
+            :class="{ 'bg-white text-black': t === colorMode.value }"
+            @click="toggleTheme"
+            aria-label="Toggle theme"
           >
-            Dark
-          </button>
-          <button
-            @click="setLightMode"
-            :class="{ 'opacity-40': colorMode.value === 'dark' }"
-          >
-            Light
+            <Moon v-if="t === THEMES.DARK" />
+            <Sun v-else />
           </button>
         </div>
       </ClientOnly>
