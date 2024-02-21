@@ -5,16 +5,10 @@ import { useToast } from 'primevue/usetoast'
 import { useColors } from '~/composables/useColors.ts'
 
 const toast = useToast()
-const { accentColor, primaryColor } = useColors()
-const bg = computed(() =>
-  primaryColor.value ? primaryColor.value.hex : '#FFFFFF'
-)
-const fg = computed(() =>
-  accentColor.value ? accentColor.value.hex : '#000000'
-)
+const { bg, fg, primaryColor, accentColor } = useColors()
 
 function generateColorScale(baseColorHex, prefix) {
-  let scale = chroma
+  const scale = chroma
     .scale([
       chroma(baseColorHex).brighten(2.0),
       baseColorHex,
@@ -35,39 +29,50 @@ function generateColorScale(baseColorHex, prefix) {
 }
 
 const lighterColor = computed(() => {
-  const primary = primaryColor.value ? chroma(primaryColor.value.hex) : chroma('#FFFFFF')
-  const accent = accentColor.value ? chroma(accentColor.value.hex) : chroma('#000000')
+  const primary = primaryColor.value
+    ? chroma(primaryColor.value.hex)
+    : chroma('#FFFFFF')
+  const accent = accentColor.value
+    ? chroma(accentColor.value.hex)
+    : chroma('#000000')
   return primary.luminance() > accent.luminance() ? accent.hex() : primary.hex()
 })
 
 const darkerColor = computed(() => {
-  const primary = primaryColor.value ? chroma(primaryColor.value.hex) : chroma('#FFFFFF')
-  const accent = accentColor.value ? chroma(accentColor.value.hex) : chroma('#000000')
-  return primary.luminance() <= accent.luminance() ? accent.hex() : primary.hex()
+  const primary = primaryColor.value
+    ? chroma(primaryColor.value.hex)
+    : chroma('#FFFFFF')
+  const accent = accentColor.value
+    ? chroma(accentColor.value.hex)
+    : chroma('#000000')
+  return primary.luminance() <= accent.luminance()
+    ? accent.hex()
+    : primary.hex()
 })
 
 function generateIntegratedColorScale() {
-  const primary = primaryColor.value ? chroma(primaryColor.value.hex) : chroma('#FFFFFF');
-  const accent = accentColor.value ? chroma(accentColor.value.hex) : chroma('#000000');
+  const primary = primaryColor.value
+    ? chroma(primaryColor.value.hex)
+    : chroma('#FFFFFF')
+  const accent = accentColor.value
+    ? chroma(accentColor.value.hex)
+    : chroma('#000000')
 
-  const startColor = primary.luminance() > accent.luminance() ? primary : accent;
-  const endColor = primary.luminance() <= accent.luminance() ? primary : accent;
+  const startColor = primary.luminance() > accent.luminance() ? primary : accent
+  const endColor = primary.luminance() <= accent.luminance() ? primary : accent
 
-  let scale = chroma.scale([startColor, endColor])
-    .mode('lab')
-    .colors(11);
+  const scale = chroma.scale([startColor, endColor]).mode('lab').colors(11)
 
   const colorObject = scale.reduce((acc, color, index) => {
-    const baseLevels = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950];
-    acc[baseLevels[index]] = color;
-    return acc;
-  }, {});
+    const baseLevels = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950]
+    acc[baseLevels[index]] = color
+    return acc
+  }, {})
 
   return {
     integrated: colorObject
-  };
+  }
 }
-
 
 const integratedPalette = computed(() => generateIntegratedColorScale())
 const primaryPalette = computed(() => generateColorScale(bg.value, 'primary'))
@@ -92,7 +97,9 @@ function paletteToString(palette) {
 
 const primaryPaletteString = computed(() => paletteToString(primaryPalette))
 const accentPaletteString = computed(() => paletteToString(accentPalette))
-const integratedPaletteString = computed(() => paletteToString(integratedPalette))
+const integratedPaletteString = computed(() =>
+  paletteToString(integratedPalette)
+)
 
 const copyToClipboard = async text => {
   try {
@@ -188,10 +195,13 @@ const copyToClipboard = async text => {
                 v-tooltip.top="`${key}: ${integratedPalette.integrated[key]}`"
                 class="aspect-square w-full md:h-10 2xl:h-auto"
                 :style="{ backgroundColor: integratedPalette.integrated[key] }"
-                @click="() => copyToClipboard(integratedPalette.integrated[key])"
+                @click="
+                  () => copyToClipboard(integratedPalette.integrated[key])
+                "
               >
                 <span class="sr-only">
-                  Copy hex color {{ integratedPalette.integrated[key] }} to clipboard
+                  Copy hex color {{ integratedPalette.integrated[key] }} to
+                  clipboard
                 </span>
               </button>
             </div>
