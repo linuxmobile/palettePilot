@@ -1,11 +1,9 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { ref } from 'vue'
 import { useColors } from '~/composables/useColors'
 
 const isDialogOpen = ref(false)
-const { accentColor, primaryColor } = useColors()
-const bg = computed(() => primaryColor?.value?.hex ?? '#000000')
-const fg = computed(() => accentColor?.value?.hex ?? '#000000')
+const { bg, fg } = useColors()
 
 const openDialog = () => {
   isDialogOpen.value = true

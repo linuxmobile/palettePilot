@@ -26,6 +26,9 @@ export const useColors = () => {
     ).toFixed(2)
   })
 
+  const bg = computed(() => primaryColor?.value?.hex ?? '#000000')
+  const fg = computed(() => accentColor?.value?.hex ?? '#ffffff')
+
   const swapColors = (): void => {
     ;[primaryColor.value, accentColor.value] = [
       accentColor.value,
@@ -38,6 +41,8 @@ export const useColors = () => {
     primaryColor,
     accentColor,
     contrastRatio,
+    bg,
+    fg,
     selectPrimaryColor,
     selectAccentColor,
     setImageColors,
