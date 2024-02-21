@@ -14,7 +14,7 @@ const { copyToClipboard } = useClipboard()
 </script>
 <template>
   <div class="flex flex-col gap-1">
-    <h5 class="font-bold text-white text-sm">{{ title }}</h5>
+    <h5 class="font-bold text-gray-600 dark:text-gray-300 text-sm">{{ title }}</h5>
     <div class="flex">
       <button
         v-for="key in Object.keys(palette)"

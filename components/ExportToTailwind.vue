@@ -42,12 +42,12 @@ const visible = useState('modalVisible', () => false)
         class="flex flex-col items-center justify-center gap-3 px-12 py-6 2xl:py-14"
       >
         <header
-          class="w-full border-b border-gray-500 font-semibold text-xl text-white"
+          class="w-full border-b border-gray-500 font-semibold text-xl text-gray-600 dark:text-gray-300"
         >
           <h3>Export Code</h3>
         </header>
         <div
-          class="w-full grid grid-cols-3 place-content-center gap-x-24 gap-y-3 [&>h4]:font-semibold [&>h4]:text-sm [&>h4]:2xl:text-lg [&>h4]:text-white [&>pre]:text-sm [&>pre]:2xl:text-normal [&>pre]:relative"
+          class="w-full grid grid-cols-3 place-content-center gap-x-24 gap-y-3 [&>h4]:font-semibold [&>h4]:text-sm [&>h4]:2xl:text-lg [&>h4]:text-gray-600 [&>h4]:dark:text-gray-300 [&>pre]:text-sm [&>pre]:2xl:text-normal [&>pre]:relative"
         >
           <h4>Primary Palette</h4>
           <h4>Accent Palette</h4>
