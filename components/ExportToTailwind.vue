@@ -1,12 +1,11 @@
 <script setup>
-import chroma from 'chroma-js'
 import { useColors } from '~/composables/useColors.ts'
 import { useGeneratedPalette } from '~/composables/useGeneratedPalette.ts'
 import { useClipboard } from '~/composables/useClipboard.ts'
 import Dialog from 'primevue/dialog'
 import ColorPalette from '~/components/ColorPalette.vue'
 
-const { bg, fg, primaryColor, accentColor } = useColors()
+const { bg, fg} = useColors()
 
 const {
   primaryPalette,
