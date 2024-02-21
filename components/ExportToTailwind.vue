@@ -126,7 +126,7 @@ const copyToClipboard = async text => {
     v-model:visible="visible"
     modal
     :pt="{
-      root: 'border-none bg-gray-100 text-gray-600 dark:bg-neutral-900 dark:text-gray-400',
+      root: 'border-none bg-gray-100 text-gray-600 dark:bg-neutral-900 dark:text-gray-400 overflow-y-auto',
       mask: {
         style: 'backdrop-filter: blur(2px)'
       }
