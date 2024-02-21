@@ -1,14 +1,7 @@
 <script setup>
 import { useColors } from '~/composables/useColors.ts'
 
-const { accentColor, primaryColor } = useColors()
-
-const bg = computed(() =>
-  primaryColor.value ? primaryColor.value.hex : '#FFFFFF'
-)
-const fg = computed(() =>
-  accentColor.value ? accentColor.value.hex : '#000000'
-)
+const { bg, fg } = useColors()
 
 const repoData = useState('repoData', () => ({
   title: 'palettePilot',
