@@ -7,9 +7,11 @@ import WorkingCard from '~/components/uicomponents/WorkingCard.vue'
 import ProjectCard from '~/components/uicomponents/ProjectCard.vue'
 import PaymentCard from '~/components/uicomponents/PaymentCard.vue'
 import MovieCard from '~/components/uicomponents/MovieCard.vue'
+import ScheduleCard from '~/components/uicomponents/ScheduleCard.vue'
+import Counter from '~/components/uicomponents/Counter.vue'
 </script>
 <template>
-  <main
+  <div
     class="pt-12 w-full h-full px-3 grid content-start grid-cols-9 gap-x-4 gap-y-3 select-none"
   >
     <section class="col-span-full lg:col-span-3 flex flex-col gap-y-3">
@@ -21,10 +23,12 @@ import MovieCard from '~/components/uicomponents/MovieCard.vue'
     <section class="col-span-full lg:col-span-3 flex flex-col gap-y-3">
       <GithubRepo />
       <WorkingCard />
+      <Counter/>
     </section>
     <section class="col-span-full lg:col-span-3 flex flex-col gap-y-3">
       <ListenNow />
       <ProjectCard />
+      <ScheduleCard/>
     </section>
-  </main>
+  </div>
 </template>

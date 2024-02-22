@@ -21,43 +21,51 @@ const closeDialog = () => {
 </script>
 
 <template>
-  <button
-    class="text-sm font-semibold py-2 px-8 border border-zinc-700 rounded-md"
-    @click="openDialog"
-    :style="{ backgroundColor: bg, color: fg }"
-  >
-    Show alert dialog
-  </button>
-  <div
-    v-if="isDialogOpen"
-    role="alertdialog"
-    aria-live="assertive"
-    class="grid place-content-center absolute inset-0 bg-black/60 z-24"
-  >
-    <div
-      class="flex flex-col gap-3 py-3 px-4 border border-zinc-600 rounded-md"
-      :style="{ backgroundColor: bg }"
+  <div class="rounded-xl px-8 py-5 flex flex-col justify-center gap-y-2 relative" :style="{ backgroundColor: bg, color: fg }">
+    <h4 class="font-semibold text-2xl">Create An Account</h4>
+    <div class="flex flex-col gap-y-2">
+      <p class="text-sm opacity-80">Username</p>
+      <p class="rounded-lg w-full py-2 px-2 opacity-60" :style="{ backgroundColor: fg, color: bg }">sofi@davis</p>
+      <small id="username-help">Enter your username to reset your password.</small>
+    </div>
+    <button
+      class="text-sm font-bold py-2 px-8 rounded-lg"
+      :style="{ backgroundColor: fg, color: bg }"
+      @click="openDialog"
     >
-      <p class="font-bold text-base lg:text-lg" :style="{ color: fg }">
-        Are you sure?
-      </p>
-      <p class="text-xs lg:text-sm font-light" :style="{ color: fg }">
-        This action is permanent, you won't be able to undo it.
-      </p>
-      <div class="flex flex-wrap items-center justify-end gap-3 mt-5">
-        <button
-          class="text-sm font-semibold py-2 px-8 border border-zinc-700 rounded-md"
-          @click="closeDialog"
-          :style="{ color: fg }"
-        >
-          Cancel
-        </button>
-        <button
-          class="text-sm font-semibold py-2 px-8 border border-zinc-700 rounded-md"
-          :style="{ backgroundColor: bg, color: fg }"
-        >
-          Confirm
-        </button>
+      Show alert dialog
+    </button>
+    <div
+      v-if="isDialogOpen"
+      role="alertdialog"
+      aria-live="assertive"
+      class="grid place-content-center absolute inset-0 bg-black/60 z-24 rounded-xl"
+    >
+      <div
+        class="flex flex-col gap-3 py-3 px-4 border border-zinc-600 rounded-md"
+        :style="{ backgroundColor: bg }"
+      >
+        <p class="font-bold text-base lg:text-lg" :style="{ color: fg }">
+          Are you sure?
+        </p>
+        <p class="text-xs lg:text-sm font-light" :style="{ color: fg }">
+          This action is permanent, you won't be able to undo it.
+        </p>
+        <div class="flex flex-wrap items-center justify-end gap-3 mt-5">
+          <button
+            class="text-sm font-semibold py-2 px-8 border border-zinc-700 rounded-md"
+            @click="closeDialog"
+            :style="{ backgroundColor: fg, color: bg }"
+          >
+            Cancel
+          </button>
+          <button
+            class="text-sm font-semibold py-2 px-8 border border-zinc-700 rounded-md"
+            :style="{ backgroundColor: fg, color: bg }"
+          >
+            Confirm
+          </button>
+        </div>
       </div>
     </div>
   </div>
