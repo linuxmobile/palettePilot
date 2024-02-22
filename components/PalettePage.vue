@@ -14,7 +14,7 @@ const selectedOption = ref(DEMO.LANDING_EXAMPLE)
 </script>
 
 <template>
-  <main class="grid grid-cols-1 lg:grid-cols-12">
+  <section class="grid grid-cols-1 lg:grid-cols-12 py-12 md:py-0">
     <SideBar />
     <div
       class="lg:col-span-9 pt-18 grid justify-items-center overflow-y-auto h-100dvh"
@@ -31,5 +31,5 @@ const selectedOption = ref(DEMO.LANDING_EXAMPLE)
       <MinimalistExample v-if="selectedOption === DEMO.LANDING_EXAMPLE" />
       <UIComponents v-else />
     </div>
-  </main>
+  </section>
 </template>

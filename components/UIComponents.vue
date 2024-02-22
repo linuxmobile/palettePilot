@@ -12,7 +12,7 @@ import Counter from '~/components/uicomponents/Counter.vue'
 </script>
 <template>
   <div
-    class="pt-12 w-full h-full px-3 grid content-start grid-cols-9 gap-x-4 gap-y-3 select-none"
+    class="pt-12 w-full h-full px-3 pb-6 grid content-start grid-cols-9 gap-x-4 gap-y-3 select-none"
   >
     <section class="col-span-full lg:col-span-3 flex flex-col gap-y-3">
       <MemberCard />

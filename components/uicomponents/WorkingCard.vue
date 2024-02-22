@@ -6,7 +6,7 @@ const { bg, fg } = useColors()
 </script>
 <template>
   <div class="relative">
-    <img src="/working.webp" alt="working card example" class="w-full h-auto aspect-video object-cover rounded-xl" :style="{ backgroundColor: bg, color: fg }"/>
+    <img src="/working.webp" alt="working card example" class="w-full h-auto aspect-video object-cover rounded-xl min-h-xs" :style="{ backgroundColor: bg, color: fg }"/>
     <div class="w-full h-full rounded-xl top-0 inset-x-0 absolute" :style="{background: `linear-gradient(-90deg, rgba(0,0,0,0) 0%, ${bg})`}"></div>
     <div class="w-full h-full rounded-xl top-0 inset-x-o absolute z-10 px-8 py-5 flex flex-col gap-y-1" :style="{ color: fg }">
       <h4 class="text-4xl font-semibold">Work With Us</h4>

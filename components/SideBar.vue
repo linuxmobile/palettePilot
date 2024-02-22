@@ -67,7 +67,7 @@ const copyToClipboard = async (text: string) => {
       </picture>
       <FileUpload />
     </header>
-    <main class="pt-10 flex flex-col gap-y-4">
+    <div class="pt-10 flex flex-col gap-y-4">
       <section
         class="font-medium text-xl text-gray-400 flex flex-col items-start justify-center gap-y-3"
       >
@@ -149,6 +149,6 @@ const copyToClipboard = async (text: string) => {
         </button>
       </section>
       <ExportToTailwind />
-    </main>
+    </div>
   </aside>
 </template>

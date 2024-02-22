@@ -46,7 +46,7 @@ const visible = useState('modalVisible', () => false)
           <h3>Export Code</h3>
         </header>
         <div
-          class="w-full grid grid-cols-3 place-content-center gap-x-24 gap-y-3 [&>h4]:font-semibold [&>h4]:text-sm [&>h4]:2xl:text-lg [&>h4]:text-gray-600 [&>h4]:dark:text-gray-300 [&>pre]:text-sm [&>pre]:2xl:text-normal [&>pre]:relative"
+          class="w-full grid grid-cols-1 2xl:grid-cols-3 place-content-center gap-x-24 gap-y-3 [&>h4]:font-semibold [&>h4]:text-sm [&>h4]:2xl:text-lg [&>h4]:text-gray-600 [&>h4]:dark:text-gray-300 [&>pre]:text-sm [&>pre]:2xl:text-normal [&>pre]:relative"
         >
           <h4>Primary Palette</h4>
           <h4>Accent Palette</h4>

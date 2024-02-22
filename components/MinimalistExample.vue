@@ -12,7 +12,7 @@ const social = [
 ]
 </script>
 <template>
-  <main class="pt-12 pb-6 w-full px-3 pr-4 font-semibold select-none">
+  <div class="pt-12 pb-6 w-full px-3 pr-4 font-semibold select-none">
     <header
       class="w-full h-14 bg-gray-200 dark:bg-neutral-900 rounded-t-2xl border-b border-gray-400 dark:border-neutral-600 px-6 flex items-center justify-center"
     >
@@ -32,7 +32,7 @@ const social = [
     <section
       class="w-full rounded-b-2xl bg-gray-200 dark:bg-neutral-900 px-2 lg:px-10 py-6 lg:max-w-none"
     >
-      <main
+      <div
         class="grid grid-cols-none grid-flow-col lg:grid-cols-12 grid-flow-row auto-rows-max gap-2"
       >
         <header
@@ -106,7 +106,7 @@ const social = [
           <p>jenny wilson.</p>
           <p class="opacity-70">© 2023 Stealth Ltd. No Rights Reserved.</p>
         </footer>
-      </main>
+      </div>
     </section>
-  </main>
+  </div>
 </template>

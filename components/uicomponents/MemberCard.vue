@@ -21,10 +21,10 @@ const CARD_DATA = {
         <p class="text-lg opacity-60">@{{ CARD_DATA.userName }}</p>
       </div>
     </header>
-    <main class="pt-4">
+    <div class="pt-4">
       <section>
         <p class="text-lg opacity-70">{{ CARD_DATA.content }}</p>
       </section>
-    </main>
+    </div>
   </article>
 </template>
