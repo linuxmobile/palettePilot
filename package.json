@@ -22,6 +22,7 @@
   },
   "devDependencies": {
     "@nuxtjs/color-mode": "latest",
+    "@nuxtjs/seo": "latest",
     "@rushstack/eslint-patch": "1.7.2",
     "@types/chroma-js": "^2.4.4",
     "@typescript-eslint/eslint-plugin": "^6.4.0",
