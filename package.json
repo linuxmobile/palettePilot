@@ -1,7 +1,9 @@
 {
-  "name": "nuxt-app",
+  "name": "palette-pilot",
   "private": true,
   "type": "module",
+  "author": "Braian Diez",
+  "license": "MIT",
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",

@@ -1,75 +1,26 @@
-# Nuxt 3 Minimal Starter
+# [Palette Pilot](https://palette-pilot.vercel.app/)
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+Palette Pilot is an open source project built with Nuxt.js that helps you extract the most relevant colors from an image. With Palette Pilot, you can easily drop or upload an image and instantly discover the five most prominent colors within it.
 
-## Setup
+## Features
 
-Make sure to install the dependencies:
+- Extract the 5 most relevant colors from an image
+- Compare colors to check their contrast ratios
+- Visualize color combinations with UI elements examples
 
-```bash
-# npm
-npm install
+## Why Palette Pilot?
 
-# pnpm
-pnpm install
+- Simplicity: Palette Pilot offers a user-friendly interface that makes it easy to extract colors and compare them.
+- Efficiency: Save time by quickly identifying the most relevant colors within an image.
+- Design-friendly: Whether you're a designer, developer, or enthusiast, Palette Pilot helps you pick colors that work harmoniously together.
 
-# yarn
-yarn install
+## Run locally
 
-# bun
-bun install
-```
+- Clone the repository: `git clone https://github.com/your-username/palette-pilot.git`
+- Navigate to the project directory: `cd palette-pilot`
+- Install dependencies: `bun install`
+- Start the development server: `bun run dev`
 
-## Development Server
+## License
 
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm run dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm run build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm run preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+Palette Pilot is released under the MIT License.
