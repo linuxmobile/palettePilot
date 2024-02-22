@@ -7,7 +7,7 @@ import PalettePage from '~/components/PalettePage.vue'
 useHead({
   bodyAttrs: {
     class:
-      'text-black bg-white dark:bg-black dark:text-white transition-colors ease-in-out duration-200 lg:overflow-hidden'
+      'text-black bg-white dark:bg-black dark:text-white transition-colors ease-in-out duration-200 2xl:overflow-hidden'
   }
 })
 

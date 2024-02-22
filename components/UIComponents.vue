@@ -14,18 +14,18 @@ import Counter from '~/components/uicomponents/Counter.vue'
   <div
     class="pt-12 w-full h-full px-3 pb-6 grid content-start grid-cols-9 gap-x-4 gap-y-3 select-none"
   >
-    <section class="col-span-full lg:col-span-3 flex flex-col gap-y-3">
+    <section class="col-span-full md:col-span-4 2xl:col-span-3 flex flex-col gap-y-3">
       <MemberCard />
       <AlertDialog />
       <PaymentCard />
       <MovieCard />
     </section>
-    <section class="col-span-full lg:col-span-3 flex flex-col gap-y-3">
+    <section class="col-span-full md:col-span-4 2xl:col-span-3 flex flex-col gap-y-3">
       <GithubRepo />
       <WorkingCard />
       <Counter/>
     </section>
-    <section class="col-span-full lg:col-span-3 flex flex-col gap-y-3">
+    <section class="col-span-full md:col-span-4 2xl:col-span-3 flex flex-col gap-y-3">
       <ListenNow />
       <ProjectCard />
       <ScheduleCard/>
