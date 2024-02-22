@@ -21,12 +21,22 @@ const closeDialog = () => {
 </script>
 
 <template>
-  <div class="rounded-xl px-8 py-5 flex flex-col justify-center gap-y-2 relative" :style="{ backgroundColor: bg, color: fg }">
+  <div
+    class="rounded-xl px-8 py-5 flex flex-col justify-center gap-y-2 relative"
+    :style="{ backgroundColor: bg, color: fg }"
+  >
     <h4 class="font-semibold text-2xl">Create An Account</h4>
     <div class="flex flex-col gap-y-2">
       <p class="text-sm opacity-80">Username</p>
-      <p class="rounded-lg w-full py-2 px-2 opacity-60" :style="{ backgroundColor: fg, color: bg }">sofi@davis</p>
-      <small id="username-help">Enter your username to reset your password.</small>
+      <p
+        class="rounded-lg w-full py-2 px-2 opacity-60"
+        :style="{ backgroundColor: fg, color: bg }"
+      >
+        sofi@davis
+      </p>
+      <small id="username-help"
+        >Enter your username to reset your password.</small
+      >
     </div>
     <button
       class="text-sm font-bold py-2 px-8 rounded-lg"
