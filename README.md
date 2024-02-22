@@ -7,6 +7,7 @@ Palette Pilot is an open source project built with Nuxt.js that helps you extrac
 - Extract the 5 most relevant colors from an image
 - Compare colors to check their contrast ratios
 - Visualize color combinations with UI elements examples
+- Export the generated palette to [TailwindCSS](https://tailwindcss.com/)
 
 ## Why Palette Pilot?
 
