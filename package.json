@@ -14,13 +14,13 @@
   },
   "dependencies": {
     "@unocss/nuxt": "^0.58.5",
-    "chroma-js": "^2.4.2",
     "colorthief": "^2.4.0",
     "nuxt": "^3.10.1",
     "vue": "^3.4.15",
     "vue-router": "^4.2.5"
   },
   "devDependencies": {
+    "chroma-js": "^2.4.2",
     "@nuxtjs/color-mode": "latest",
     "@nuxtjs/seo": "latest",
     "@rushstack/eslint-patch": "1.7.2",
@@ -34,6 +34,7 @@
     "eslint-plugin-import": "^2.25.2",
     "eslint-plugin-n": "^15.0.0",
     "eslint-plugin-vue": "latest",
+    "html-to-image": "^1.11.11",
     "nuxt-primevue": "latest",
     "prettier": "3.2.5",
     "typescript": "5.3.3",
