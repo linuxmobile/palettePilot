@@ -1,5 +1,7 @@
 # [Palette Pilot](https://palette-pilot.vercel.app/)
 
+<img src="https://i.imgur.com/Fa2MDsZ.png" alt="Screenshot Capture of Palette Pilot App" width="900px" />
+
 Palette Pilot is an open source project built with Nuxt.js that helps you extract the most relevant colors from an image. With Palette Pilot, you can easily drop or upload an image and instantly discover the five most prominent colors within it.
 
 ## Features
