@@ -20,7 +20,7 @@ Palette Pilot is an open source project built with Nuxt.js that helps you extrac
 - Clone the repository: `git clone https://github.com/linuxmobile/palettePilot.git`
 - Navigate to the project directory: `cd palettePilot`
 - Install dependencies: `bun install`
-- Start the development server: `bun run dev`
+- Start the development server: `bun run dev` or `bun run dev -o` to directly visualize the project
 
 ## License
 
