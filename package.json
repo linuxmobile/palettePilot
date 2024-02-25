@@ -14,6 +14,8 @@
   },
   "dependencies": {
     "@unocss/nuxt": "^0.58.5",
+    "@vercel/kv": "1.0.1",
+    "cloudinary": "2.0.1",
     "colorthief": "^2.4.0",
     "nuxt": "^3.10.1",
     "vue": "^3.4.15",
