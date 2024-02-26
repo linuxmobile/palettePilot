@@ -25,7 +25,8 @@ const selectedOption = ref(DEMO.LANDING_EXAMPLE)
         aria-labelledby="basic"
         :pt="{
           button:
-            'bg-gray-100 text-gray-600 dark:bg-neutral-900 dark:text-gray-400'
+            'text-gray-700 dark:text-gray-400 focus:text-purple-500 hover:text-purple-500 dark:focus:text-purple-400 dark:hover:text-purple-400 bg-gray-100 dark:bg-neutral-800 before:bg-transparent min-w-[172px]',
+          root: 'flex flex-wrap justify-center items-center justify-center gap-4'
         }"
       />
       <MinimalistExample v-if="selectedOption === DEMO.LANDING_EXAMPLE" />
