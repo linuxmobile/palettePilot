@@ -41,15 +41,17 @@ export default eventHandler(async event => {
     imageUrl = await uploadImageFromBase64(base64Image)
     await kv.setItem(imageHash, imageUrl)
     log('info', '✅ Image uploaded and saved in KV store...')
-  } catch {
-    log(
-      'error',
-      '❌ Error while uploading image to Cloudinary and saving it in KV store...'
-    )
-    throw createError({
-      statusCode: 500,
-      statusMessage: 'Could not generate palette. Try again!'
-    })
+  } catch (error) {
+    if (error instanceof Error) {
+      log(
+        'error',
+        `❌ Error while uploading image to Cloudinary and saving it in KV store... [${error.message}]`
+      )
+      throw createError({
+        statusCode: 500,
+        statusMessage: 'Could not generate palette. Try again!'
+      })
+    }
   }
 
   return {
