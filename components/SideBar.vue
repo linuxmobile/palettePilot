@@ -10,6 +10,7 @@ import { useColors } from '~/composables/useColors'
 import { type ColorWithRgbAndHex } from '~/types/colors'
 
 const toast = useToast()
+const config = useRuntimeConfig()
 const { imageSrc } = useImage()
 const {
   imageColors,
@@ -23,7 +24,7 @@ const {
 
 const paletteUrlToShare = computed(() => {
   if (imageSrc.value === '') return ''
-  return import.meta.env.NUXT_PUBLIC_APP_URL + window.location.search.toString()
+  return config.public.baseUrl + window.location.search.toString()
 })
 
 const dropdownOptions = computed(() =>

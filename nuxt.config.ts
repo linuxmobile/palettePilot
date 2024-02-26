@@ -18,6 +18,9 @@ export default defineNuxtConfig({
     }
   },
   runtimeConfig: {
+    public: {
+      baseUrl: import.meta.env.NUXT_PUBLIC_APP_URL
+    },
     kvUrl: import.meta.env.KV_URL,
     kvRestApiUrl: import.meta.env.KV_REST_API_URL,
     kvRestApiToken: import.meta.env.KV_REST_API_TOKEN,
