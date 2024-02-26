@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { useImage } from '~/composables/useImage'
-import { useColors } from '~/composables/useColors'
 import { extractColorsFromImage } from '~/utils/colors'
 import { stripError } from '~/utils/errors'
 import { MAX_BYTES_SIZE } from '~/consts/files'

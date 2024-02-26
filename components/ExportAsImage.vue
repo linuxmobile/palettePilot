@@ -1,10 +1,6 @@
 <script setup>
-import { ref } from 'vue'
 import { toPng } from 'html-to-image'
-import { useColors } from '~/composables/useColors.ts'
-import { useGeneratedPalette } from '~/composables/useGeneratedPalette.ts'
 import Dialog from 'primevue/dialog'
-import ColorPalette from '~/components/ColorPalette.vue'
 
 const { imageColors, bg, fg } = useColors()
 
@@ -14,7 +10,7 @@ const {
   integratedPalette,
 } = useGeneratedPalette(bg, fg)
 
-const exportAsImageModal = useState('exportAsImageModal', () => false)
+const exportAsImageModal = ref(false)
 
 const exportAsPNG = () => {
   const node = document.getElementById('paletteToPNG');
@@ -26,8 +22,8 @@ const exportAsPNG = () => {
 
   toPng(node)
     .then(function (dataUrl) {
-      const uniqueId = Math.floor(Math.random() * 1000000); // Genera un número aleatorio
-      const fileName = `random-palettePilot-${uniqueId}.png`;
+      const uniqueId = Math.floor(Math.random() * 1000000);
+      const fileName = `palettePilot-${uniqueId}.png`;
       const link = document.createElement('a');
       link.download = fileName;
       link.href = dataUrl;

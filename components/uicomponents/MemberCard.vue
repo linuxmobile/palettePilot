@@ -1,6 +1,4 @@
 <script setup>
-import { useColors } from '~/composables/useColors.ts'
-
 const { bg, fg } = useColors()
 const CARD_DATA = {
   avatar: 'https://ui.shadcn.com/avatars/01.png',

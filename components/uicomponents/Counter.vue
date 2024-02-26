@@ -1,7 +1,4 @@
 <script setup>
-import { ref, onMounted } from 'vue';
-import { useColors } from '~/composables/useColors.ts'
-
 const { bg, fg } = useColors()
 
 const launchDate = new Date('2024-02-22');

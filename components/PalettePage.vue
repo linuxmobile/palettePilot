@@ -1,8 +1,4 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import SideBar from '~/components/SideBar.vue'
-import UIComponents from '~/components/UIComponents.vue'
-import MinimalistExample from '~/components/MinimalistExample.vue'
 import SelectButton from 'primevue/selectbutton'
 
 const DEMO = {

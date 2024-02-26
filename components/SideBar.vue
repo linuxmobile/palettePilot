@@ -1,12 +1,7 @@
 <script setup lang="ts">
-import FileUpload from '~/components/FileUpload.vue'
-import ExportToTailwind from '~/components/ExportToTailwind.vue'
-import ExportAsImage from '~/components/ExportAsImage.vue'
 import Swap from '~/icons/Swap.vue'
 import Dropdown, { type DropdownChangeEvent } from 'primevue/dropdown'
 import { useToast } from 'primevue/usetoast'
-import { useImage } from '~/composables/useImage'
-import { useColors } from '~/composables/useColors'
 import { type ColorWithRgbAndHex } from '~/types/colors'
 
 const toast = useToast()
