@@ -13,6 +13,7 @@
     "format": "prettier --write '**/*.{js,ts,vue}'"
   },
   "dependencies": {
+    "@ivnatsr/color-logs": "1.0.3",
     "@unocss/nuxt": "^0.58.5",
     "@vercel/kv": "1.0.1",
     "cloudinary": "2.0.1",
