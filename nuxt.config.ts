@@ -18,11 +18,6 @@ export default defineNuxtConfig({
     }
   },
   runtimeConfig: {
-    public: {
-      baseUrl: import.meta.env.PROD
-        ? 'https://palette-pilot.vercel.app'
-        : 'http://localhost:3000'
-    },
     kvUrl: import.meta.env.KV_URL,
     kvRestApiUrl: import.meta.env.KV_REST_API_URL,
     kvRestApiToken: import.meta.env.KV_REST_API_TOKEN,
