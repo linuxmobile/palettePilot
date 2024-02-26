@@ -4,22 +4,20 @@ if (import.meta.browser) {
   throw new Error('Cloudinary functions can only be used server-side')
 }
 
-const CLOUD_NAME = process.env.CLOUDINARY_CLOUD_NAME
-const API_KEY = process.env.CLOUDINARY_API_KEY
-const API_SECRET = process.env.CLOUDINARY_API_SECRET
+const config = useRuntimeConfig()
 
-if (
-  CLOUD_NAME === undefined ||
-  API_KEY === undefined ||
-  API_SECRET === undefined
-) {
+const CLOUD_NAME = config.cloudinaryCloudName
+const API_KEY = config.cloudinaryApiKey
+const API_SECRET = config.cloudinaryApiSecret
+
+if (CLOUD_NAME === '' || API_KEY === '' || API_SECRET === '') {
   throw new Error('Missing Cloudinary env variables')
 }
 
 cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET
+  cloud_name: CLOUD_NAME,
+  api_key: API_KEY,
+  api_secret: API_SECRET
 })
 
 export async function uploadImageFromBase64(imageBase64: string) {

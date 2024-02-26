@@ -22,7 +22,15 @@ export default defineNuxtConfig({
       baseUrl: import.meta.env.PROD
         ? 'https://palette-pilot.vercel.app'
         : 'http://localhost:3000'
-    }
+    },
+    kvUrl: import.meta.env.KV_URL,
+    kvRestApiUrl: import.meta.env.KV_REST_API_URL,
+    kvRestApiToken: import.meta.env.KV_REST_API_TOKEN,
+    kvRestApiReadOnlyToken: import.meta.env.KV_REST_API_READ_ONLY_TOKEN,
+    cloudinaryUrl: import.meta.env.CLOUDINARY_URL,
+    cloudinaryCloudName: import.meta.env.CLOUDINARY_CLOUD_NAME,
+    cloudinaryApiKey: import.meta.env.CLOUDINARY_API_KEY,
+    cloudinaryApiSecret: import.meta.env.CLOUDINARY_API_SECRET
   },
   modules: [
     '@unocss/nuxt',
