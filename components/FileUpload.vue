@@ -2,26 +2,53 @@
 import { useImage } from '~/composables/useImage'
 import { useColors } from '~/composables/useColors'
 import { extractColorsFromImage } from '~/utils/colors'
+import { stripError } from '~/utils/errors'
 
 const { imageSrc, setImageSrc } = useImage()
 const { imageColors, setImageColors, selectPrimaryColor, selectAccentColor } =
   useColors()
+const isLoading = ref(false)
+const errorMsg = ref('')
+
+const fileChooserText = computed(() => {
+  return isLoading.value ? 'Generating palette...' : 'Choose an image'
+})
 
 const onUpload = (event: Event) => {
   const target = event.target as HTMLInputElement
-  const file = target.files ? target.files[0] : null
-  if (file === undefined) return
+  const file = target.files !== null ? target.files[0] : null
+  if (file == null) return
 
   const reader = new FileReader()
+  isLoading.value = true
+  errorMsg.value = ''
   reader.onload = async e => {
     // Reading as Data URL, result will always be a string
     // on successful read
     const result = e.target?.result as string
-    setImageSrc(result)
-    const extractedColors = await extractColorsFromImage(result)
-    setImageColors(extractedColors)
-    selectPrimaryColor(imageColors.value?.[0])
-    selectAccentColor(imageColors.value?.[1])
+    try {
+      const res = await $fetch('/api/palettes/save', {
+        method: 'POST',
+        body: {
+          imageBase64: result
+        }
+      })
+      setImageSrc(res.imageUrl as string)
+      const extractedColors = await extractColorsFromImage(result)
+      setImageColors(extractedColors)
+      selectPrimaryColor(imageColors.value?.[0])
+      selectAccentColor(imageColors.value?.[1])
+
+      const searchParams = new URLSearchParams()
+      searchParams.append('palette', res.imageHash)
+      window.history.replaceState(null, '', `?${searchParams.toString()}`)
+    } catch (error) {
+      if (error instanceof Error) {
+        errorMsg.value = stripError(error)
+      }
+    } finally {
+      isLoading.value = false
+    }
   }
   reader.readAsDataURL(file)
 }
@@ -34,12 +61,20 @@ const onUpload = (event: Event) => {
       class="flex flex-col items-center justify-center w-full rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-neutral-800 dark:bg-neutral-900 hover:bg-gray-100"
     >
       <div class="flex flex-col items-center justify-center py-3">
-        <p class="mb-2 text-gray-500 dark:text-gray-400">File Chooser</p>
+        <p class="mb-2 text-gray-500 dark:text-gray-400">
+          {{ fileChooserText }}
+        </p>
       </div>
-      <input id="dropzone-file" type="file" class="hidden" @change="onUpload" />
+      <input
+        :disabled="isLoading"
+        id="dropzone-file"
+        type="file"
+        class="hidden"
+        @change="onUpload"
+      />
     </label>
     <label
-      v-else
+      v-if="imageSrc === '' && !isLoading"
       for="dropzone-file"
       class="flex flex-col items-center justify-center w-full h-64 rounded-lg cursor-pointer bg-gray-200 dark:hover:bg-neutral-800 dark:bg-neutral-900 hover:bg-gray-300 min-w-xs md:min-w-xl"
     >
@@ -66,7 +101,24 @@ const onUpload = (event: Event) => {
           SVG, PNG, JPG or GIF (MAX. 800x400px)
         </p>
       </div>
-      <input id="dropzone-file" type="file" class="hidden" @change="onUpload" />
+      <input
+        :disabled="isLoading"
+        id="dropzone-file"
+        type="file"
+        class="hidden"
+        @change="onUpload"
+      />
     </label>
   </div>
+  <div
+    v-if="isLoading && imageSrc === ''"
+    class="grid place-content-center px-4"
+    role="alert"
+    aria-live="assertive"
+  >
+    <p class="font-bold text-4xl text-center">Generating Palette...</p>
+  </div>
+  <p class="text-red-500 text-center text-sm font-bold" v-if="errorMsg !== ''">
+    {{ errorMsg }}
+  </p>
 </template>
