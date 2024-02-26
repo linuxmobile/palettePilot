@@ -43,7 +43,7 @@ const exportAsPNG = () => {
   <button 
     class="w-full rounded-md py-3 bg-gray-100 text-gray-500 dark:text-gray-400 dark:bg-neutral-900" 
     @click="exportAsImageModal = true"
-  >Exportar como PNG</button>
+  >Export as PNG</button>
     <Dialog
     v-model:visible="exportAsImageModal"
     :pt="{
@@ -101,7 +101,7 @@ const exportAsPNG = () => {
           <button 
             @click="exportAsPNG"
             class="mt-4 p-1 2xl:p-3 w-full text-primary-50 border-1 border-white/30 rounded-md bg-gray-200 hover:bg-gray-300 dark:bg-neutral-800 dark:border-neutral-700 hover:dark:bg-neutral-700"
-          >Exportar como PNG</button>
+          >Export as PNG</button>
           <button
             @click="closeCallback"
             class="mt-4 p-1 2xl:p-3 w-full text-primary-50 border-1 border-white/30 rounded-md bg-gray-200 hover:bg-gray-300 dark:bg-neutral-800 dark:border-neutral-700 hover:dark:bg-neutral-700"
@@ -112,6 +112,4 @@ const exportAsPNG = () => {
       </section>
     </template>
   </Dialog>
-  <div>
-  </div>
 </template>
