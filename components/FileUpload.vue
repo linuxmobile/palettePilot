@@ -14,43 +14,38 @@ const fileChooserText = computed(() => {
   return isLoading.value ? 'Generating palette...' : 'Choose an image'
 })
 
-const onUpload = (event: Event) => {
+const onUpload = async (event: Event) => {
   const target = event.target as HTMLInputElement
   const file = target.files !== null ? target.files[0] : null
   if (file == null) return
 
-  const reader = new FileReader()
   isLoading.value = true
   errorMsg.value = ''
-  reader.onload = async e => {
-    // Reading as Data URL, result will always be a string
-    // on successful read
-    const result = e.target?.result as string
-    try {
-      const res = await $fetch('/api/palettes/save', {
-        method: 'POST',
-        body: {
-          imageBase64: result
-        }
-      })
-      setImageSrc(res.imageUrl as string)
-      const extractedColors = await extractColorsFromImage(result)
-      setImageColors(extractedColors)
-      selectPrimaryColor(imageColors.value?.[0])
-      selectAccentColor(imageColors.value?.[1])
 
-      const searchParams = new URLSearchParams()
-      searchParams.append('palette', res.imageHash)
-      window.history.replaceState(null, '', `?${searchParams.toString()}`)
-    } catch (error) {
-      if (error instanceof Error) {
-        errorMsg.value = stripError(error)
-      }
-    } finally {
-      isLoading.value = false
+  const formData = new FormData()
+  formData.append('image', file)
+
+  try {
+    const res = await $fetch('/api/palettes/save', {
+      method: 'POST',
+      body: formData
+    })
+    setImageSrc(res.imageUrl as string)
+    const extractedColors = await extractColorsFromImage(res.imageUrl as string)
+    setImageColors(extractedColors)
+    selectPrimaryColor(imageColors.value?.[0])
+    selectAccentColor(imageColors.value?.[1])
+
+    const searchParams = new URLSearchParams()
+    searchParams.append('palette', res.imageHash)
+    window.history.replaceState(null, '', `?${searchParams.toString()}`)
+  } catch (error) {
+    if (error instanceof Error) {
+      errorMsg.value = stripError(error)
     }
+  } finally {
+    isLoading.value = false
   }
-  reader.readAsDataURL(file)
 }
 </script>
 <template>
