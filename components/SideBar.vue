@@ -9,6 +9,7 @@ import { useImage } from '~/composables/useImage'
 import { useColors } from '~/composables/useColors'
 import { type ColorWithRgbAndHex } from '~/types/colors'
 
+const config = useRuntimeConfig()
 const toast = useToast()
 const { imageSrc } = useImage()
 const {
@@ -20,6 +21,11 @@ const {
   selectAccentColor,
   contrastRatio
 } = useColors()
+
+const paletteUrlToShare = computed(() => {
+  if (imageSrc.value === '') return ''
+  return config.public.baseUrl + window.location.search.toString()
+})
 
 const dropdownOptions = computed(() =>
   imageColors.value.map(color => ({ label: color.hex, value: color }))
@@ -138,13 +144,13 @@ const copyToClipboard = async (text: string) => {
           :key="index"
           class="relative w-full aspect-square h-auto rounded-lg"
           :style="{ backgroundColor: color.hex }"
-          aria-label="{{ checkIfColorSelected(color) ? 'Deselect' : 'Select' }} color with hex code {{ color.hex }} }}"
-        ></div>
+        />
         <button
           v-for="(color, index) in imageColors"
           :key="index"
           class="bg-gray-300 dark:bg-neutral-900 rounded-md 2xl:px-3 py-1 opacity-60 hover:opacity-100 text-xs 2xl:text-base"
           @click="copyToClipboard(color.hex)"
+          :aria-label="`Copy color with hex code ${color.hex} to clipboard`"
         >
           {{ color.hex }}
         </button>
@@ -153,6 +159,12 @@ const copyToClipboard = async (text: string) => {
         <ExportToTailwind />
         <ExportAsImage />
       </div>
+      <button
+        class="bg-gray-50 dark:hover:bg-neutral-800 dark:bg-neutral-900 hover:bg-gray-100 rounded-lg text-gray-500 dark:text-gray-400 py-3"
+        @click="() => copyToClipboard(paletteUrlToShare)"
+      >
+        Share Palette
+      </button>
     </div>
   </aside>
 </template>
