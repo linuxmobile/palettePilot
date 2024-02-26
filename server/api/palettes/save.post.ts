@@ -2,8 +2,7 @@ import { uploadImageFromBase64 } from '~/lib/cloudinary'
 import { kv } from '~/lib/db'
 import { hashImageBase64 } from '~/utils/images'
 import { log } from '~/lib/logs'
-
-const MAX_BYTES_SIZE = 4500000 // 4.5 MB
+import { MAX_BYTES_SIZE } from '~/consts/files'
 
 export default eventHandler(async event => {
   const formData = await readMultipartFormData(event)
