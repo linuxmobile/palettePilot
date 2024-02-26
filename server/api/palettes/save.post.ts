@@ -35,12 +35,14 @@ export default eventHandler(async event => {
     '⚠️ Image does not exist. Uploading it and saving it in KV store...'
   )
 
-  let imageUrl = ''
-
   try {
-    imageUrl = await uploadImageFromBase64(base64Image)
+    const imageUrl = await uploadImageFromBase64(base64Image)
     await kv.setItem(imageHash, imageUrl)
     log('info', '✅ Image uploaded and saved in KV store...')
+    return {
+      imageHash,
+      imageUrl
+    }
   } catch (error) {
     if (error instanceof Error) {
       log(
@@ -52,10 +54,5 @@ export default eventHandler(async event => {
         statusMessage: 'Could not generate palette. Try again!'
       })
     }
-  }
-
-  return {
-    imageHash,
-    imageUrl
   }
 })
