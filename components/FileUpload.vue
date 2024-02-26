@@ -73,7 +73,7 @@ const onUpload = async (event: Event) => {
       for="dropzone-file"
       class="flex flex-col items-center justify-center w-full h-64 rounded-lg cursor-pointer bg-gray-200 dark:hover:bg-neutral-800 dark:bg-neutral-900 hover:bg-gray-300 min-w-xs md:min-w-xl"
     >
-      <div class="flex flex-col items-center justify-center pt-5 pb-6">
+      <div class="flex flex-col items-center justify-center pt-5 pb-6 gap-3">
         <svg
           class="w-8 h-8 mb-4 text-gray-600 dark:text-gray-400"
           aria-hidden="true"
@@ -94,6 +94,9 @@ const onUpload = async (event: Event) => {
         </p>
         <p class="text-xs text-gray-500 dark:text-gray-400">
           SVG, PNG, JPG or GIF (MAX. 800x400px)
+        </p>
+        <p class="text-xs text-gray-500 dark:text-gray-400 font-semibold">
+          Max size: 4.5MB
         </p>
       </div>
       <input

@@ -3,6 +3,8 @@ import { kv } from '~/lib/db'
 import { hashImageBase64 } from '~/utils/images'
 import { log } from '~/lib/logs'
 
+const MAX_BYTES_SIZE = 4500000 // 4.5 MB
+
 export default eventHandler(async event => {
   const formData = await readMultipartFormData(event)
   const file = formData?.at(0)
@@ -12,6 +14,16 @@ export default eventHandler(async event => {
     throw createError({
       statusCode: 400,
       statusMessage: 'No image provided!'
+    })
+  }
+
+  const fileBytes = file.data.buffer.byteLength
+
+  if (fileBytes > MAX_BYTES_SIZE) {
+    log('error', `❌ Image size too big... [${fileBytes} bytes]`)
+    throw createError({
+      statusCode: 400,
+      statusMessage: 'Image size too big! Max size: 4.5 MB'
     })
   }
 
@@ -31,14 +43,15 @@ export default eventHandler(async event => {
   }
 
   log(
-    'warn',
-    '⚠️ Image does not exist. Uploading it and saving it in KV store...'
+    'info',
+    '💾 Image does not exist. Uploading it and saving it in KV store...'
   )
 
   try {
     const imageUrl = await uploadImageFromBase64(base64Image)
     await kv.setItem(imageHash, imageUrl)
     log('info', '✅ Image uploaded and saved in KV store...')
+
     return {
       imageHash,
       imageUrl
@@ -47,7 +60,7 @@ export default eventHandler(async event => {
     if (error instanceof Error) {
       log(
         'error',
-        `❌ Error while uploading image to Cloudinary and saving it in KV store... [${error.message}]`
+        `❌ Error while uploading image to Cloudinary and saving it in KV store... [${error.message.toUpperCase()}]`
       )
       throw createError({
         statusCode: 500,
