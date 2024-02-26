@@ -1,4 +1,4 @@
-import { v2 as cloudinary } from 'cloudinary'
+import { v2 as cloudinary, type UploadApiResponse } from 'cloudinary'
 
 if (import.meta.browser) {
   throw new Error('Cloudinary functions can only be used server-side')
@@ -21,14 +21,20 @@ cloudinary.config({
 })
 
 export async function uploadImageFromBase64(imageBase64: string) {
-  const { secure_url: imageUrl } = await cloudinary.uploader
-    .upload(imageBase64)
-    .catch(() => {
-      throw createError({
-        statusCode: 500,
-        statusMessage: 'Something went wrong uploading the image. Try again!'
-      })
-    })
+  const uploadResult: UploadApiResponse | undefined = await new Promise(
+    (resolve, reject) => {
+      cloudinary.uploader
+        .upload_stream((error, result) => {
+          if (error !== undefined) reject(new Error(error.message))
+          resolve(result)
+        })
+        .end(imageBase64)
+    }
+  )
 
-  return imageUrl
+  if (uploadResult === undefined) {
+    throw new Error('Something went wrong uploading image to Cloudinary')
+  }
+
+  return uploadResult.secure_url
 }
