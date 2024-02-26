@@ -3,6 +3,7 @@ import { useImage } from '~/composables/useImage'
 import { useColors } from '~/composables/useColors'
 import { extractColorsFromImage } from '~/utils/colors'
 import { stripError } from '~/utils/errors'
+import { MAX_BYTES_SIZE } from '~/consts/files'
 
 const { imageSrc, setImageSrc } = useImage()
 const { imageColors, setImageColors, selectPrimaryColor, selectAccentColor } =
@@ -18,6 +19,11 @@ const onUpload = async (event: Event) => {
   const target = event.target as HTMLInputElement
   const file = target.files !== null ? target.files[0] : null
   if (file == null) return
+
+  if (file.size > MAX_BYTES_SIZE) {
+    errorMsg.value = 'Image is too big! Max size: 4.5MB'
+    return
+  }
 
   isLoading.value = true
   errorMsg.value = ''
