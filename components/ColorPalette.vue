@@ -1,5 +1,4 @@
 <script setup>
-import { useClipboard } from '~/composables/useClipboard.ts'
 import { defineProps } from 'vue'
 
 const props = defineProps({

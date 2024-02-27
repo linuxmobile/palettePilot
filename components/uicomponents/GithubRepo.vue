@@ -1,6 +1,4 @@
 <script setup>
-import { useColors } from '~/composables/useColors.ts'
-
 const { bg, fg } = useColors()
 const REPO_DATA = {
   title: 'palettePilot',

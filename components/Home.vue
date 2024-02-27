@@ -1,7 +1,4 @@
 <script setup lang="ts">
-import { useImage } from '~/composables/useImage'
-import { useColors } from '~/composables/useColors'
-import FileUpload from '~/components/FileUpload.vue'
 import { extractColorsFromImage } from '~/utils/colors'
 import { stripError } from '~/utils/errors'
 

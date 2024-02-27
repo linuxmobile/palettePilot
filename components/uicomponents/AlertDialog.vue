@@ -1,7 +1,4 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { useColors } from '~/composables/useColors'
-
 const isDialogOpen = ref(false)
 const { bg, fg } = useColors()
 

@@ -1,11 +1,8 @@
 <script setup>
 import InputSwitch from 'primevue/inputswitch';
-import { useColors } from '~/composables/useColors.ts'
-
 const { bg, fg } = useColors()
 
-const checked = useState('checked', () => {true})
-
+const checked = ref(true)
 </script>
 <template>
   <div class="rounded-xl px-8 py-5 flex flex-col relative" :style="{ backgroundColor: bg, color: fg }">
