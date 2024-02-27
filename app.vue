@@ -1,8 +1,8 @@
 <script setup>
 import { useImage } from '~/composables/useImage.ts'
-import Header from '~/components/Header.vue'
-import Home from '~/components/Home.vue'
-import PalettePage from '~/components/PalettePage.vue'
+
+const title = ref('Palette Pilot - Generate Awesome Color Palette for you UI')
+const description = ref('Explore Palette Pilot magic: transforming your images into color palettes and giving UI ideas. Perfect for creatives')
 
 useHead({
   bodyAttrs: {
@@ -12,23 +12,27 @@ useHead({
 })
 
 useSeoMeta({
-  title: 'Palette Pilot - Generate Awesome Color Palette for you UI',
-  description:
-    'Explore Palette Pilot magic: transforming your images into color palettes and giving UI ideas. Perfect for creatives',
-  ogTitle: 'Palette Pilot - Generate Awesome Color Palette for you UI',
-  ogDescription:
-    'Explore Palette Pilot magic: transforming your images into color palettes and giving UI ideas. Perfect for creatives',
-  twitterCard: 'summary_large_image'
+  title: title,
+  description: description,
+  ogTitle: title,
+  ogDescription: description,
+  twitterTitle: title,
+  twitterDescription: description,
+  twitterCard: 'summary_large_image',
+  icon: '/favicon.ico',
+  lang: 'es',
 })
 
-const { imageSrc } = useImage()
+defineOgImageComponent(
+  'Palette',
+  {
+    title: title,
+  }
+)
 </script>
 <template>
   <Header />
-  <div class="flex flex-col items-center justify-center">
-    <Home v-if="imageSrc === ''" />
-    <PalettePage v-else />
-  </div>
+  <NuxtPage />
 </template>
 <style>
 @import url('primevue/resources/themes/aura-dark-noir/theme.css');

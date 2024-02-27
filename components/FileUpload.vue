@@ -3,6 +3,9 @@ import { extractColorsFromImage } from '~/utils/colors'
 import { stripError } from '~/utils/errors'
 import { MAX_BYTES_SIZE } from '~/consts/files'
 
+const router = useRouter()
+const route = useRoute()
+
 const { imageSrc, setImageSrc } = useImage()
 const { imageColors, setImageColors, selectPrimaryColor, selectAccentColor } =
   useColors()
@@ -29,10 +32,13 @@ const onUpload = async (event: Event) => {
   const formData = new FormData()
   formData.append('image', file)
 
-  try {
+   try {
+    const formData = new FormData()
+    formData.append('image', file)
+
     const res = await $fetch('/api/palettes/save', {
       method: 'POST',
-      body: formData
+      body: formData,
     })
     setImageSrc(res.imageUrl as string)
     const extractedColors = await extractColorsFromImage(res.imageUrl as string)
@@ -40,9 +46,13 @@ const onUpload = async (event: Event) => {
     selectPrimaryColor(imageColors.value?.[0])
     selectAccentColor(imageColors.value?.[1])
 
-    const searchParams = new URLSearchParams()
-    searchParams.append('palette', res.imageHash)
-    window.history.replaceState(null, '', `?${searchParams.toString()}`)
+    if (route.path === '/') {
+      await router.push({ path: '/palette', query: { palette: res.imageHash } })
+    } else {
+      const searchParams = new URLSearchParams()
+      searchParams.append('palette', res.imageHash)
+      window.history.replaceState(null, '', `?${searchParams.toString()}`)
+    }
   } catch (error) {
     if (error instanceof Error) {
       errorMsg.value = stripError(error)
