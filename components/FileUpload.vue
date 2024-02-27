@@ -6,11 +6,11 @@ import { MAX_BYTES_SIZE } from '~/consts/files'
 const { imageSrc, setImageSrc } = useImage()
 const { imageColors, setImageColors, selectPrimaryColor, selectAccentColor } =
   useColors()
-const isLoading = ref(false)
+const { generatingPalette, setGeneratingPalette } = useGeneratingPalette()
 const errorMsg = ref('')
 
 const fileChooserText = computed(() => {
-  return isLoading.value ? 'Generating palette...' : 'Choose an image'
+  return generatingPalette.value ? 'Generating palette...' : 'Choose an image'
 })
 
 const onUpload = async (event: Event) => {
@@ -23,7 +23,7 @@ const onUpload = async (event: Event) => {
     return
   }
 
-  isLoading.value = true
+  setGeneratingPalette(true)
   errorMsg.value = ''
 
   const formData = new FormData()
@@ -34,7 +34,6 @@ const onUpload = async (event: Event) => {
       method: 'POST',
       body: formData
     })
-    setImageSrc(res.imageUrl as string)
     const extractedColors = await extractColorsFromImage(res.imageUrl as string)
     setImageColors(extractedColors)
     selectPrimaryColor(imageColors.value?.[0])
@@ -43,20 +42,18 @@ const onUpload = async (event: Event) => {
     const searchParams = new URLSearchParams()
     searchParams.append('palette', res.imageHash)
     window.history.replaceState(null, '', `?${searchParams.toString()}`)
+    setImageSrc(res.imageUrl as string)
   } catch (error) {
     if (error instanceof Error) {
       errorMsg.value = stripError(error)
     }
   } finally {
-    isLoading.value = false
+    setGeneratingPalette(false)
   }
 }
 </script>
 <template>
   <div class="flex-center w-full">
-    <h1 class="mb-8 text-center mx-auto text-3xl max-w-[418px] font-medium text-pretty tracking-wide">
-        Generate <span class="text-[#c875f4]">beautiful</span> color palettes from an image
-    </h1>
     <label
       v-if="imageSrc"
       for="dropzone-file"
@@ -68,7 +65,7 @@ const onUpload = async (event: Event) => {
         </p>
       </div>
       <input
-        :disabled="isLoading"
+        :disabled="generatingPalette"
         id="dropzone-file"
         type="file"
         class="hidden"
@@ -76,7 +73,7 @@ const onUpload = async (event: Event) => {
       />
     </label>
     <label
-      v-if="imageSrc === '' && !isLoading"
+      v-if="imageSrc === '' && !generatingPalette"
       for="dropzone-file"
       class="flex flex-col items-center justify-center w-full h-64 rounded-lg cursor-pointer bg-gray-200 dark:hover:bg-neutral-800 dark:bg-neutral-900 hover:bg-gray-300 min-w-xs md:min-w-xl"
     >
@@ -107,7 +104,7 @@ const onUpload = async (event: Event) => {
         </p>
       </div>
       <input
-        :disabled="isLoading"
+        :disabled="generatingPalette"
         id="dropzone-file"
         type="file"
         class="hidden"
@@ -116,7 +113,7 @@ const onUpload = async (event: Event) => {
     </label>
   </div>
   <div
-    v-if="isLoading && imageSrc === ''"
+    v-if="generatingPalette && imageSrc === ''"
     class="grid place-content-center px-4"
     role="alert"
     aria-live="assertive"
