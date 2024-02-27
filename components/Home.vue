@@ -5,12 +5,13 @@ import { stripError } from '~/utils/errors'
 const route = useRoute()
 const { setImageSrc } = useImage()
 const { setImageColors } = useColors()
-const isLoading = ref(true)
+const { generatingPalette } = useGeneratingPalette()
+const isRetrievingPalette = ref(true)
 const errorMsg = ref('')
 
 onMounted(async () => {
   if (route.query.palette === undefined) {
-    isLoading.value = false
+    isRetrievingPalette.value = false
     return
   }
   try {
@@ -25,7 +26,7 @@ onMounted(async () => {
       errorMsg.value = stripError(error)
     }
   } finally {
-    isLoading.value = false
+    isRetrievingPalette.value = false
   }
 })
 
@@ -43,19 +44,26 @@ const refresh = () => {
     <div
       role="alert"
       aria-live="polite"
-      v-if="isLoading"
+      v-if="isRetrievingPalette"
       class="grid place-content-center px-4"
     >
       <p class="font-bold text-4xl animate-bounce text-center">
         Loading Palette <span class="text-purple-600">Pilot</span>...
       </p>
     </div>
-    <FileUpload v-if="!isLoading && errorMsg === ''" />
+    <h1
+      class="mb-8 text-center mx-auto text-3xl max-w-[418px] font-medium text-pretty tracking-wide"
+      v-if="!isRetrievingPalette && errorMsg === '' && !generatingPalette"
+    >
+      Generate <span class="text-[#c875f4]">beautiful</span> color palettes from
+      an image
+    </h1>
+    <FileUpload v-if="!isRetrievingPalette && errorMsg === ''" />
     <div
       class="grid place-content-center gap-5 px-4"
       role="alert"
       aria-live="assertive"
-      v-if="!isLoading && errorMsg !== ''"
+      v-if="!isRetrievingPalette && errorMsg !== ''"
     >
       <p class="font-bold text-4xl text-center max-w-lg text-red-500">
         {{ errorMsg }}
