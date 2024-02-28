@@ -4,6 +4,12 @@ import { stripError } from '~/utils/errors'
 import SelectButton from 'primevue/selectbutton'
 
 const route = useRoute()
+const router = useRouter()
+
+definePageMeta({
+  middleware: 'check-palette-page'
+})
+
 const { setImageSrc } = useImage()
 const { setImageColors } = useColors()
 const isLoading = ref(true)
