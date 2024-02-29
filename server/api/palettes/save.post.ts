@@ -4,26 +4,11 @@ import { hashImageBase64 } from "~/utils/images";
 import { log } from "~/lib/logs";
 import { MAX_BYTES_SIZE } from "~/consts/files";
 
-interface FormDataFile {
-	data: Buffer;
-}
-
-interface Color {
-	hex: string;
-	rgb: number[];
-}
-
-interface ApiResponse {
-	imageHash: string;
-	imageUrl: string;
-	colors: Color[];
-}
-
 export default eventHandler(async (event) => {
 	const formData = await readMultipartFormData(event);
 	const file = formData?.at(0);
 	const colorsData = formData?.at(1)?.data;
-	const colors = colorsData ? JSON.parse(colorsData.toString()) : undefined;
+	const colors = (colorsData != null) ? JSON.parse(colorsData.toString()) : undefined;
 
 	if (file === undefined) {
 		log("error", "❌ No image provided...");
@@ -61,7 +46,7 @@ export default eventHandler(async (event) => {
 		log("info", "✅ Image already exists. Returning it as is from KV store...");
 
 		const storedColorsString = await kv.getItem(`${imageHash}_colors`);
-		if (storedColorsString !== null) {
+		if (typeof storedColorsString === "string") {
 			const colorsArray = storedColorsString.split(";").map((colorStr) => {
 				const [hex, rgbStr] = colorStr.split("_");
 				const rgb = rgbStr.split("-").map((num) => parseInt(num, 10));

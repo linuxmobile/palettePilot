@@ -24,21 +24,20 @@ const onClick = async () => {
       method: 'POST',
       body: formData,
     })
-    if (route.path === '/palette') {
-      router.push(`/palette/${res.imageHash}`)
+    if (res?.imageHash !== '') {
+      const newUrl = `palette/${res.imageHash}`;
+      if (route.path === '/palette') {
+        router.push(newUrl);
+      }
+      const fullUrlToShare = `${config.public.baseUrl}${newUrl}`;
+      copyToClipboard(fullUrlToShare);
     }
-    copyToClipboard(paletteUrlToShare)
   } catch (error) {
     if (error instanceof Error) {
       errorMsg.value = stripError(error)
     }
   }
 }
-
-const paletteUrlToShare = computed(() => {
-  if (imageSrc.value === '') return ''
-  return config.public.baseUrl + window.location.search.toString()
-})
 </script>
 <template>
   <button

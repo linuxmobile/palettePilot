@@ -19,7 +19,7 @@ export default eventHandler(async (event): Promise<ApiResponse> => {
 	const params: Params | undefined = event.context.params;
 	log("info", `⏱ Retrieving image with hash: ${params?.hash}...`);
 
-	const storedImageUrl: string | null = await kv
+	const storedImageUrl: string | null = (await kv
 		.getItem(params?.hash ?? "")
 		.catch(() => {
 			log(
@@ -30,7 +30,7 @@ export default eventHandler(async (event): Promise<ApiResponse> => {
 				statusCode: 500,
 				statusMessage: "Something went wrong... Try again!",
 			});
-		});
+		}))?.toString() ?? null;
 
 	if (storedImageUrl === null) {
 		log("error", "❌ Image not found in KV store...");
@@ -41,17 +41,17 @@ export default eventHandler(async (event): Promise<ApiResponse> => {
 	}
 
 	const colorsKey: string = `${params?.hash}_colors`;
-	const storedColorsString: string | null = await kv
+	const storedColorsString: string | null = (await kv
 		.getItem(colorsKey)
 		.catch(() => {
 			log(
 				"error",
 				`❌ Something went wrong retrieving the colors from KV store for hash: ${colorsKey}...`,
 			);
-		});
+		}))?.toString() ?? null;
 
 	let colors: Color[] | null = null;
-	if (storedColorsString) {
+	if (storedColorsString != null) {
 		colors = storedColorsString.split(";").map((colorStr): Color => {
 			const [hex, rgbStr] = colorStr.split("_");
 			const rgb: number[] = rgbStr

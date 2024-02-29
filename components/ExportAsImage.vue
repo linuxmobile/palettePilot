@@ -14,8 +14,8 @@ const exportAsImageModal = ref(false)
 
 const exportAsPNG = () => {
   const node = document.getElementById('paletteToPNG');
-  
-  if (!node) {
+
+  if (node === null || node === undefined) {
     console.error('Elemento no encontrado');
     return;
   }
@@ -36,8 +36,8 @@ const exportAsPNG = () => {
 
 </script>
 <template>
-  <button 
-    class="w-full rounded-md py-3 bg-gray-100 text-gray-500 dark:text-gray-400 dark:bg-neutral-900" 
+  <button
+    class="w-full rounded-md py-3 bg-gray-100 text-gray-500 dark:text-gray-400 dark:bg-neutral-900"
     @click="exportAsImageModal = true"
   >Export as PNG</button>
     <Dialog
@@ -94,7 +94,7 @@ const exportAsPNG = () => {
           </footer>
         </div>
         <div class="flex items-center justify-between w-full gap-x-2">
-          <button 
+          <button
             @click="exportAsPNG"
             class="mt-4 p-1 2xl:p-3 w-full text-primary-50 border-1 border-white/30 rounded-md bg-gray-200 hover:bg-gray-300 dark:bg-neutral-800 dark:border-neutral-700 hover:dark:bg-neutral-700"
           >Export as PNG</button>

@@ -1,12 +1,7 @@
 <script setup lang="ts">
-import { extractColorsFromImage } from '~/utils/colors'
-import { stripError } from '~/utils/errors'
 
 const isLoading = ref(false)
 const errorMsg = ref('')
-
-const { setImageSrc } = useImage()
-const { setImageColors } = useColors()
 
 const clearError = () => {
   errorMsg.value = ''

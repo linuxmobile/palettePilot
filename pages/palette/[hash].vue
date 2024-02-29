@@ -4,15 +4,14 @@ import SelectButton from 'primevue/selectbutton'
 
 const route = useRoute();
 
-// Actualiza para usar tanto la imagen como los colores devueltos por la API
 const { data: imageData } = await useAsyncData('imageData', async () => {
-  return await $fetch(`/api/palettes/${route.params.hash}`);
+  return await $fetch(`/api/palettes/${route.params.hash.toString()}`);
 });
 
 defineOgImageComponent(
   'Palette',
   {
-    title: imageData.value.imageUrl,
+    title: (imageData.value as { imageUrl: string }).imageUrl,
   }
 )
 
@@ -23,19 +22,18 @@ const errorMsg = ref('')
 
 onMounted(async () => {
   const hash = route.params.hash;
-  if (!hash) {
+  if (hash === null || hash === undefined) {
     isLoading.value = false;
     errorMsg.value = 'No palette specified.';
     return;
   }
 
   try {
-    // Ya que los colores vienen con la respuesta, no es necesario extraerlos de nuevo
     if (imageData.value?.colors) {
-      setImageColors(imageData.value.colors); // Usa los colores directamente de la respuesta
+      setImageColors(imageData.value.colors);
     }
     if (imageData.value?.imageUrl) {
-      setImageSrc(imageData.value.imageUrl); // Usa la URL de la imagen directamente de la respuesta
+      setImageSrc(imageData.value.imageUrl);
     }
   } catch (error) {
     if (error instanceof Error) {
