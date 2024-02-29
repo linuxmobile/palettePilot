@@ -1,5 +1,5 @@
 <script setup>
-const title = ref('Palette Pilot - Generate Awesome Color Palette for you UI')
+const title = ref('Palette Pilot - Generate Awesome Color Palette for your UI')
 const description = ref('Explore Palette Pilot magic: transforming your images into color palettes and giving UI ideas. Perfect for creatives')
 
 useHead({
@@ -19,10 +19,12 @@ useSeoMeta({
   twitterCard: 'summary_large_image',
   icon: '/favicon.ico',
   lang: 'es',
+  ogImage: '[og:image]',
+  twitterImage: '[twitter:image]'
 })
 
 defineOgImageComponent(
-  'Palette',
+  'HomeOG',
   {
     title: title,
   }

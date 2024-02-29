@@ -14,9 +14,10 @@ const { data: imageData } = await useAsyncData('imageData', async () => {
 });
 
 defineOgImageComponent(
-  'Palette',
+  'SharePaletteOG',
   {
-    title: (imageData.value as { imageUrl: string }).imageUrl,
+    image: imageData.value.imageUrl,
+    colors: imageData.value.colors
   }
 )
 
