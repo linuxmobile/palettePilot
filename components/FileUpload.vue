@@ -6,6 +6,13 @@ import { MAX_BYTES_SIZE } from '~/consts/files'
 const router = useRouter()
 const route = useRoute()
 
+const isHome = computed(() => route.path === '/')
+const shouldShowFileChooserText = computed(() => {
+  const currentPath = route.path;
+
+  return (!generatingPalette.value && currentPath === '/') || (currentPath.startsWith('/palette'));
+})
+
 const { imageSrc, setImageSrc } = useImage()
 const { imageColors, setImageColors, selectPrimaryColor, selectAccentColor } =
   useColors()
@@ -29,29 +36,39 @@ const onUpload = async (event: Event) => {
   setGeneratingPalette(true)
   errorMsg.value = ''
 
-  const formData = new FormData()
-  formData.append('image', file)
-
   try {
-    const formData = new FormData()
-    formData.append('image', file)
-
-    const res = await $fetch('/api/palettes/save', {
-      method: 'POST',
-      body: formData
+    /**
+     * Reads the contents of a file and returns it as a base64 encoded string.
+     * @param {File} file - The file to be read.
+     * @returns {Promise<string>} - A promise that resolves with the base64 encoded string of the file contents.
+     */
+    const base64String = await new Promise<string>((resolve, reject) => {
+      const reader = new FileReader()
+      reader.onloadend = function () {
+        const result = reader.result as string
+        resolve(result)
+      }
+      reader.onerror = function (error) {
+        reject(error)
+      }
+      reader.readAsDataURL(file)
     })
-    const extractedColors = await extractColorsFromImage(res.imageUrl as string)
+
+    setImageSrc(base64String)
+    localStorage.setItem('imageSrc', base64String)
+
+    const extractedColors = await extractColorsFromImage(base64String)
     setImageColors(extractedColors)
     selectPrimaryColor(imageColors.value?.[0])
     selectAccentColor(imageColors.value?.[1])
 
+    localStorage.setItem('imageColors', JSON.stringify(extractedColors))
+
+    if (route.path.includes('/palette')) {
+      await router.push(`/palette`);
+    }
     if (route.path === '/') {
-      await router.push({ path: '/palette', query: { palette: res.imageHash } })
-    } else {
-      const searchParams = new URLSearchParams()
-      searchParams.append('palette', res.imageHash)
-      window.history.replaceState(null, '', `?${searchParams.toString()}`)
-      setImageSrc(res.imageUrl as string)
+      await router.push(`/palette`)
     }
   } catch (error) {
     if (error instanceof Error) {
@@ -61,6 +78,7 @@ const onUpload = async (event: Event) => {
     setGeneratingPalette(false)
   }
 }
+
 </script>
 <template>
   <div class="flex-center w-full">
@@ -69,7 +87,7 @@ const onUpload = async (event: Event) => {
       for="dropzone-file"
       class="flex flex-col items-center justify-center w-full rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-neutral-800 dark:bg-neutral-900 hover:bg-gray-100"
     >
-      <div class="flex flex-col items-center justify-center py-3">
+      <div v-if="shouldShowFileChooserText" class="flex flex-col items-center justify-center py-3">
         <p class="mb-2 text-gray-500 dark:text-gray-400">
           {{ fileChooserText }}
         </p>
@@ -123,7 +141,7 @@ const onUpload = async (event: Event) => {
     </label>
   </div>
   <div
-    v-if="generatingPalette && imageSrc === ''"
+    v-if="generatingPalette && isHome"
     class="grid place-content-center px-4"
     role="alert"
     aria-live="assertive"

@@ -5,6 +5,13 @@ import {
   type Palette
 } from '~/utils/colors'
 
+/**
+ * Generates and returns a palette based on the provided primary and accent color hex values.
+ *
+ * @param primaryColorHex - The hex value of the primary color.
+ * @param accentColorHex - The hex value of the accent color.
+ * @returns An object containing various computed palettes and their string representations.
+ */
 export function useGeneratedPalette(
   primaryColorHex: Ref<string>,
   accentColorHex: Ref<string>

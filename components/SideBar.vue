@@ -1,11 +1,8 @@
 <script setup lang="ts">
 import Swap from '~/icons/Swap.vue'
 import Dropdown, { type DropdownChangeEvent } from 'primevue/dropdown'
-import { useToast } from 'primevue/usetoast'
 import { type ColorWithRgbAndHex } from '~/types/colors'
 
-const toast = useToast()
-const config = useRuntimeConfig()
 const { imageSrc } = useImage()
 const {
   imageColors,
@@ -16,39 +13,35 @@ const {
   selectAccentColor,
   contrastRatio
 } = useColors()
+const { copyToClipboard } = useClipboard()
 
-const paletteUrlToShare = computed(() => {
-  if (imageSrc.value === '') return ''
-  return config.public.baseUrl + window.location.search.toString()
-})
 
+/**
+ * Computes the dropdown options for the color selection.
+ * @returns {Array} An array of objects representing the dropdown options.
+ */
 const dropdownOptions = computed(() =>
   imageColors.value.map(color => ({ label: color.hex, value: color }))
 )
 
+/**
+ * Handles the change event for the primary color dropdown.
+ * @param {Object} event - The dropdown change event.
+ */
 const handlePrimaryColorChange = (event: DropdownChangeEvent) => {
   const selectedValue = event.value as ColorWithRgbAndHex
   selectPrimaryColor(selectedValue)
 }
 
+/**
+ * Handles the change event for the accent color dropdown.
+ * @param {Object} event - The dropdown change event.
+ */
 const handleAccentColorChange = (event: DropdownChangeEvent) => {
   const selectedValue = event.value as ColorWithRgbAndHex
   selectAccentColor(selectedValue)
 }
 
-const copyToClipboard = async (text: string) => {
-  try {
-    await navigator.clipboard.writeText(text)
-    toast.add({
-      severity: 'success',
-      summary: 'Copied to Clipboard',
-      group: 'bl',
-      life: 2000
-    })
-  } catch (err) {
-    console.error('Error al copiar texto:', err)
-  }
-}
 </script>
 
 <template>
@@ -154,12 +147,7 @@ const copyToClipboard = async (text: string) => {
         <ExportToTailwind />
         <ExportAsImage />
       </div>
-      <button
-        class="bg-gray-50 dark:hover:bg-neutral-800 dark:bg-neutral-900 hover:bg-gray-100 rounded-lg text-gray-500 dark:text-gray-400 py-3"
-        @click="() => copyToClipboard(paletteUrlToShare)"
-      >
-        Share Palette
-      </button>
+      <SharePaletteButton />
     </div>
   </aside>
 </template>
