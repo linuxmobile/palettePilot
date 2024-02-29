@@ -29,29 +29,31 @@ const onUpload = async (event: Event) => {
   setGeneratingPalette(true)
   errorMsg.value = ''
 
-  const formData = new FormData()
-  formData.append('image', file)
-
   try {
-    const formData = new FormData()
-    formData.append('image', file)
-
-    const res = await $fetch('/api/palettes/save', {
-      method: 'POST',
-      body: formData
+    const base64String = await new Promise<string>((resolve, reject) => {
+      const reader = new FileReader()
+      reader.onloadend = function () {
+        const result = reader.result as string
+        resolve(result)
+      }
+      reader.onerror = function (error) {
+        reject(error)
+      }
+      reader.readAsDataURL(file)
     })
-    const extractedColors = await extractColorsFromImage(res.imageUrl as string)
+
+    setImageSrc(base64String)
+    localStorage.setItem('imageSrc', base64String)
+
+    const extractedColors = await extractColorsFromImage(base64String)
     setImageColors(extractedColors)
     selectPrimaryColor(imageColors.value?.[0])
     selectAccentColor(imageColors.value?.[1])
 
+    localStorage.setItem('imageColors', JSON.stringify(extractedColors))
+
     if (route.path === '/') {
-      await router.push({ path: '/palette', query: { palette: res.imageHash } })
-    } else {
-      const searchParams = new URLSearchParams()
-      searchParams.append('palette', res.imageHash)
-      window.history.replaceState(null, '', `?${searchParams.toString()}`)
-      setImageSrc(res.imageUrl as string)
+      await router.push(`/palette`)
     }
   } catch (error) {
     if (error instanceof Error) {
@@ -61,6 +63,7 @@ const onUpload = async (event: Event) => {
     setGeneratingPalette(false)
   }
 }
+
 </script>
 <template>
   <div class="flex-center w-full">

@@ -1,6 +1,4 @@
 <script setup>
-import { useImage } from '~/composables/useImage.ts'
-
 const title = ref('Palette Pilot - Generate Awesome Color Palette for you UI')
 const description = ref('Explore Palette Pilot magic: transforming your images into color palettes and giving UI ideas. Perfect for creatives')
 

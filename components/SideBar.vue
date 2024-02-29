@@ -5,7 +5,6 @@ import { useToast } from 'primevue/usetoast'
 import { type ColorWithRgbAndHex } from '~/types/colors'
 
 const toast = useToast()
-const config = useRuntimeConfig()
 const { imageSrc } = useImage()
 const {
   imageColors,
@@ -17,10 +16,6 @@ const {
   contrastRatio
 } = useColors()
 
-const paletteUrlToShare = computed(() => {
-  if (imageSrc.value === '') return ''
-  return config.public.baseUrl + window.location.search.toString()
-})
 
 const dropdownOptions = computed(() =>
   imageColors.value.map(color => ({ label: color.hex, value: color }))
@@ -154,12 +149,7 @@ const copyToClipboard = async (text: string) => {
         <ExportToTailwind />
         <ExportAsImage />
       </div>
-      <button
-        class="bg-gray-50 dark:hover:bg-neutral-800 dark:bg-neutral-900 hover:bg-gray-100 rounded-lg text-gray-500 dark:text-gray-400 py-3"
-        @click="() => copyToClipboard(paletteUrlToShare)"
-      >
-        Share Palette
-      </button>
+      <SharePaletteButton />
     </div>
   </aside>
 </template>
