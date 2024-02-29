@@ -46,7 +46,7 @@ withDefaults(defineProps<{
       <h1 class="text-8xl">Palette Pilot</h1>
     </div>
     <div class="w-full flex items-start justify-end px-10 gap-x-3 pt-6">
-      <div v-for="(color, index) in colors" :key="index" class="bg-gray-400/30 p-2 rounded-lg backdrop-blur-xl">
+      <div v-for="(color, index) in colors" :key="index" class="bg-gray-400/40 p-2 rounded-lg backdrop-blur-xl">
         <div class="size-18 rounded-md" :style="{ backgroundColor: color.hex }"></div>
       </div>
     </div>
