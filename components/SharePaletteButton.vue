@@ -15,6 +15,11 @@ const onClick = async () => {
     return
   }
 
+  /**
+   * Saves the palette by sending the image and colors to the server.
+   * If the save is successful, it redirects to the new palette page and copies the URL to the clipboard.
+   * If there is an error, it displays the error message.
+   */
   const formData = new FormData()
   formData.append('image', imageSrc.value)
   formData.append('colors', JSON.stringify(imageColors.value))
@@ -26,9 +31,7 @@ const onClick = async () => {
     })
     if (res?.imageHash !== '') {
       const newUrl = `palette/${res.imageHash}`;
-      if (route.path === '/palette') {
-        router.push(newUrl);
-      }
+      router.push(newUrl);
       const fullUrlToShare = `${config.public.baseUrl}${newUrl}`;
       copyToClipboard(fullUrlToShare);
     }

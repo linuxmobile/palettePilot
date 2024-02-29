@@ -21,6 +21,10 @@ cloudinary.config({
 })
 
 export async function uploadImageFromBase64(imageBase64: string) {
+  /**
+   * Represents the result of an upload operation to Cloudinary.
+   * @typeParam T - The type of the upload response.
+   */
   const uploadResult: UploadApiResponse | undefined = await new Promise(
     (resolve, reject) => {
       cloudinary.uploader

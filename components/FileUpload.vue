@@ -30,6 +30,11 @@ const onUpload = async (event: Event) => {
   errorMsg.value = ''
 
   try {
+    /**
+     * Reads the contents of a file and returns it as a base64 encoded string.
+     * @param {File} file - The file to be read.
+     * @returns {Promise<string>} - A promise that resolves with the base64 encoded string of the file contents.
+     */
     const base64String = await new Promise<string>((resolve, reject) => {
       const reader = new FileReader()
       reader.onloadend = function () {

@@ -4,6 +4,11 @@ import SelectButton from 'primevue/selectbutton'
 
 const route = useRoute();
 
+/**
+ * Fetches the image data for a specific palette.
+ * @param {string} route.params.hash - The hash parameter from the route.
+ * @returns {Promise} - A promise that resolves to the fetched image data.
+ */
 const { data: imageData } = await useAsyncData('imageData', async () => {
   return await $fetch(`/api/palettes/${route.params.hash.toString()}`);
 });
