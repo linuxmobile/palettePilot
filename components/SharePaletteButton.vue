@@ -10,6 +10,11 @@ const { imageColors } = useColors()
 const { copyToClipboard } = useClipboard()
 
 const onClick = async () => {
+  if (route.params.hash) {
+    const currentUrlToShare = window.location.href;
+    copyToClipboard(currentUrlToShare);
+    return
+  }
   if (!imageColors.value || imageColors.value.length === 0) {
     errorMsg.value = 'No colors provided!'
     return

@@ -6,6 +6,13 @@ import { MAX_BYTES_SIZE } from '~/consts/files'
 const router = useRouter()
 const route = useRoute()
 
+const isHome = computed(() => route.path === '/')
+const shouldShowFileChooserText = computed(() => {
+  const currentPath = route.path;
+
+  return (!generatingPalette.value && currentPath === '/') || (currentPath.startsWith('/palette'));
+})
+
 const { imageSrc, setImageSrc } = useImage()
 const { imageColors, setImageColors, selectPrimaryColor, selectAccentColor } =
   useColors()
@@ -57,6 +64,9 @@ const onUpload = async (event: Event) => {
 
     localStorage.setItem('imageColors', JSON.stringify(extractedColors))
 
+    if (route.path.includes('/palette')) {
+      await router.push(`/palette`);
+    }
     if (route.path === '/') {
       await router.push(`/palette`)
     }
@@ -77,7 +87,7 @@ const onUpload = async (event: Event) => {
       for="dropzone-file"
       class="flex flex-col items-center justify-center w-full rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-neutral-800 dark:bg-neutral-900 hover:bg-gray-100"
     >
-      <div class="flex flex-col items-center justify-center py-3">
+      <div v-if="shouldShowFileChooserText" class="flex flex-col items-center justify-center py-3">
         <p class="mb-2 text-gray-500 dark:text-gray-400">
           {{ fileChooserText }}
         </p>
@@ -131,7 +141,7 @@ const onUpload = async (event: Event) => {
     </label>
   </div>
   <div
-    v-if="generatingPalette && imageSrc === ''"
+    v-if="generatingPalette && isHome"
     class="grid place-content-center px-4"
     role="alert"
     aria-live="assertive"
