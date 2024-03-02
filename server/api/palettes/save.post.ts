@@ -8,7 +8,8 @@ export default eventHandler(async (event) => {
 	const formData = await readMultipartFormData(event);
 	const file = formData?.at(0);
 	const colorsData = formData?.at(1)?.data;
-	const colors = (colorsData != null) ? JSON.parse(colorsData.toString()) : undefined;
+	const colors =
+		colorsData != null ? JSON.parse(colorsData.toString()) : undefined;
 
 	if (file === undefined) {
 		log("error", "❌ No image provided...");
@@ -97,11 +98,13 @@ export default eventHandler(async (event) => {
 			imageUrl,
 			colors,
 		};
-	} catch (error) {
-		log(
-			"error",
-			`❌ Error while uploading image and saving colors: ${error.message}`,
-		);
+	} catch (error: unknown) {
+		if (error instanceof Error) {
+			log(
+				"error",
+				`❌ Error while uploading image and saving colors: ${error.message}`,
+			);
+		}
 		throw createError({
 			statusCode: 500,
 			statusMessage: "Could not process the request. Try again!",

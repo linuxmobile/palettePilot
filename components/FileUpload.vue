@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { extractColorsFromImage } from '~/utils/colors'
 import { stripError } from '~/utils/errors'
-import { MAX_BYTES_SIZE } from '~/consts/files'
+import imageCompression from 'browser-image-compression'
 
 const router = useRouter()
 const route = useRoute()
@@ -22,21 +22,22 @@ const errorMsg = ref('')
 const fileChooserText = computed(() => {
   return generatingPalette.value ? 'Generating palette...' : 'Choose an image'
 })
-
 const onUpload = async (event: Event) => {
   const target = event.target as HTMLInputElement
   const file = target.files !== null ? target.files[0] : null
   if (file == null) return
 
-  if (file.size > MAX_BYTES_SIZE) {
-    errorMsg.value = 'Image is too big! Max size: 4.5MB'
-    return
-  }
-
   setGeneratingPalette(true)
   errorMsg.value = ''
 
   try {
+    const options = {
+      maxSizeMB: 1,
+      maxWidthOrHeight: 1920,
+      useWebWorker: true,
+    }
+
+    const compressedFile = await imageCompression(file, options)
     /**
      * Reads the contents of a file and returns it as a base64 encoded string.
      * @param {File} file - The file to be read.
@@ -51,7 +52,7 @@ const onUpload = async (event: Event) => {
       reader.onerror = function (error) {
         reject(error)
       }
-      reader.readAsDataURL(file)
+      reader.readAsDataURL(compressedFile)
     })
 
     setImageSrc(base64String)
@@ -79,9 +80,13 @@ const onUpload = async (event: Event) => {
   }
 }
 
+
 </script>
 <template>
   <div class="flex-center w-full">
+    <h1 class="mb-8 text-center mx-auto text-3xl max-w-[418px] font-medium text-pretty tracking-wide">
+      Generate <span class="text-purple-600">beautiful</span> color palettes from an image
+    </h1>
     <label
       v-if="imageSrc"
       for="dropzone-file"
@@ -125,10 +130,7 @@ const onUpload = async (event: Event) => {
           <span class="font-semibold">Click to upload</span> or drag and drop
         </p>
         <p class="text-xs text-gray-500 dark:text-gray-400">
-          SVG, PNG, JPG or GIF (MAX. 800x400px)
-        </p>
-        <p class="text-xs text-gray-500 dark:text-gray-400 font-semibold">
-          Max size: 4.5MB
+          SVG, PNG, JPG or GIF
         </p>
       </div>
       <input
