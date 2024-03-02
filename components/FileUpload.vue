@@ -7,9 +7,12 @@ const route = useRoute()
 
 const isHome = computed(() => route.path === '/')
 const shouldShowFileChooserText = computed(() => {
-  const currentPath = route.path;
+  const currentPath = route.path
 
-  return (!generatingPalette.value && currentPath === '/') || (currentPath.startsWith('/palette'));
+  return (
+    (!generatingPalette.value && currentPath === '/') ||
+    currentPath.startsWith('/palette')
+  )
 })
 
 const { imageSrc, setImageSrc } = useImage()
@@ -22,7 +25,7 @@ const fileChooserText = computed(() => {
   return generatingPalette.value ? 'Generating palette...' : 'Choose an image'
 })
 
-const preventDefaults = (e) => {
+const preventDefaults = e => {
   e.preventDefault()
   e.stopPropagation()
 }
@@ -30,35 +33,35 @@ const preventDefaults = (e) => {
 const events = ['dragenter', 'dragover', 'dragleave', 'drop']
 
 onMounted(() => {
-  events.forEach((eventName) => {
+  events.forEach(eventName => {
     document.body.addEventListener(eventName, preventDefaults)
   })
   document.addEventListener('paste', handlePaste)
 })
 
 onUnmounted(() => {
-  events.forEach((eventName) => {
+  events.forEach(eventName => {
     document.body.removeEventListener(eventName, preventDefaults)
   })
   document.removeEventListener('paste', handlePaste)
 })
 
 async function handlePaste(event) {
-  const items = (event.clipboardData || event.originalEvent.clipboardData).items;
-  
+  const items = (event.clipboardData || event.originalEvent.clipboardData).items
+
   for (const item of items) {
     if (item.type.indexOf('image') === 0) {
-      event.preventDefault();
-      const file = item.getAsFile();
+      event.preventDefault()
+      const file = item.getAsFile()
 
       const simulatedEvent = {
         target: {
           files: [file]
         }
-      };
-      
-      await onUpload(simulatedEvent);
-      break;
+      }
+
+      await onUpload(simulatedEvent)
+      break
     }
   }
 }
@@ -75,7 +78,7 @@ const onUpload = async (event: Event) => {
     const options = {
       maxSizeMB: 1,
       maxWidthOrHeight: 1920,
-      useWebWorker: true,
+      useWebWorker: true
     }
 
     const compressedFile = await imageCompression(file, options)
@@ -107,7 +110,7 @@ const onUpload = async (event: Event) => {
     localStorage.setItem('imageColors', JSON.stringify(extractedColors))
 
     if (route.path.includes('/palette')) {
-      await router.push(`/palette`);
+      await router.push(`/palette`)
     }
     if (route.path === '/') {
       await router.push(`/palette`)
@@ -121,21 +124,20 @@ const onUpload = async (event: Event) => {
   }
 }
 
-const onDrop = async (event) => {
-  event.preventDefault();
-  const files = event.dataTransfer.files;
+const onDrop = async event => {
+  event.preventDefault()
+  const files = event.dataTransfer.files
   if (files.length === 0) return
 
-  const file = files[0];
+  const file = files[0]
   const simulatedEvent = {
     target: {
       files: [file]
     }
-  };
-  
-  await onUpload(simulatedEvent);
-};
+  }
 
+  await onUpload(simulatedEvent)
+}
 </script>
 <template>
   <div class="flex-center w-full">
@@ -144,7 +146,10 @@ const onDrop = async (event) => {
       for="dropzone-file"
       class="flex flex-col items-center justify-center w-full rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-neutral-800 dark:bg-neutral-900 hover:bg-gray-100"
     >
-      <div v-if="shouldShowFileChooserText" class="flex flex-col items-center justify-center py-3">
+      <div
+        v-if="shouldShowFileChooserText"
+        class="flex flex-col items-center justify-center py-3"
+      >
         <p class="mb-2 text-gray-500 dark:text-gray-400">
           {{ fileChooserText }}
         </p>

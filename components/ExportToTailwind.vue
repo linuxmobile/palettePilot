@@ -1,7 +1,7 @@
 <script setup>
 import Dialog from 'primevue/dialog'
 
-const { bg, fg} = useColors()
+const { bg, fg } = useColors()
 
 const {
   primaryPalette,

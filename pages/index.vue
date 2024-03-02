@@ -1,5 +1,4 @@
 <script setup lang="ts">
-
 const isLoading = ref(false)
 const errorMsg = ref('')
 
@@ -14,11 +13,18 @@ const clearError = () => {
         Loading <span class="text-purple-600">...</span>
       </p>
     </div>
-    <h1 class="mb-8 text-center mx-auto text-3xl max-w-[418px] font-medium text-pretty tracking-wide">
-      Generate <span class="text-purple-600">beautiful</span> color palettes from an image
+    <h1
+      class="mb-8 text-center mx-auto text-3xl max-w-[418px] font-medium text-pretty tracking-wide"
+    >
+      Generate <span class="text-purple-600">beautiful</span> color palettes
+      from an image
     </h1>
     <FileUpload v-if="!isLoading && errorMsg === ''" />
-    <div v-if="!isLoading && errorMsg !== ''" class="grid place-content-center gap-5 px-4" role="alert">
+    <div
+      v-if="!isLoading && errorMsg !== ''"
+      class="grid place-content-center gap-5 px-4"
+      role="alert"
+    >
       <p class="font-bold text-4xl text-center max-w-lg text-red-500">
         {{ errorMsg }}
       </p>

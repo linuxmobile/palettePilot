@@ -4,43 +4,41 @@ import Dialog from 'primevue/dialog'
 
 const { imageColors, bg, fg } = useColors()
 
-const {
-  primaryPalette,
-  accentPalette,
-  integratedPalette,
-} = useGeneratedPalette(bg, fg)
+const { primaryPalette, accentPalette, integratedPalette } =
+  useGeneratedPalette(bg, fg)
 
 const exportAsImageModal = ref(false)
 
 const exportAsPNG = () => {
-  const node = document.getElementById('paletteToPNG');
+  const node = document.getElementById('paletteToPNG')
 
   if (node === null || node === undefined) {
-    console.error('Elemento no encontrado');
-    return;
+    console.error('Elemento no encontrado')
+    return
   }
 
   toPng(node)
     .then(function (dataUrl) {
-      const uniqueId = Math.floor(Math.random() * 1000000);
-      const fileName = `palettePilot-${uniqueId}.png`;
-      const link = document.createElement('a');
-      link.download = fileName;
-      link.href = dataUrl;
-      link.click();
+      const uniqueId = Math.floor(Math.random() * 1000000)
+      const fileName = `palettePilot-${uniqueId}.png`
+      const link = document.createElement('a')
+      link.download = fileName
+      link.href = dataUrl
+      link.click()
     })
     .catch(function (error) {
-      console.error('Error when exporting the image:', error);
-    });
-};
-
+      console.error('Error when exporting the image:', error)
+    })
+}
 </script>
 <template>
   <button
     class="w-full rounded-md py-3 bg-gray-100 text-gray-500 dark:text-gray-400 dark:bg-neutral-900"
     @click="exportAsImageModal = true"
-  >Export as PNG</button>
-    <Dialog
+  >
+    Export as PNG
+  </button>
+  <Dialog
     v-model:visible="exportAsImageModal"
     :pt="{
       root: 'border-none bg-gray-100 text-gray-600 dark:bg-neutral-900 dark:text-gray-400 overflow-y-auto',
@@ -58,8 +56,13 @@ const exportAsPNG = () => {
         >
           <h3>Export Code</h3>
         </header>
-        <div class="px-12 py-6 2xl:py-14 bg-gray-100 dark:bg-neutral-900" id="paletteToPNG">
-          <section class="grid grid-cols-5 justify-content-center gap-y-1 gap-x-2">
+        <div
+          class="px-12 py-6 2xl:py-14 bg-gray-100 dark:bg-neutral-900"
+          id="paletteToPNG"
+        >
+          <section
+            class="grid grid-cols-5 justify-content-center gap-y-1 gap-x-2"
+          >
             <div
               v-for="(color, index) in imageColors"
               :key="index"
@@ -97,7 +100,9 @@ const exportAsPNG = () => {
           <button
             @click="exportAsPNG"
             class="mt-4 p-1 2xl:p-3 w-full text-primary-50 border-1 border-white/30 rounded-md bg-gray-200 hover:bg-gray-300 dark:bg-neutral-800 dark:border-neutral-700 hover:dark:bg-neutral-700"
-          >Export as PNG</button>
+          >
+            Export as PNG
+          </button>
           <button
             @click="closeCallback"
             class="mt-4 p-1 2xl:p-3 w-full text-primary-50 border-1 border-white/30 rounded-md bg-gray-200 hover:bg-gray-300 dark:bg-neutral-800 dark:border-neutral-700 hover:dark:bg-neutral-700"

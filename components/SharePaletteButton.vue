@@ -11,8 +11,8 @@ const { copyToClipboard } = useClipboard()
 
 const onClick = async () => {
   if (route.params.hash) {
-    const currentUrlToShare = window.location.href;
-    copyToClipboard(currentUrlToShare);
+    const currentUrlToShare = window.location.href
+    copyToClipboard(currentUrlToShare)
     return
   }
   if (!imageColors.value || imageColors.value.length === 0) {
@@ -32,13 +32,13 @@ const onClick = async () => {
   try {
     const res = await $fetch('/api/palettes/save', {
       method: 'POST',
-      body: formData,
+      body: formData
     })
     if (res?.imageHash !== '') {
-      const newUrl = `palette/${res.imageHash}`;
-      router.push(newUrl);
-      const fullUrlToShare = `${config.public.baseUrl}${newUrl}`;
-      copyToClipboard(fullUrlToShare);
+      const newUrl = `palette/${res.imageHash}`
+      router.push(newUrl)
+      const fullUrlToShare = `${config.public.baseUrl}${newUrl}`
+      copyToClipboard(fullUrlToShare)
     }
   } catch (error) {
     if (error instanceof Error) {

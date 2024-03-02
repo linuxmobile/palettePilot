@@ -15,7 +15,6 @@ const {
 } = useColors()
 const { copyToClipboard } = useClipboard()
 
-
 /**
  * Computes the dropdown options for the color selection.
  * @returns {Array} An array of objects representing the dropdown options.
@@ -41,7 +40,6 @@ const handleAccentColorChange = (event: DropdownChangeEvent) => {
   const selectedValue = event.value as ColorWithRgbAndHex
   selectAccentColor(selectedValue)
 }
-
 </script>
 
 <template>

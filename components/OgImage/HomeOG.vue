@@ -1,24 +1,30 @@
-<script setup lang="ts">
-</script>
+<script setup lang="ts"></script>
 
 <template>
-  <div class="h-full w-full flex items-center justify-center bg-black text-white relative">
+  <div
+    class="h-full w-full flex items-center justify-center bg-black text-white relative"
+  >
     <div class="w-full h-full absolute">
       <svg height="100%" width="100%">
         <defs>
           <linearGradient id="0" x1="0.5" y1="0" x2="0.5" y2="1">
-            <stop offset="0%" stop-color="#6fe3e1"/>
-            <stop offset="100%" stop-color="#5257e5"/>
+            <stop offset="0%" stop-color="#6fe3e1" />
+            <stop offset="100%" stop-color="#5257e5" />
           </linearGradient>
         </defs>
-        <rect fill="url(#0)" height="100%" width="100%"/>
+        <rect fill="url(#0)" height="100%" width="100%" />
       </svg>
     </div>
     <div class="w-full h-full absolute">
-      <img src="/diagonal-black.png" class="w-3xl absolute -right-30 top-30 rounded-lg">
+      <img
+        src="/diagonal-black.png"
+        class="w-3xl absolute -right-30 top-30 rounded-lg"
+      />
     </div>
     <div class="flex items-start justify-center h-full pl-10">
-      <div class="flex flex-col items-start justify-center w-full h-full leading-none">
+      <div
+        class="flex flex-col items-start justify-center w-full h-full leading-none"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="1em"
@@ -37,12 +43,8 @@
             clipRule="evenodd"
           ></path>
         </svg>
-        <h1 class="text-[80px] font-black text-left">
-          Palette Pilot
-        </h1>
-        <p class="text-2xl font-bold">
-          Awesome Color Palette for you UI
-        </p>
+        <h1 class="text-[80px] font-black text-left">Palette Pilot</h1>
+        <p class="text-2xl font-bold">Awesome Color Palette for you UI</p>
       </div>
     </div>
   </div>

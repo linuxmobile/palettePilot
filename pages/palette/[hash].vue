@@ -2,7 +2,7 @@
 import { stripError } from '~/utils/errors'
 import SelectButton from 'primevue/selectbutton'
 
-const route = useRoute();
+const route = useRoute()
 
 /**
  * Fetches the image data for a specific palette.
@@ -10,16 +10,13 @@ const route = useRoute();
  * @returns {Promise} - A promise that resolves to the fetched image data.
  */
 const { data: imageData } = await useAsyncData('imageData', async () => {
-  return await $fetch(`/api/palettes/${route.params.hash.toString()}`);
-});
+  return await $fetch(`/api/palettes/${route.params.hash.toString()}`)
+})
 
-defineOgImageComponent(
-  'SharePaletteOG',
-  {
-    image: imageData.value.imageUrl,
-    colors: imageData.value.colors
-  }
-)
+defineOgImageComponent('SharePaletteOG', {
+  image: imageData.value.imageUrl,
+  colors: imageData.value.colors
+})
 
 const { setImageSrc } = useImage()
 const { setImageColors } = useColors()
@@ -27,28 +24,28 @@ const isLoading = ref(true)
 const errorMsg = ref('')
 
 onMounted(async () => {
-  const hash = route.params.hash;
+  const hash = route.params.hash
   if (hash === null || hash === undefined) {
-    isLoading.value = false;
-    errorMsg.value = 'No palette specified.';
-    return;
+    isLoading.value = false
+    errorMsg.value = 'No palette specified.'
+    return
   }
 
   try {
     if (imageData.value?.colors) {
-      setImageColors(imageData.value.colors);
+      setImageColors(imageData.value.colors)
     }
     if (imageData.value?.imageUrl) {
-      setImageSrc(imageData.value.imageUrl);
+      setImageSrc(imageData.value.imageUrl)
     }
   } catch (error) {
     if (error instanceof Error) {
-      errorMsg.value = stripError(error);
+      errorMsg.value = stripError(error)
     }
   } finally {
-    isLoading.value = false;
+    isLoading.value = false
   }
-});
+})
 
 const DEMO = {
   LANDING_EXAMPLE: 'Minimalist Example',
@@ -56,7 +53,6 @@ const DEMO = {
 }
 const OPTIONS = [DEMO.LANDING_EXAMPLE, DEMO.UI_ELEMENTS]
 const selectedOption = ref(DEMO.LANDING_EXAMPLE)
-
 </script>
 <template>
   <div
@@ -88,4 +84,3 @@ const selectedOption = ref(DEMO.LANDING_EXAMPLE)
     </div>
   </section>
 </template>
-

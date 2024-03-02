@@ -1,6 +1,8 @@
 <script setup>
 const title = ref('Palette Pilot - Generate Awesome Color Palette for your UI')
-const description = ref('Explore Palette Pilot magic: transforming your images into color palettes and giving UI ideas. Perfect for creatives')
+const description = ref(
+  'Explore Palette Pilot magic: transforming your images into color palettes and giving UI ideas. Perfect for creatives'
+)
 
 useHead({
   bodyAttrs: {
@@ -23,12 +25,9 @@ useSeoMeta({
   twitterImage: '[twitter:image]'
 })
 
-defineOgImageComponent(
-  'HomeOG',
-  {
-    title: title,
-  }
-)
+defineOgImageComponent('HomeOG', {
+  title: title
+})
 </script>
 <template>
   <Header />
