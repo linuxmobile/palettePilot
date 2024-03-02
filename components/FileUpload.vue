@@ -2,7 +2,6 @@
 import { extractColorsFromImage } from '~/utils/colors'
 import { stripError } from '~/utils/errors'
 import imageCompression from 'browser-image-compression'
-
 const router = useRouter()
 const route = useRoute()
 
@@ -22,6 +21,26 @@ const errorMsg = ref('')
 const fileChooserText = computed(() => {
   return generatingPalette.value ? 'Generating palette...' : 'Choose an image'
 })
+
+const preventDefaults = (e) => {
+  e.preventDefault()
+  e.stopPropagation()
+}
+
+const events = ['dragenter', 'dragover', 'dragleave', 'drop']
+
+onMounted(() => {
+  events.forEach((eventName) => {
+    document.body.addEventListener(eventName, preventDefaults)
+  })
+})
+
+onUnmounted(() => {
+  events.forEach((eventName) => {
+    document.body.removeEventListener(eventName, preventDefaults)
+  })
+})
+
 const onUpload = async (event: Event) => {
   const target = event.target as HTMLInputElement
   const file = target.files !== null ? target.files[0] : null
@@ -80,6 +99,20 @@ const onUpload = async (event: Event) => {
   }
 }
 
+const onDrop = async (event) => {
+  event.preventDefault();
+  const files = event.dataTransfer.files;
+  if (files.length === 0) return
+
+  const file = files[0];
+  const simulatedEvent = {
+    target: {
+      files: [file]
+    }
+  };
+  
+  await onUpload(simulatedEvent);
+};
 
 </script>
 <template>
@@ -104,6 +137,7 @@ const onUpload = async (event: Event) => {
     </label>
     <label
       v-if="imageSrc === '' && !generatingPalette"
+      @drop.prevent="onDrop"
       for="dropzone-file"
       class="flex flex-col items-center justify-center w-full h-64 rounded-lg cursor-pointer bg-gray-200 dark:hover:bg-neutral-800 dark:bg-neutral-900 hover:bg-gray-300 min-w-xs md:min-w-xl"
     >
