@@ -30,7 +30,7 @@ export async function uploadImageFromBase64(imageBase64: string) {
 		transformation: [
 			{ width: 500, crop: "scale" },
 			{ quality: "auto:good" },
-			{ fetch_format: "avif" },
+			{ fetch_format: "jpg" },
 		],
 	};
 
