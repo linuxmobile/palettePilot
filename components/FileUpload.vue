@@ -84,9 +84,6 @@ const onUpload = async (event: Event) => {
 </script>
 <template>
   <div class="flex-center w-full">
-    <h1 class="mb-8 text-center mx-auto text-3xl max-w-[418px] font-medium text-pretty tracking-wide">
-      Generate <span class="text-purple-600">beautiful</span> color palettes from an image
-    </h1>
     <label
       v-if="imageSrc"
       for="dropzone-file"
