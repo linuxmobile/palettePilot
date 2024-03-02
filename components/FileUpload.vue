@@ -33,13 +33,35 @@ onMounted(() => {
   events.forEach((eventName) => {
     document.body.addEventListener(eventName, preventDefaults)
   })
+  document.addEventListener('paste', handlePaste)
 })
 
 onUnmounted(() => {
   events.forEach((eventName) => {
     document.body.removeEventListener(eventName, preventDefaults)
   })
+  document.removeEventListener('paste', handlePaste)
 })
+
+async function handlePaste(event) {
+  const items = (event.clipboardData || event.originalEvent.clipboardData).items;
+  
+  for (const item of items) {
+    if (item.type.indexOf('image') === 0) {
+      event.preventDefault();
+      const file = item.getAsFile();
+
+      const simulatedEvent = {
+        target: {
+          files: [file]
+        }
+      };
+      
+      await onUpload(simulatedEvent);
+      break;
+    }
+  }
+}
 
 const onUpload = async (event: Event) => {
   const target = event.target as HTMLInputElement
