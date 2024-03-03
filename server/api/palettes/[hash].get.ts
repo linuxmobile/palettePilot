@@ -1,18 +1,14 @@
 import { kv } from '~/lib/db'
 import { log } from '~/lib/logs'
+import { type ColorWithRgbAndHex } from '~/types/colors'
 
 interface Params {
   hash?: string
 }
 
-interface Color {
-  hex: string
-  rgb: number[]
-}
-
 interface ApiResponse {
   imageUrl: string | null
-  colors: Color[] | null
+  colors: ColorWithRgbAndHex[] | null
 }
 
 export default eventHandler(async (event): Promise<ApiResponse> => {
@@ -21,15 +17,17 @@ export default eventHandler(async (event): Promise<ApiResponse> => {
 
   const storedImageUrl: string | null =
     (
-      await kv.getItem(params?.hash ?? '').catch(() => {
-        log(
-          'error',
-          '❌ Something went wrong retrieving the image from KV store...'
-        )
-        throw createError({
-          statusCode: 500,
-          statusMessage: 'Something went wrong... Try again!'
-        })
+      await kv.getItem(params?.hash ?? '').catch(error => {
+        if (error instanceof Error) {
+          log(
+            'error',
+            `❌ Something went wrong retrieving the image from KV store...[${error.message.toUpperCase()}]`
+          )
+          throw createError({
+            statusCode: 500,
+            statusMessage: 'Something went wrong... Try again!'
+          })
+        }
       })
     )?.toString() ?? null
 
@@ -52,15 +50,17 @@ export default eventHandler(async (event): Promise<ApiResponse> => {
       })
     )?.toString() ?? null
 
-  let colors: Color[] | null = null
+  let colors: ColorWithRgbAndHex[] | null = null
   if (storedColorsString != null) {
-    colors = storedColorsString.split(';').map((colorStr): Color => {
-      const [hex, rgbStr] = colorStr.split('_')
-      const rgb: number[] = rgbStr
-        .split('-')
-        .map((num): number => parseInt(num, 10))
-      return { hex, rgb }
-    })
+    colors = storedColorsString
+      .split(';')
+      .map((colorStr): ColorWithRgbAndHex => {
+        const [hex, rgbStr] = colorStr.split('_')
+        const rgb: number[] = rgbStr
+          .split('-')
+          .map((num): number => parseInt(num, 10))
+        return { hex, rgb }
+      })
   }
 
   log('info', '✅ Image and colors found. Retrieving from KV store...')
