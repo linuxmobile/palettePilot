@@ -17,15 +17,17 @@ export default eventHandler(async (event): Promise<ApiResponse> => {
 
   const storedImageUrl: string | null =
     (
-      await kv.getItem(params?.hash ?? '').catch(() => {
-        log(
-          'error',
-          '❌ Something went wrong retrieving the image from KV store...'
-        )
-        throw createError({
-          statusCode: 500,
-          statusMessage: 'Something went wrong... Try again!'
-        })
+      await kv.getItem(params?.hash ?? '').catch(error => {
+        if (error instanceof Error) {
+          log(
+            'error',
+            `❌ Something went wrong retrieving the image from KV store...[${error.message.toUpperCase()}]`
+          )
+          throw createError({
+            statusCode: 500,
+            statusMessage: 'Something went wrong... Try again!'
+          })
+        }
       })
     )?.toString() ?? null
 
