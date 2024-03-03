@@ -3,13 +3,12 @@ import { kv } from '~/lib/db'
 import { hashImageBase64 } from '~/utils/images'
 import { log } from '~/lib/logs'
 import { MAX_BYTES_SIZE } from '~/consts/files'
+import { type ColorWithRgbAndHex } from '~/types/colors'
 
 export default eventHandler(async event => {
   const formData = await readMultipartFormData(event)
   const file = formData?.at(0)
   const colorsData = formData?.at(1)?.data
-  const colors =
-    colorsData != null ? JSON.parse(colorsData.toString()) : undefined
 
   if (file === undefined) {
     log('error', '❌ No image provided...')
@@ -19,11 +18,21 @@ export default eventHandler(async event => {
     })
   }
 
-  if (colors === undefined || !Array.isArray(colors)) {
+  if (colorsData === undefined) {
     log('error', '❌ No colors provided...')
     throw createError({
       statusCode: 400,
       statusMessage: 'No colors provided!'
+    })
+  }
+
+  const colors: ColorWithRgbAndHex[] = JSON.parse(colorsData.toString())
+
+  if (!Array.isArray(colors)) {
+    log('error', '❌ Expected an array of rgb and hex color objects...')
+    throw createError({
+      statusCode: 400,
+      statusMessage: 'Invalid colors format!'
     })
   }
 
@@ -98,7 +107,7 @@ export default eventHandler(async event => {
       imageUrl,
       colors
     }
-  } catch (error: unknown) {
+  } catch (error) {
     if (error instanceof Error) {
       log(
         'error',
