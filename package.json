@@ -10,7 +10,8 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "format": "prettier --write '**/*.{js,ts,vue}'"
+    "format": "prettier --write '**/*.{js,ts,vue}'",
+    "clear-resources": "bun scripts/clear-resources.js"
   },
   "dependencies": {
     "@ivnatsr/color-logs": "1.0.3",
