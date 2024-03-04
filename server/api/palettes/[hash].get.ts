@@ -39,16 +39,10 @@ export default eventHandler(async (event): Promise<ApiResponse> => {
 
   const { url, colors } = imageData
 
-  const parsedColors: ColorWithRgbAndHex[] = colors.split(';').map(colorStr => {
-    const [hex, rgbStr] = colorStr.split('_')
-    const rgb = rgbStr.split('-').map((num): number => parseInt(num, 10))
-    return { hex, rgb }
-  })
-
   log('info', '✅ Image data found. Returning it from KV store...')
 
   return {
     imageUrl: url,
-    colors: parsedColors
+    colors
   }
 })

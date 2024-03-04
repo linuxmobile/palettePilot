@@ -72,18 +72,10 @@ export default eventHandler(async event => {
     )
     const { url, colors } = imageData
 
-    const colorsArray: ColorWithRgbAndHex[] = colors
-      .split(';')
-      .map(colorStr => {
-        const [hex, rgbStr] = colorStr.split('_')
-        const rgb = rgbStr.split('-').map(num => parseInt(num, 10))
-        return { hex, rgb }
-      })
-
     return {
       imageHash,
       imageUrl: url,
-      colors: colorsArray
+      colors
     }
   }
 
@@ -92,11 +84,8 @@ export default eventHandler(async event => {
       'info',
       '💾 Image data does not exist. Uploading image and saving its data in KV store...'
     )
-    const colorsString = colorsFromReq
-      .map(color => `${color.hex}_${color.rgb.join('-')}`)
-      .join(';')
     const imageUrl = await uploadImageFromBase64(base64Image)
-    await kv.setItem(imageHash, { url: imageUrl, colors: colorsString })
+    await kv.setItem(imageHash, { url: imageUrl, colors: colorsFromReq })
 
     log('info', '✅ Image data saved in KV store...')
 
