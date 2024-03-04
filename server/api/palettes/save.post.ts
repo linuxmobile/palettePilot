@@ -4,6 +4,7 @@ import { hashImageBase64 } from '~/utils/images'
 import { log } from '~/lib/logs'
 import { MAX_BYTES_SIZE } from '~/consts/files'
 import { type ColorWithRgbAndHex } from '~/types/colors'
+import { type KvGetItemResponse } from '~/types/api'
 
 export default eventHandler(async event => {
   const formData = await readMultipartFormData(event)
@@ -26,9 +27,9 @@ export default eventHandler(async event => {
     })
   }
 
-  const colors: ColorWithRgbAndHex[] = JSON.parse(colorsData.toString())
+  const colorsFromReq: ColorWithRgbAndHex[] = JSON.parse(colorsData.toString())
 
-  if (!Array.isArray(colors)) {
+  if (!Array.isArray(colorsFromReq)) {
     log('error', '❌ Expected an array of rgb and hex color objects...')
     throw createError({
       statusCode: 400,
@@ -51,38 +52,29 @@ export default eventHandler(async event => {
   const base64Image = file.data.toString()
   const imageHash = hashImageBase64(base64Image)
 
-  const storedImageUrl = await kv.getItem(imageHash)
-  if (storedImageUrl !== null) {
-    log('info', '✅ Image already exists. Returning it as is from KV store...')
-
-    const storedColorsString = await kv.getItem(`${imageHash}_colors`)
-    if (typeof storedColorsString === 'string') {
-      const colorsArray = storedColorsString.split(';').map(colorStr => {
-        const [hex, rgbStr] = colorStr.split('_')
-        const rgb = rgbStr.split('-').map(num => parseInt(num, 10))
-        return { hex, rgb }
-      })
-
+  const imageData = (await kv.getItem(imageHash).catch(error => {
+    if (error instanceof Error) {
       log(
-        'info',
-        '✅ Colors already exist. Returning them as is from KV store...'
+        'error',
+        `❌ Error while getting image data from KV store: [${error.message.toUpperCase()}]`
       )
-      return {
-        imageHash,
-        imageUrl: storedImageUrl,
-        colors: colorsArray
-      }
+      throw createError({
+        statusCode: 500,
+        statusMessage: 'Could not process the request. Try again!'
+      })
     }
+  })) as KvGetItemResponse | null
 
-    log('info', '🎨 Colors do not exist. Storing them now...')
-    const colorsString = colors
-      .map(color => `${color.hex}_${color.rgb.join('-')}`)
-      .join(';')
-    await kv.setItem(`${imageHash}_colors`, colorsString)
-    log('info', '✅ Colors stored successfully.')
+  if (imageData !== null) {
+    log(
+      'info',
+      '✅ Image data already exists. Returning it as is from KV store...'
+    )
+    const { url, colors } = imageData
+
     return {
       imageHash,
-      imageUrl: storedImageUrl,
+      imageUrl: url,
       colors
     }
   }
@@ -90,28 +82,23 @@ export default eventHandler(async event => {
   try {
     log(
       'info',
-      '💾 Image does not exist. Uploading it and saving it in KV store...'
+      '💾 Image data does not exist. Uploading image and saving its data in KV store...'
     )
     const imageUrl = await uploadImageFromBase64(base64Image)
-    await kv.setItem(imageHash, imageUrl)
+    await kv.setItem(imageHash, { url: imageUrl, colors: colorsFromReq })
 
-    log('info', `🎨 Storing colors for imageHash: ${imageHash}...`)
-    const colorsString = colors
-      .map(color => `${color.hex}_${color.rgb.join('-')}`)
-      .join(';')
-    await kv.setItem(`${imageHash}_colors`, colorsString)
+    log('info', '✅ Image data saved in KV store...')
 
-    log('info', '✅ Image and colors uploaded and saved in KV store...')
     return {
       imageHash,
       imageUrl,
-      colors
+      colors: colorsFromReq
     }
   } catch (error) {
     if (error instanceof Error) {
       log(
         'error',
-        `❌ Error while uploading image and saving colors: ${error.message}`
+        `❌ Error while saving image data: [${error.message.toUpperCase()}]`
       )
     }
     throw createError({
