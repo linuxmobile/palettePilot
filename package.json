@@ -42,7 +42,7 @@
     "html-to-image": "^1.11.11",
     "nuxt-primevue": "latest",
     "prettier": "3.2.5",
-    "typescript": "5.3.3",
+    "typescript": "^5.4.5",
     "vue-eslint-parser": "9.4.2"
   }
 }
