@@ -1,15 +1,13 @@
 <script setup>
-import { defineProps } from 'vue'
-
 defineProps({
-  title: String,
-  palette: {
-    type: Object,
-    default: () => ({})
-  }
-})
+	title: String,
+	palette: {
+		type: Object,
+		default: () => ({}),
+	},
+});
 
-const { copyToClipboard } = useClipboard()
+const { copyToClipboard } = useClipboard();
 </script>
 <template>
   <div class="flex flex-col gap-1">

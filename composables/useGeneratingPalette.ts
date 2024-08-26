@@ -1,4 +1,4 @@
-import { useGlobalGenericState } from '~/utils/useGlobalGenericState'
+import { useGlobalGenericState } from "~/utils/useGlobalGenericState";
 
 /**
  * Custom hook for generating palette.
@@ -6,10 +6,10 @@ import { useGlobalGenericState } from '~/utils/useGlobalGenericState'
  * @returns {Object} - An object containing the generatingPalette state and the setGeneratingPalette function.
  */
 export const useGeneratingPalette = () => {
-  const [generatingPalette, setGeneratingPalette] = useGlobalGenericState(
-    'generatingPalette',
-    false
-  )
+	const [generatingPalette, setGeneratingPalette] = useGlobalGenericState(
+		"generatingPalette",
+		false,
+	);
 
-  return { generatingPalette, setGeneratingPalette }
-}
+	return { generatingPalette, setGeneratingPalette };
+};
